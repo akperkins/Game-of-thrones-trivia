@@ -4,6 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.media.MediaPlayer;
 
+/**
+ * Plays a music file stored in app's raw resources
+ * 
+ * @author andre
+ *
+ */
 public class MusicPlayer {
 
 	MediaPlayer player;
@@ -41,5 +47,4 @@ public class MusicPlayer {
 		newPlayerSetup(activity, resId);
 		start();
 	}
-
 }

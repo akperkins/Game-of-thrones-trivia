@@ -8,7 +8,7 @@
     <application android:icon="@drawable/start" android:theme="@android:style/Theme.NoTitleBar" 
     android:label="@string/app_name" >
 
-        <activity android:name=".SpartaucsTriviaActivity"
+        <activity android:name=".StartActivity"
         android:screenOrientation="portrait"
                   android:label="@string/app_name">
             <intent-filter>
@@ -18,17 +18,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TriviaMenuActivity"
+            android:name=".GameActivity"
             android:label="@string/example_label"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".EndGameActivity"
+            android:name=".ResultsActivity"
             android:label="@string/end_game"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".MainMenuActivity"
+            android:name=".MenuActivity"
             android:label="@string/main_menu"
             android:screenOrientation="portrait" >
         </activity>

@@ -8,46 +8,32 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.Spartacus.Trivia.Exceptions.OutOfQuestionsException;
 import com.Spartacus.Trivia.Media.MusicPlayer;
 import com.Spartacus.Trivia.util.SessionManager;
 import com.Spartaucs.Trivia.Data.QuestionManager;
+import com.Spartaucs.Trivia.Data.TriviaQuestion;
 
 /**
-<<<<<<< HEAD
  * The trivia game loop executes here.
  * 
  * @author Andre Perkins - akperkins1@gmail.com
  * 
  */
-public class TriviaMenuActivity extends Activity implements OnClickListener {
+public class GameActivity extends Activity implements OnClickListener {
 	/** number of trivia question per game */
 	final int TOTAL_QUESTIONS = 13;
 
 	/** number that represents the wrong answer dialog */
 	final int DIALOG_WRONG_ID = 0;
 
-=======
- * 
- * @author Andre Perkins - akperkins1@gmail.com
- * 
- * @version This is the acitvity where the trivia game is actually played.
- *          Similar to a controller in the MVC model. The models being the
- *          QuestionManager and the view being the layout, the application maps
- *          the correct data to the input lets the model know when the user has
- *          clicked a view
- * 
- */
-public class TriviaMenuActivity extends Activity implements OnClickListener {
-	final int TOTAL_QUESTIONS = 13;
-	final int DIALOG_WRONG_ID = 0;
-
->>>>>>> 7a03b9b191f7a6c382cf2b45bc4ff48853a02ed1
 	/** References to layout views */
 	TextView title, timer, stats;
 	Button b1, b2, b3, b4, bMusic;
@@ -55,7 +41,7 @@ public class TriviaMenuActivity extends Activity implements OnClickListener {
 	/** Used to obtain the question trivia data */
 	QuestionManager qManager;
 
-	/** Where the data for the trivia data for the questions is stored */
+	/** Where the data for the trivia data for the triviaQuestion is stored */
 	String[] easyQuestions, hardQuestions;
 
 	/** Used to play the music during trivia game */
@@ -65,23 +51,14 @@ public class TriviaMenuActivity extends Activity implements OnClickListener {
 	int amountCorrect, questionsAnswered, correctChoice;
 
 	/**
-<<<<<<< HEAD
 	 * Stores the correct answer for current trivia question. This is displayed
-=======
-	 * Stores the correct answer for current trivia question This is displayed
->>>>>>> 7a03b9b191f7a6c382cf2b45bc4ff48853a02ed1
 	 * to the user in the dialog if the wrong answer is selected
 	 */
 	String correctAnswer;
 
 	/**
 	 * Used as a timer to limit the amount of time the user has to answer the
-<<<<<<< HEAD
 	 * question.
-=======
-	 * question. If time expires before a selection is made, the user fails that
-	 * trivia question
->>>>>>> 7a03b9b191f7a6c382cf2b45bc4ff48853a02ed1
 	 */
 	MyCount counter;
 
@@ -112,7 +89,10 @@ public class TriviaMenuActivity extends Activity implements OnClickListener {
 		correctChoice = 0;
 		easyQuestions = getResources().getStringArray(R.array.easyQuestions);
 		hardQuestions = getResources().getStringArray(R.array.hardQuestions);
-		qManager = new QuestionManager(2, easyQuestions, hardQuestions);
+		TriviaQuestion[] temp = new TriviaQuestion[2];
+		temp[0] = new TriviaQuestion(easyQuestions);
+		temp[1] = new TriviaQuestion(hardQuestions);
+		qManager = new QuestionManager(temp);
 	}
 
 	/**
@@ -128,16 +108,12 @@ public class TriviaMenuActivity extends Activity implements OnClickListener {
 	 */
 	public void onResume() {
 		super.onResume();
-		mapText();
 		music.start();
+		mapText();
 	}
 
 	/**
-<<<<<<< HEAD
 	 * onPause() - pauses the music in onPause stage
-=======
-	 * onPause() from Activity - pauses the music in onPause stage
->>>>>>> 7a03b9b191f7a6c382cf2b45bc4ff48853a02ed1
 	 */
 	public void onPause() {
 		super.onPause();
@@ -155,40 +131,60 @@ public class TriviaMenuActivity extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * mapText() - Retrieves a trivia question data and populates the various
-	 * button and Textfields appropriately.
+	 * onDestroy() - cleans up all instance variables
+	 */
+	public void onDestroy() {
+		super.onDestroy();
+		b1 = null;
+		b2 = null;
+		b3 = null;
+		b4 = null;
+		title = null;
+		stats = null;
+		bMusic = null;
+		timer = null;
+		easyQuestions = null;
+		hardQuestions = null;
+		qManager = null;
+	}
+
+	/**
+	 * mapText() - Retrieves a trivia question data. If successful, populates
+	 * the various button and Textfields appropriately. Starts a new timer. If
+	 * not successful, the game is ended.
+	 * 
 	 */
 	public void mapText() {
-		String[] array = qManager.getQuestion();
-		title.setText(array[0]);
-		b1.setText(array[1]);
-		b2.setText(array[2]);
-		b3.setText(array[3]);
-		b4.setText(array[4]);
-		correctChoice = Integer.parseInt(array[5]);
-		correctAnswer = array[correctChoice];
-<<<<<<< HEAD
+		String[] array;
+		try {
+			array = qManager.getQuestion();
+			title.setText(array[0]);
+			b1.setText(array[1]);
+			b2.setText(array[2]);
+			b3.setText(array[3]);
+			b4.setText(array[4]);
+			correctChoice = Integer.parseInt(array[5]);
+			correctAnswer = array[correctChoice];
 
-		counter = new MyCount();
-		counter.start();
-		updateStats();
-=======
-
-		counter = new MyCount();
-		counter.start();
-
-		// removeDialog(DIALOG_WRONG_ID);
-		updateStatus();
->>>>>>> 7a03b9b191f7a6c382cf2b45bc4ff48853a02ed1
+			counter = new MyCount();
+			counter.start();
+			updateStats();
+		} catch (OutOfQuestionsException e) {
+			// Display to user that the application is out of questions at the
+			// momentS
+			// TODO end the game and go on to the endGameActivity
+			Log.e("Game Activity - mapText", "User ran out of questions", e);
+			endGame();
+		}
 	}
 
 	/**
 	 * endGame() - This function is called to wrap up the game. The current
-	 * sessoin is properly filled with the correct data the next activity is
+	 * session is properly filled with the correct data the next activity is
 	 * called and this activity is finished
 	 */
 	public void endGame() {
-		Intent intent = new Intent(this, EndGameActivity.class);
+		Intent intent = new Intent(this, ResultsActivity.class);
 		SessionManager.getCurrent().store("correct",
 				String.valueOf(amountCorrect));
 		SessionManager.getCurrent().store("total",
@@ -202,43 +198,29 @@ public class TriviaMenuActivity extends Activity implements OnClickListener {
 	 * click.
 	 */
 	public void onClick(View arg0) {
+
 		switch (arg0.getId()) {
 		case R.id.button1:
 			buttonPressed(1);
+
 			break;
 		case R.id.button2:
 			buttonPressed(2);
 			break;
 		case R.id.button3:
 			buttonPressed(3);
+
 			break;
 		case R.id.button4:
 			buttonPressed(4);
+
 			break;
 		case R.id.musicButton:
 			musicButtonPressed();
-<<<<<<< HEAD
-=======
 		}
 	}
 
 	/**
-	 * musicButtonPressed() - Plays music if user presses play music and vice
-	 * versa. The text for the button is set appropriately.
-	 */
-	public void musicButtonPressed() {
-		if (!music.isPlaying()) {
-			music.pause();
-			bMusic.setText("Start Music");
-		} else {
-			music.start();
-			bMusic.setText("Stop Music");
->>>>>>> 7a03b9b191f7a6c382cf2b45bc4ff48853a02ed1
-		}
-	}
-
-	/**
-<<<<<<< HEAD
 	 * musicButtonPressed() - Plays music if user presses play music and vice
 	 * versa. The text for the button is set appropriately.
 	 */
@@ -256,14 +238,6 @@ public class TriviaMenuActivity extends Activity implements OnClickListener {
 	 * buttonPressed() - If the choice was correct, a correct toast is shown. If
 	 * an incorrect button was selected, a DialogFragment is shown displaying
 	 * the correct choice. Will try to determine if the user has answered the
-=======
-	 * buttonPressed() - Accepts the integer representing the button selection
-	 * that the user made. If the choice was correct, a correct toast is shown.
-	 * If an incorrect button was selected, a DialogFragment is shown displaying
-	 * the correct choice. The DialogFragment is displayed for three seconds
-	 * however, the application will start to "continue" after one second. When
-	 * the app "continues" it will try to determine if the user has answered the
->>>>>>> 7a03b9b191f7a6c382cf2b45bc4ff48853a02ed1
 	 * total amount of trivia question, if they have endGame() is called,
 	 * otherwise mapText() is called and the game goes on to the next question
 	 * 
@@ -276,7 +250,6 @@ public class TriviaMenuActivity extends Activity implements OnClickListener {
 			Toast.makeText(getApplicationContext(), "Correct!",
 					Toast.LENGTH_SHORT).show();
 		} else {
-			// dialogStr = (String) getCorrectButton().getText();
 			showDialog(DIALOG_WRONG_ID);
 
 			myRemoveDialog();
@@ -299,6 +272,7 @@ public class TriviaMenuActivity extends Activity implements OnClickListener {
 	 * error message.
 	 */
 	protected Dialog onCreateDialog(int id) {
+
 		Dialog dialog = null;
 		switch (id) {
 		case DIALOG_WRONG_ID:
@@ -309,7 +283,6 @@ public class TriviaMenuActivity extends Activity implements OnClickListener {
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
 										int id) {
-
 								}
 							});
 
@@ -355,7 +328,6 @@ public class TriviaMenuActivity extends Activity implements OnClickListener {
 			return b4;
 		}
 	}
-<<<<<<< HEAD
 
 	/**
 	 * updateStatus() - updates the current game stats textview
@@ -382,32 +354,6 @@ public class TriviaMenuActivity extends Activity implements OnClickListener {
 
 		public MyCount() {
 			super(QUESTION_TIME, TICK_INTERVAL);
-=======
-
-	/**
-	 * updateStatus() - updates the current game stats textview
-	 * 
-	 * */
-	public void updateStatus() {
-		stats.setText("You are " + amountCorrect + "/" + questionsAnswered
-				+ ". Out of " + TOTAL_QUESTIONS + ".");
-	}
-
-	/**
-	 * 
-	 * @author Andre Perkins - akperkins1@gmail.com
-	 * 
-	 *         An inner class to the TriviaMenuActivity, this class is used to
-	 *         time the amount given to a user's trivia question.
-	 */
-	public class MyCount extends CountDownTimer {
-		/** Gives the user 21 seconds to answer each question */
-		final static long QUESTION_TIME = 21000;
-		final static long INTERVAL = 1000;
-
-		public MyCount() {
-			super(QUESTION_TIME, INTERVAL);
->>>>>>> 7a03b9b191f7a6c382cf2b45bc4ff48853a02ed1
 		}
 
 		@Override
@@ -421,11 +367,7 @@ public class TriviaMenuActivity extends Activity implements OnClickListener {
 
 		@Override
 		/**
-<<<<<<< HEAD
 		 * Updates every second, the amount of seconds the user has left to make a decision
-=======
-		 * Updates every second, the amount of secconds the user has left to make a decision
->>>>>>> 7a03b9b191f7a6c382cf2b45bc4ff48853a02ed1
 		 */
 		public void onTick(long millisUntilFinished) {
 			timer.setText("Left: " + millisUntilFinished / 1000);

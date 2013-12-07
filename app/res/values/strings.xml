@@ -9,7 +9,6 @@
     <string-array
         name="easyQuestions">
         
-        	<item> 40 </item> <!-- The 0 index is always the amount of questions that are held in the array -->
             <item> Ratio of Batiatus gladiators to Solonius in final battle(prequel)?  </item> //1
             <item> 1 to 1</item>
             <item> 1 to 3</item>
@@ -256,7 +255,6 @@
     <string-array
         name="hardQuestions">
         
-        	<item> 6 </item>
             <item> Which Gladiator wins his freedom in the arena?</item>
             <item> Asher </item>
             <item> Spartacus </item>

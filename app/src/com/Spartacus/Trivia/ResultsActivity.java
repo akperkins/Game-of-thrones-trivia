@@ -1,33 +1,32 @@
 package com.Spartacus.Trivia;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.Spartacus.Trivia.util.SendEmail;
 import com.Spartacus.Trivia.util.Session;
 import com.Spartacus.Trivia.util.SessionManager;
 
-public class EndGameActivity extends Activity implements OnClickListener {
-
-	int correct;
-	int total;
+public class ResultsActivity extends Activity implements OnClickListener {
+	/** Stores the game stats from the previous user game */
+	int correct, total;
 	double score;
+
+	/** References to the views in the UI layout */
 	TextView tv;
 	Button submit;
 	Button b1;
 	Button email;
 	Button backMain;
-	String initialStr;
-	Context context;
-	Toast toast;
-	int duration;
 
+	/**
+	 * onCreate(Bundle) - Sets the UI layout and initializes instance variables
+	 */
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.endgame);
@@ -45,16 +44,24 @@ public class EndGameActivity extends Activity implements OnClickListener {
 		email.setOnClickListener(this);
 		backMain = (Button) findViewById(R.id.backMain);
 		backMain.setOnClickListener(this);
-		context = getApplicationContext();
-		duration = Toast.LENGTH_SHORT;
 	}
 
 	public double calcScore() {
 		return (correct * 1.0 / total) * 100;
 	}
 
-	public void onStart() {
-		super.onStart();
+	/**
+	 * onReumse() - show the score calculation results in textview
+	 */
+	public void onResume() {
+		super.onResume();
+		showResults();
+	}
+
+	/**
+	 * setScore() - Shows a message indicating how successful you were
+	 */
+	public void showResults() {
 		if (score >= 90.0) {
 			tv.setText("Congratulations. \nYou just may be the slayer of death after all.....\n"
 					+ "You were " + correct + " out of " + total + ".");
@@ -70,42 +77,34 @@ public class EndGameActivity extends Activity implements OnClickListener {
 		}
 	}
 
-	public void onStop() {
-		super.onStop();
-		finish();
-	}
-
+	/**
+	 * onClick() - Performs the appropriate action for the button the user
+	 * selects
+	 * */
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
 		case R.id.endbutton1:
-			Intent intent = new Intent(this, TriviaMenuActivity.class);
-			startActivity(intent);
+			startActivity(new Intent(this, GameActivity.class));
+			finish();
 			break;
 		case R.id.emailButton:
-
-			/* Create the Intent */
-			final Intent emailIntent = new Intent(
-					android.content.Intent.ACTION_SEND);
-
-			/* Fill it with Data */
-			emailIntent.setType("plain/text");
-			emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL,
-					new String[] { "overnightApps@gmail.com" });
-			emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
-					"Concerns about Spartacus app");
-			emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Text");
-
-			/* Send it off to the Activity-Chooser */
-			startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+			SendEmail.send(this, "Concerns about Spartacus app");
 			break;
-
 		case R.id.backMain:
-			Intent intent1 = new Intent(this, MainMenuActivity.class);
-			startActivity(intent1);
+			startActivity(new Intent(this, MenuActivity.class));
+			finish();
 			break;
-
 		}
-
 	}
 
+	/**
+	 * onDestroy() - Cleans up instance variables.
+	 */
+	public void onDestroy() {
+		super.onDestroy();
+		tv = null;
+		b1 = null;
+		email = null;
+		backMain = null;
+	}
 }

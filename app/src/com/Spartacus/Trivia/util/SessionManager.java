@@ -2,6 +2,12 @@ package com.Spartacus.Trivia.util;
 
 import java.util.HashMap;
 
+/**
+ * Contains information about current user session.
+ * 
+ * @author Andre Perkins - akperins1@gmail.com
+ * 
+ */
 public class SessionManager {
 	private static Session current;
 

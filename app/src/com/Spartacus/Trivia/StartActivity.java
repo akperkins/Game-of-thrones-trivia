@@ -14,7 +14,7 @@ import android.widget.TextView;
  * @author Andre Perkins - akperkins1@gmail.com
  * 
  */
-public class SpartaucsTriviaActivity extends Activity {
+public class StartActivity extends Activity {
 
 	/**
 	 * onCreate() - set the layout
@@ -27,11 +27,11 @@ public class SpartaucsTriviaActivity extends Activity {
 
 	/**
 	 * Sends a message to the current thread (via the handler) to wait 7 seconds
-	 * before continuing to the MainMenuActivity
+	 * before continuing to the MenuActivity
 	 */
 	public void onResume() {
 		super.onResume();
-		final Intent intent = new Intent(this, MainMenuActivity.class);
+		final Intent intent = new Intent(this, MenuActivity.class);
 		new Handler().postDelayed(new Runnable() {
 			public void run() {
 				startActivity(intent);
@@ -40,7 +40,7 @@ public class SpartaucsTriviaActivity extends Activity {
 	}
 
 	/**
-	 * onStop - Destroys the current activity after the MainMenuActivity is
+	 * onStop - Destroys the current activity after the MenuActivity is
 	 * launched
 	 */
 	public void onStop() {
