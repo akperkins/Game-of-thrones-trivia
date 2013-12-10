@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/spartacus"
+    android:orientation="vertical"
+    android:weightSum="1" >
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:id="@+id/endView1"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:background="#D98719"
+            android:text="TextView"
+            android:textColor="#E6E8FA"
+            android:textSize="25dp" >
+        </TextView>
+
+        <Button
+            android:id="@+id/backMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/emailButton"
+            android:layout_alignParentLeft="true"
+            android:text="Back to Main Menu"
+            android:textSize="25dp" >
+        </Button>
+
+        <Button
+            android:id="@+id/endbutton1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/backMain"
+            android:layout_alignParentLeft="true"
+            android:text="Try again!"
+            android:textSize="25dp" >
+        </Button>
+
+        <Button
+            android:id="@+id/emailButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:text="Comments, Complaints, Suggestions"
+            android:textSize="25dp" >
+        </Button>
+    </RelativeLayout>
+
+</LinearLayout>

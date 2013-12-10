@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import com.Spartacus.Trivia.Exceptions.OutOfQuestionsException;
 import com.Spartacus.Trivia.Media.MusicPlayer;
-import com.Spartacus.Trivia.util.SessionManager;
 import com.Spartaucs.Trivia.Models.QuestionsManager;
 
 /**
@@ -62,12 +61,14 @@ public class GameActivity extends Activity implements OnClickListener {
 
 	boolean playMusicOnLaunch;
 
+	boolean readyForTriviaSelection;
+
 	/**
 	 * onCreate() - initializes the instance data for the activity
 	 */
 	public void onCreate(Bundle state) {
 		super.onCreate(state);
-		setContentView(R.layout.trivia);
+		setContentView(R.layout.game);
 		b1 = (Button) findViewById(R.id.button1);
 		b1.setOnClickListener(this);
 		b2 = (Button) findViewById(R.id.button2);
@@ -84,7 +85,7 @@ public class GameActivity extends Activity implements OnClickListener {
 		bMusic.setOnClickListener(this);
 		timer = (TextView) findViewById(R.id.textTimer);
 		timer.setVisibility(2);
-
+		readyForTriviaSelection = false;
 		if (state != null) {
 			restoreCreate(state);
 		} else {
@@ -100,7 +101,6 @@ public class GameActivity extends Activity implements OnClickListener {
 			try {
 				qManager.nextQuestion();
 			} catch (OutOfQuestionsException e) {
-				// TODO Auto-generated catch block
 				Log.e(this.toString(), "Out of questions", e);
 			}
 		}
@@ -155,8 +155,6 @@ public class GameActivity extends Activity implements OnClickListener {
 		savedInstanceState.putBoolean("music_isPlaying", music.isPlaying());
 
 		savedInstanceState.putSerializable("qManager", qManager);
-		savedInstanceState.putSerializable("session",
-				SessionManager.getInstance());
 	}
 
 	public void restoreCreate(Bundle savedInstanceState) {
@@ -169,8 +167,6 @@ public class GameActivity extends Activity implements OnClickListener {
 
 		qManager = (QuestionsManager) savedInstanceState
 				.getSerializable("qManager");
-		SessionManager.saveSession((SessionManager) savedInstanceState
-				.getSerializable("session"));
 	}
 
 	/**
@@ -187,6 +183,7 @@ public class GameActivity extends Activity implements OnClickListener {
 		bMusic = null;
 		timer = null;
 		qManager = null;
+		counter = null;
 	}
 
 	/**
@@ -206,6 +203,8 @@ public class GameActivity extends Activity implements OnClickListener {
 
 		counter.start();
 		updateStats();
+
+		readyForTriviaSelection = true;
 	}
 
 	/**
@@ -215,10 +214,8 @@ public class GameActivity extends Activity implements OnClickListener {
 	 */
 	public void endGame() {
 		Intent intent = new Intent(this, ResultsActivity.class);
-		SessionManager.getInstance().store("correct",
-				String.valueOf(amountCorrect));
-		SessionManager.getInstance().store("total",
-				String.valueOf(TOTAL_QUESTIONS));
+		intent.putExtra("correct", amountCorrect);
+		intent.putExtra("total", TOTAL_QUESTIONS);
 		startActivity(intent);
 		finish();
 	}
@@ -228,7 +225,6 @@ public class GameActivity extends Activity implements OnClickListener {
 	 * click.
 	 */
 	public void onClick(View arg0) {
-
 		switch (arg0.getId()) {
 		case R.id.button1:
 			choiceSelected(1);
@@ -249,6 +245,7 @@ public class GameActivity extends Activity implements OnClickListener {
 			musicButtonPressed();
 			break;
 		}
+
 	}
 
 	/**
@@ -276,6 +273,11 @@ public class GameActivity extends Activity implements OnClickListener {
 	 *            - int representing the user's trivia choice
 	 */
 	public void choiceSelected(int button) {
+		if (!readyForTriviaSelection) {
+			return;
+		} else {
+			readyForTriviaSelection = false;
+		}
 		if (correctChoice == button) {
 			amountCorrect++;
 			Toast.makeText(getApplicationContext(), "Correct!",
@@ -319,13 +321,7 @@ public class GameActivity extends Activity implements OnClickListener {
 		case DIALOG_WRONG_ID:
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage("Wrong! The correct answer is: " + correctAnswer)
-					.setCancelable(false)
-					.setNeutralButton("Dismiss",
-							new DialogInterface.OnClickListener() {
-								public void onClick(DialogInterface dialog,
-										int id) {
-								}
-							});
+					.setCancelable(false);
 
 			AlertDialog alert = builder.create();
 			dialog = alert;

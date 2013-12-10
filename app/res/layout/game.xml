@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/flames"
+    android:orientation="vertical"
+    android:weightSum="1" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="vertical"
+        android:weightSum="1" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="310dp"
+            android:layout_height="76dp"
+            android:layout_gravity="center"
+            android:background="#D98719"
+            android:text="TextView"
+            android:textColor="#E6E8FA"
+            android:textSize="15dp"
+            android:textStyle="bold" >
+        </TextView>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:keepScreenOn="True" >
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_alignLeft="@+id/button1"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/button1"
+            android:text="Button"
+            android:textSize="15dp" >
+        </Button>
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/button2"
+            android:layout_below="@+id/button2"
+            android:text="Button"
+            android:textSize="15dp" >
+        </Button>
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_alignLeft="@+id/button3"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/button3"
+            android:text="Button"
+            android:textSize="15dp" >
+        </Button>
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:text="Button"
+            android:textSize="15dp" >
+        </Button>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="130dp"
+            android:layout_height="65dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/button4"
+            android:background="#D98719"
+            android:text="You are 0/9. Out of 10."
+            android:textColor="#E6E8FA"
+            android:textSize="15dp" >
+        </TextView>
+
+        <Button
+            android:id="@+id/musicButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/textView2"
+            android:text="Stop Music" >
+        </Button>
+
+        <TextView
+            android:id="@+id/textTimer"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
+            android:layout_alignLeft="@+id/musicButton"
+            android:layout_alignParentBottom="true"
+            android:background="#D98719"
+            android:text="Left: 15"
+            android:textColor="#E6E8FA"
+            android:textSize="24dp" >
+        </TextView>
+    </RelativeLayout>
+
+</LinearLayout>

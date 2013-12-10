@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.Spartacus.Trivia.util.SendEmail;
-import com.Spartacus.Trivia.util.SessionManager;
 
 public class ResultsActivity extends Activity implements OnClickListener {
 	/** Stores the game stats from the previous user game */
@@ -28,12 +27,14 @@ public class ResultsActivity extends Activity implements OnClickListener {
 	 */
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.endgame);
+		setContentView(R.layout.results);
 		correct = 0;
 		total = 0;
-		SessionManager session = SessionManager.getInstance();
-		correct = Integer.parseInt(session.get("correct"));
-		total = Integer.parseInt(session.get("total"));
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+			correct = extras.getInt("correct");
+			total = extras.getInt("total");
+		}
 		score = calcScore();
 		tv = (TextView) findViewById(R.id.endView1);
 		tv.setVisibility(2);

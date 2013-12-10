@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/start"
+    android:background="@drawable/spartacus"
     android:orientation="vertical"
     android:weightSum="1" >
 

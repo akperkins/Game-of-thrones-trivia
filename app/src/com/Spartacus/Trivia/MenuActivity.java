@@ -8,7 +8,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.Spartacus.Trivia.util.SendEmail;
-import com.Spartacus.Trivia.util.SessionManager;
 
 public class MenuActivity extends Activity implements OnClickListener {
 
@@ -18,7 +17,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 	@Override
 	public void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
-		setContentView(R.layout.mainmenu);
+		setContentView(R.layout.menu);
 		qGame = (Button) findViewById(R.id.quickbutton);
 		email = (Button) findViewById(R.id.mainEmail);
 		qGame.setOnClickListener(this);
@@ -28,9 +27,9 @@ public class MenuActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.quickbutton:
-			SessionManager.startSession();
-			SessionManager.getInstance().store("game", "quick");
-			startActivity(new Intent(this, GameActivity.class));
+			Intent intent = new Intent(this, GameActivity.class);
+			intent.putExtra("game", "quick");
+			startActivity(intent);
 			break;
 		case R.id.mainEmail:
 			SendEmail.send(this, "Concerns about Spartacus app");
