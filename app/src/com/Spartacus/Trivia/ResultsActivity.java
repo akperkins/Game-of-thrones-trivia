@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.Spartacus.Trivia.util.SendEmail;
-import com.Spartacus.Trivia.util.Session;
 import com.Spartacus.Trivia.util.SessionManager;
 
 public class ResultsActivity extends Activity implements OnClickListener {
@@ -32,7 +31,7 @@ public class ResultsActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.endgame);
 		correct = 0;
 		total = 0;
-		Session session = SessionManager.getCurrent();
+		SessionManager session = SessionManager.getInstance();
 		correct = Integer.parseInt(session.get("correct"));
 		total = Integer.parseInt(session.get("total"));
 		score = calcScore();

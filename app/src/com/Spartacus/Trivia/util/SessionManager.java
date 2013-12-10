@@ -1,6 +1,7 @@
 package com.Spartacus.Trivia.util;
 
-import java.util.HashMap;
+import java.io.Serializable;
+import java.util.Hashtable;
 
 /**
  * Contains information about current user session.
@@ -8,18 +9,46 @@ import java.util.HashMap;
  * @author Andre Perkins - akperins1@gmail.com
  * 
  */
-public class SessionManager {
-	private static Session current;
+public class SessionManager implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static SessionManager instance;
+	private static Hashtable<String, String> transDetails;
 
-	public static void startSession(HashMap<String, String> transDetails) {
-		current = new Session(transDetails);
+	private SessionManager() {
+		transDetails = new Hashtable<String, String>();
 	}
 
-	public static Session getCurrent() {
-		return current;
+	public static SessionManager getInstance() {
+		if (transDetails != null) {
+			startSession();
+		}
+		return instance;
+	}
+
+	public static void startSession() {
+		instance = new SessionManager();
+	}
+
+	public static void saveSession(SessionManager session) {
+		instance = session;
 	}
 
 	public static void killSession() {
-		current = null;
+		instance = null;
+	}
+
+	public void store(String name, String value) {
+		transDetails.put(name, value);
+	}
+
+	public void remove(String name) {
+		transDetails.remove(name);
+	}
+
+	public String get(String name) {
+		return transDetails.get(name);
 	}
 }

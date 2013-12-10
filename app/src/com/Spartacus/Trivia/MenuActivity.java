@@ -28,8 +28,8 @@ public class MenuActivity extends Activity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.quickbutton:
-			SessionManager.startSession(null);
-			SessionManager.getCurrent().store("game", "quick");
+			SessionManager.startSession();
+			SessionManager.getInstance().store("game", "quick");
 			startActivity(new Intent(this, GameActivity.class));
 			break;
 		case R.id.mainEmail:

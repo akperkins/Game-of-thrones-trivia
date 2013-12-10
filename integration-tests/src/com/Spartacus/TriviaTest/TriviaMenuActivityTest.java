@@ -1,4 +1,4 @@
-package com.Spartacus.Trivia.test;
+package com.Spartacus.TriviaTest;
 
 import android.test.AndroidTestCase;
 

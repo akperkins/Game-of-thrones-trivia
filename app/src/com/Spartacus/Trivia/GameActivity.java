@@ -1,5 +1,7 @@
 package com.Spartacus.Trivia;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -18,8 +20,7 @@ import android.widget.Toast;
 import com.Spartacus.Trivia.Exceptions.OutOfQuestionsException;
 import com.Spartacus.Trivia.Media.MusicPlayer;
 import com.Spartacus.Trivia.util.SessionManager;
-import com.Spartaucs.Trivia.Data.QuestionManager;
-import com.Spartaucs.Trivia.Data.TriviaQuestion;
+import com.Spartaucs.Trivia.Models.QuestionsManager;
 
 /**
  * The trivia game loop executes here.
@@ -39,10 +40,7 @@ public class GameActivity extends Activity implements OnClickListener {
 	Button b1, b2, b3, b4, bMusic;
 
 	/** Used to obtain the question trivia data */
-	QuestionManager qManager;
-
-	/** Where the data for the trivia data for the triviaQuestion is stored */
-	String[] easyQuestions, hardQuestions;
+	QuestionsManager qManager;
 
 	/** Used to play the music during trivia game */
 	MusicPlayer music;
@@ -61,6 +59,8 @@ public class GameActivity extends Activity implements OnClickListener {
 	 * question.
 	 */
 	MyCount counter;
+
+	boolean playMusicOnLaunch;
 
 	/**
 	 * onCreate() - initializes the instance data for the activity
@@ -84,15 +84,26 @@ public class GameActivity extends Activity implements OnClickListener {
 		bMusic.setOnClickListener(this);
 		timer = (TextView) findViewById(R.id.textTimer);
 		timer.setVisibility(2);
-		amountCorrect = 0;
-		questionsAnswered = 0;
-		correctChoice = 0;
-		easyQuestions = getResources().getStringArray(R.array.easyQuestions);
-		hardQuestions = getResources().getStringArray(R.array.hardQuestions);
-		TriviaQuestion[] temp = new TriviaQuestion[2];
-		temp[0] = new TriviaQuestion(easyQuestions);
-		temp[1] = new TriviaQuestion(hardQuestions);
-		qManager = new QuestionManager(temp);
+
+		if (state != null) {
+			restoreCreate(state);
+		} else {
+			amountCorrect = 0;
+			questionsAnswered = 0;
+			correctChoice = 0;
+			ArrayList<String[]> temp = new ArrayList<String[]>();
+			temp.add(getResources().getStringArray(R.array.easyQuestions));
+			temp.add(getResources().getStringArray(R.array.hardQuestions));
+			qManager = new QuestionsManager(temp);
+			counter = new MyCount();
+			playMusicOnLaunch = true;
+			try {
+				qManager.nextQuestion();
+			} catch (OutOfQuestionsException e) {
+				// TODO Auto-generated catch block
+				Log.e(this.toString(), "Out of questions", e);
+			}
+		}
 	}
 
 	/**
@@ -108,8 +119,13 @@ public class GameActivity extends Activity implements OnClickListener {
 	 */
 	public void onResume() {
 		super.onResume();
-		music.start();
-		mapText();
+		if (playMusicOnLaunch) {
+			music.start();
+		} else {
+			musicButtonPressed();
+		}
+		playMusicOnLaunch = true;
+		mapText(qManager.getCurrentQuestion());
 	}
 
 	/**
@@ -130,6 +146,33 @@ public class GameActivity extends Activity implements OnClickListener {
 		music.kill();
 	}
 
+	public void onSaveInstanceState(Bundle savedInstanceState) {
+		savedInstanceState.putInt("amountCorrect", amountCorrect);
+		savedInstanceState.putInt("questionsAnswered", questionsAnswered);
+		savedInstanceState.putInt("correctChoice", correctChoice);
+		savedInstanceState.putString("correctAnswer", correctAnswer);
+		savedInstanceState.putInt("counter_left", (int) counter.left);
+		savedInstanceState.putBoolean("music_isPlaying", music.isPlaying());
+
+		savedInstanceState.putSerializable("qManager", qManager);
+		savedInstanceState.putSerializable("session",
+				SessionManager.getInstance());
+	}
+
+	public void restoreCreate(Bundle savedInstanceState) {
+		amountCorrect = savedInstanceState.getInt("amountCorrect");
+		questionsAnswered = savedInstanceState.getInt("questionsAnswered");
+		correctChoice = savedInstanceState.getInt("correctChoice");
+		correctAnswer = savedInstanceState.getString("correctAnswer");
+
+		counter = new MyCount(savedInstanceState.getInt("counter_left"));
+
+		qManager = (QuestionsManager) savedInstanceState
+				.getSerializable("qManager");
+		SessionManager.saveSession((SessionManager) savedInstanceState
+				.getSerializable("session"));
+	}
+
 	/**
 	 * onDestroy() - cleans up all instance variables
 	 */
@@ -143,8 +186,6 @@ public class GameActivity extends Activity implements OnClickListener {
 		stats = null;
 		bMusic = null;
 		timer = null;
-		easyQuestions = null;
-		hardQuestions = null;
 		qManager = null;
 	}
 
@@ -154,28 +195,17 @@ public class GameActivity extends Activity implements OnClickListener {
 	 * not successful, the game is ended.
 	 * 
 	 */
-	public void mapText() {
-		String[] array;
-		try {
-			array = qManager.getQuestion();
-			title.setText(array[0]);
-			b1.setText(array[1]);
-			b2.setText(array[2]);
-			b3.setText(array[3]);
-			b4.setText(array[4]);
-			correctChoice = Integer.parseInt(array[5]);
-			correctAnswer = array[correctChoice];
+	public void mapText(String[] array) {
+		title.setText(array[0]);
+		b1.setText(array[1]);
+		b2.setText(array[2]);
+		b3.setText(array[3]);
+		b4.setText(array[4]);
+		correctChoice = Integer.parseInt(array[5]);
+		correctAnswer = array[correctChoice];
 
-			counter = new MyCount();
-			counter.start();
-			updateStats();
-		} catch (OutOfQuestionsException e) {
-			// Display to user that the application is out of questions at the
-			// momentS
-			// TODO end the game and go on to the endGameActivity
-			Log.e("Game Activity - mapText", "User ran out of questions", e);
-			endGame();
-		}
+		counter.start();
+		updateStats();
 	}
 
 	/**
@@ -185,9 +215,9 @@ public class GameActivity extends Activity implements OnClickListener {
 	 */
 	public void endGame() {
 		Intent intent = new Intent(this, ResultsActivity.class);
-		SessionManager.getCurrent().store("correct",
+		SessionManager.getInstance().store("correct",
 				String.valueOf(amountCorrect));
-		SessionManager.getCurrent().store("total",
+		SessionManager.getInstance().store("total",
 				String.valueOf(TOTAL_QUESTIONS));
 		startActivity(intent);
 		finish();
@@ -201,22 +231,23 @@ public class GameActivity extends Activity implements OnClickListener {
 
 		switch (arg0.getId()) {
 		case R.id.button1:
-			buttonPressed(1);
+			choiceSelected(1);
 
 			break;
 		case R.id.button2:
-			buttonPressed(2);
+			choiceSelected(2);
 			break;
 		case R.id.button3:
-			buttonPressed(3);
+			choiceSelected(3);
 
 			break;
 		case R.id.button4:
-			buttonPressed(4);
+			choiceSelected(4);
 
 			break;
 		case R.id.musicButton:
 			musicButtonPressed();
+			break;
 		}
 	}
 
@@ -225,7 +256,7 @@ public class GameActivity extends Activity implements OnClickListener {
 	 * versa. The text for the button is set appropriately.
 	 */
 	public void musicButtonPressed() {
-		if (!music.isPlaying()) {
+		if (music.isPlaying()) {
 			music.pause();
 			bMusic.setText("Start Music");
 		} else {
@@ -244,7 +275,7 @@ public class GameActivity extends Activity implements OnClickListener {
 	 * @param button
 	 *            - int representing the user's trivia choice
 	 */
-	public void buttonPressed(int button) {
+	public void choiceSelected(int button) {
 		if (correctChoice == button) {
 			amountCorrect++;
 			Toast.makeText(getApplicationContext(), "Correct!",
@@ -260,11 +291,21 @@ public class GameActivity extends Activity implements OnClickListener {
 				if (questionsAnswered == TOTAL_QUESTIONS) {
 					endGame();
 				} else {
-					mapText();
+					try {
+						qManager.nextQuestion();
+					} catch (OutOfQuestionsException e) {
+						// TODO Auto-generated catch block
+						Log.e(this.toString(), "Ran out of trivia questions", e);
+					}
+					String[] nextQuestion = qManager.getCurrentQuestion();
+					mapText(nextQuestion);
 				}
 			}
 		}, 1000);
 		counter.cancel();
+		if (counter.startQuestionTime < MyCount.QUESTION_TIME) {
+			counter = new MyCount();
+		}
 	}
 
 	/**
@@ -352,8 +393,20 @@ public class GameActivity extends Activity implements OnClickListener {
 		/** Sets one second in between every tick */
 		final static long TICK_INTERVAL = 1000;
 
+		/** Keeps track of the time left on timer */
+		long left;
+
+		long startQuestionTime;
+
 		public MyCount() {
 			super(QUESTION_TIME, TICK_INTERVAL);
+			left = QUESTION_TIME;
+			startQuestionTime = QUESTION_TIME;
+		}
+
+		public MyCount(long timeRemaining) {
+			super(timeRemaining, TICK_INTERVAL);
+			left = timeRemaining;
 		}
 
 		@Override
@@ -362,7 +415,7 @@ public class GameActivity extends Activity implements OnClickListener {
 		 * the user gets the answer wrong if they wait to long to answer.
 		 */
 		public void onFinish() {
-			buttonPressed((correctChoice + 1) % 4);
+			choiceSelected((correctChoice + 1) % 4);
 		}
 
 		@Override
@@ -371,6 +424,8 @@ public class GameActivity extends Activity implements OnClickListener {
 		 */
 		public void onTick(long millisUntilFinished) {
 			timer.setText("Left: " + millisUntilFinished / 1000);
+			left = millisUntilFinished;
 		}
+
 	}
 }

@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.Spartacus.Trivia"
-      android:versionCode="1"
-      android:versionName="0.5">
+    package="com.Spartacus.Trivia"
+    android:versionCode="1"
+    android:versionName="0.5" >
+
     <uses-sdk android:minSdkVersion="8" />
 
-    <application android:icon="@drawable/start" android:theme="@android:style/Theme.NoTitleBar" 
-    android:label="@string/app_name" >
-
-        <activity android:name=".StartActivity"
-        android:screenOrientation="portrait"
-                  android:label="@string/app_name">
+    <application
+        android:icon="@drawable/start"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.NoTitleBar" >
+        <activity
+            android:name=".StartActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,25 +22,22 @@
         </activity>
         <activity
             android:name=".GameActivity"
-            android:label="@string/example_label"
-            android:screenOrientation="portrait" >
+            android:label="@string/example_label" >
         </activity>
         <activity
             android:name=".ResultsActivity"
-            android:label="@string/end_game"
-            android:screenOrientation="portrait" >
+            android:label="@string/end_game" >
         </activity>
         <activity
             android:name=".MenuActivity"
-            android:label="@string/main_menu"
-            android:screenOrientation="portrait" >
+            android:label="@string/main_menu" >
         </activity>
         <activity android:name="com.google.ads.AdActivity" />
 
-       <!--  <uses-permission android:name="android.permission.INTERNET" />
-        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> -->
+        <!--
+        <uses-permission android:name="android.permission.INTERNET" />
+        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+        -->
     </application>
-    
-   
-    
+
 </manifest>
