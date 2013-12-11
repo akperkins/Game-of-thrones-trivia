@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.Spartacus.Trivia.Exceptions.OutOfQuestionsException;
 import com.Spartacus.Trivia.Media.MusicPlayer;
-import com.Spartaucs.Trivia.Models.QuestionsManager;
+import com.Spartacus.Trivia.Models.QuestionsManager;
 
 /**
  * The trivia game loop executes here.

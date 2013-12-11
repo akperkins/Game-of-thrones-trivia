@@ -1,4 +1,4 @@
-package com.Spartaucs.Trivia.Models;
+package com.Spartacus.Trivia.Models;
 
 import java.util.ArrayList;
 
