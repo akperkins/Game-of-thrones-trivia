@@ -8,14 +8,14 @@ import android.media.MediaPlayer;
  * Plays a music file stored in app's raw resources
  * 
  * @author andre
- *
+ * 
  */
 public class MusicPlayer {
 
 	MediaPlayer player;
 
-	public MusicPlayer(Activity activity, int resId) {
-		newPlayerSetup(activity, resId);
+	public MusicPlayer(Activity activity, int resId, boolean looping) {
+		newPlayerSetup(activity, resId, looping);
 	}
 
 	public void start() {
@@ -30,6 +30,14 @@ public class MusicPlayer {
 		player.pause();
 	}
 
+	public int getCurrentPosition() {
+		return player.getCurrentPosition();
+	}
+
+	public void setCurrentPosition(int pos) {
+		player.seekTo(pos);
+	}
+
 	public void kill() {
 		if (player != null) {
 			player.release();
@@ -37,14 +45,15 @@ public class MusicPlayer {
 		}
 	}
 
-	private void newPlayerSetup(Activity activity, int resId) {
+	private void newPlayerSetup(Activity activity, int resId, boolean looping) {
 		player = MediaPlayer.create(activity.getBaseContext(), resId);
-		player.setLooping(true);
+		player.setLooping(looping);
 
 	}
 
-	public void changeSong(Activity activity, int resId) {
-		newPlayerSetup(activity, resId);
+	public void changeSong(Activity activity, int resId, boolean looping) {
+		player.stop();
+		newPlayerSetup(activity, resId, looping);
 		start();
 	}
 }

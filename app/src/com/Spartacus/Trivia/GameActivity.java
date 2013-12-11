@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -86,6 +85,8 @@ public class GameActivity extends Activity implements OnClickListener {
 		timer = (TextView) findViewById(R.id.textTimer);
 		timer.setVisibility(2);
 		readyForTriviaSelection = false;
+		playMusicOnLaunch = true;
+		music = new MusicPlayer(this, R.raw.spartacus_cool_mix, true);
 		if (state != null) {
 			restoreCreate(state);
 		} else {
@@ -97,7 +98,7 @@ public class GameActivity extends Activity implements OnClickListener {
 			temp.add(getResources().getStringArray(R.array.hardQuestions));
 			qManager = new QuestionsManager(temp);
 			counter = new MyCount();
-			playMusicOnLaunch = true;
+
 			try {
 				qManager.nextQuestion();
 			} catch (OutOfQuestionsException e) {
@@ -111,7 +112,7 @@ public class GameActivity extends Activity implements OnClickListener {
 	 */
 	public void onStart() {
 		super.onStart();
-		music = new MusicPlayer(this, R.raw.spartacus_cool_mix);
+
 	}
 
 	/**
@@ -119,6 +120,7 @@ public class GameActivity extends Activity implements OnClickListener {
 	 */
 	public void onResume() {
 		super.onResume();
+		music.start();
 		if (playMusicOnLaunch) {
 			music.start();
 		} else {
@@ -143,7 +145,7 @@ public class GameActivity extends Activity implements OnClickListener {
 	public void onStop() {
 		super.onStop();
 		counter.cancel();
-		music.kill();
+
 	}
 
 	public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -153,7 +155,8 @@ public class GameActivity extends Activity implements OnClickListener {
 		savedInstanceState.putString("correctAnswer", correctAnswer);
 		savedInstanceState.putInt("counter_left", (int) counter.left);
 		savedInstanceState.putBoolean("music_isPlaying", music.isPlaying());
-
+		savedInstanceState.putInt("music_currentPosition",
+				music.getCurrentPosition());
 		savedInstanceState.putSerializable("qManager", qManager);
 	}
 
@@ -162,9 +165,10 @@ public class GameActivity extends Activity implements OnClickListener {
 		questionsAnswered = savedInstanceState.getInt("questionsAnswered");
 		correctChoice = savedInstanceState.getInt("correctChoice");
 		correctAnswer = savedInstanceState.getString("correctAnswer");
-
+		playMusicOnLaunch = savedInstanceState.getBoolean("music_isPlaying");
+		music.setCurrentPosition(savedInstanceState
+				.getInt("music_currentPosition"));
 		counter = new MyCount(savedInstanceState.getInt("counter_left"));
-
 		qManager = (QuestionsManager) savedInstanceState
 				.getSerializable("qManager");
 	}
@@ -184,6 +188,8 @@ public class GameActivity extends Activity implements OnClickListener {
 		timer = null;
 		qManager = null;
 		counter = null;
+		music.kill();
+		music = null;
 	}
 
 	/**
@@ -216,6 +222,7 @@ public class GameActivity extends Activity implements OnClickListener {
 		Intent intent = new Intent(this, ResultsActivity.class);
 		intent.putExtra("correct", amountCorrect);
 		intent.putExtra("total", TOTAL_QUESTIONS);
+		setResult(RESULT_OK);
 		startActivity(intent);
 		finish();
 	}
@@ -296,7 +303,6 @@ public class GameActivity extends Activity implements OnClickListener {
 					try {
 						qManager.nextQuestion();
 					} catch (OutOfQuestionsException e) {
-						// TODO Auto-generated catch block
 						Log.e(this.toString(), "Ran out of trivia questions", e);
 					}
 					String[] nextQuestion = qManager.getCurrentQuestion();
@@ -320,7 +326,8 @@ public class GameActivity extends Activity implements OnClickListener {
 		switch (id) {
 		case DIALOG_WRONG_ID:
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage("Wrong! The correct answer is: " + correctAnswer)
+			builder.setMessage(
+					"Wrong! The correct answer is: \n" + correctAnswer)
 					.setCancelable(false);
 
 			AlertDialog alert = builder.create();

@@ -14,6 +14,8 @@ public class MenuActivity extends Activity implements OnClickListener {
 	Button qGame;
 	Button email;
 
+	final static int GAME_ACTIVITY_RESULT_CODE = 1;
+
 	@Override
 	public void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
@@ -29,10 +31,20 @@ public class MenuActivity extends Activity implements OnClickListener {
 		case R.id.quickbutton:
 			Intent intent = new Intent(this, GameActivity.class);
 			intent.putExtra("game", "quick");
-			startActivity(intent);
+			startActivityForResult(intent, GAME_ACTIVITY_RESULT_CODE);
 			break;
 		case R.id.mainEmail:
 			SendEmail.send(this, "Concerns about Spartacus app");
+			break;
+		}
+	}
+
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode) {
+		case GAME_ACTIVITY_RESULT_CODE:
+			if (resultCode == RESULT_OK) {
+				finish();
+			}
 			break;
 		}
 	}
