@@ -62,6 +62,13 @@ public class GeneralAlgorithmsTest {
 	}
 
 	@Test
+	public void getWeightedProbabilityAllZeroData() {
+		Assert.assertEquals("Zero data", -3,
+				GeneralAlgorithms.getWeightedProbability(new int[] { 0, 0 }));
+
+	}
+
+	@Test
 	public void getWeightedProbabilityOneEntry() {
 		Assert.assertEquals(0,
 				GeneralAlgorithms.getWeightedProbability(new int[] { 6 }));

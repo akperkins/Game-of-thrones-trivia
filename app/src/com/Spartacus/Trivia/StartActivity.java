@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.Spartacus.Trivia.Media.MusicPlayer;
-
 /**
  * This activity does nothing except display the disclaimer message for 7
  * seconds before launching the activity.
@@ -16,8 +14,6 @@ import com.Spartacus.Trivia.Media.MusicPlayer;
  */
 public class StartActivity extends Activity {
 
-	MusicPlayer music;
-
 	/**
 	 * onCreate() - set the layout
 	 */
@@ -25,7 +21,6 @@ public class StartActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.start);
-		music = new MusicPlayer(this, R.raw.spartacus_theme_song, false);
 	}
 
 	/**
@@ -35,7 +30,6 @@ public class StartActivity extends Activity {
 	public void onResume() {
 		super.onResume();
 		final Intent intent = new Intent(this, MenuActivity.class);
-		music.start();
 		new Handler().postDelayed(new Runnable() {
 			public void run() {
 				startActivity(intent);
@@ -45,7 +39,6 @@ public class StartActivity extends Activity {
 
 	public void onPause() {
 		super.onPause();
-		music.pause();
 	}
 
 	/**
@@ -58,7 +51,5 @@ public class StartActivity extends Activity {
 
 	public void onDestroy() {
 		super.onDestroy();
-		music.kill();
-		music = null;
 	}
 }

@@ -11,35 +11,29 @@ public class QuestionsManager implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = -408390483770836593L;
 	Questions[] questionsCollection;
-	int[] questionsLeft;
 	String[] currentQuestion;
+	QuestionMangeStrategy questionStrategy;
 
-	public QuestionsManager(ArrayList<String[]> strQuestions) {
+	public QuestionsManager(ArrayList<String[]> strQuestions,
+			QuestionMangeStrategy questionStrategy) {
 		questionsCollection = new TriviaQuestions[strQuestions.size()];
 		for (int i = 0; i < strQuestions.size(); i++) {
 			questionsCollection[i] = new TriviaQuestions(strQuestions.get(i));
 		}
-		questionsLeft = new int[questionsCollection.length];
+		this.questionStrategy = questionStrategy;
 	}
 
 	public void nextQuestion() throws OutOfQuestionsException {
-		updateQuestionsLeft();
+		Questions questions = questionStrategy
+				.getNextQuestion(questionsCollection);
 
-		int turn = GeneralAlgorithms.getWeightedProbability(questionsLeft);
+		String[] questionStrings = questions.getQuestion();
 
-		String[] question = questionsCollection[turn].getQuestion();
-
-		currentQuestion = question;
+		currentQuestion = questionStrings;
 	}
 
 	public String[] getCurrentQuestion() {
 		return currentQuestion;
-	}
-
-	public void updateQuestionsLeft() {
-		for (int i = 0; i < questionsLeft.length; i++) {
-			questionsLeft[i] = questionsCollection[i].unusedLeft();
-		}
 	}
 
 	public ArrayList<Object[][]> getQuestionsStates() {

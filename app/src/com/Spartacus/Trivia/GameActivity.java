@@ -5,10 +5,15 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Debug;
 import android.os.Handler;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,8 +22,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.Spartacus.Trivia.Exceptions.OutOfQuestionsException;
-import com.Spartacus.Trivia.Media.MusicPlayer;
 import com.Spartacus.Trivia.Models.QuestionsManager;
+import com.Spartacus.Trivia.Models.WeightedRemainingQuestionStrategy;
+import com.Spartacus.Trivia.Services.MusicService;
 
 /**
  * The trivia game loop executes here.
@@ -40,9 +46,6 @@ public class GameActivity extends Activity implements OnClickListener {
 	/** Used to obtain the question trivia data */
 	QuestionsManager qManager;
 
-	/** Used to play the music during trivia game */
-	MusicPlayer music;
-
 	/** Keep track of current game stats */
 	int amountCorrect, questionsAnswered, correctChoice;
 
@@ -62,11 +65,15 @@ public class GameActivity extends Activity implements OnClickListener {
 
 	boolean readyForTriviaSelection;
 
+	MusicService musicService;
+	boolean mBound;
+
 	/**
 	 * onCreate() - initializes the instance data for the activity
 	 */
 	public void onCreate(Bundle state) {
 		super.onCreate(state);
+		Debug.waitForDebugger();
 		setContentView(R.layout.game);
 		b1 = (Button) findViewById(R.id.button1);
 		b1.setOnClickListener(this);
@@ -86,7 +93,8 @@ public class GameActivity extends Activity implements OnClickListener {
 		timer.setVisibility(2);
 		readyForTriviaSelection = false;
 		playMusicOnLaunch = true;
-		music = new MusicPlayer(this, R.raw.spartacus_cool_mix, true);
+		mBound = false;
+
 		if (state != null) {
 			restoreCreate(state);
 		} else {
@@ -96,9 +104,9 @@ public class GameActivity extends Activity implements OnClickListener {
 			ArrayList<String[]> temp = new ArrayList<String[]>();
 			temp.add(getResources().getStringArray(R.array.easyQuestions));
 			temp.add(getResources().getStringArray(R.array.hardQuestions));
-			qManager = new QuestionsManager(temp);
+			qManager = new QuestionsManager(temp,
+					new WeightedRemainingQuestionStrategy());
 			counter = new MyCount();
-
 			try {
 				qManager.nextQuestion();
 			} catch (OutOfQuestionsException e) {
@@ -107,12 +115,32 @@ public class GameActivity extends Activity implements OnClickListener {
 		}
 	}
 
+	private ServiceConnection mConnection = new ServiceConnection() {
+		public void onServiceConnected(ComponentName className, IBinder service) {
+			MusicService.LocalBinder binder = (MusicService.LocalBinder) service;
+			musicService = binder.getService();
+			musicService.setSong(R.raw.spartacus_cool_mix);
+			if (playMusicOnLaunch) {
+				musicService.playPlayer();
+			}
+			mBound = true;
+			Log.d(this.toString(), "got here");
+		}
+
+		public void onServiceDisconnected(ComponentName className) {
+			Log.e(this.toString(), "onServiceDisconnected");
+			mBound = false;
+			musicService = null;
+		}
+	};
+
 	/**
 	 * onStart() - Creates a new music player
 	 */
 	public void onStart() {
 		super.onStart();
-
+		Intent intent = new Intent(this, MusicService.class);
+		bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
 	}
 
 	/**
@@ -120,13 +148,14 @@ public class GameActivity extends Activity implements OnClickListener {
 	 */
 	public void onResume() {
 		super.onResume();
-		music.start();
-		if (playMusicOnLaunch) {
-			music.start();
-		} else {
-			musicButtonPressed();
+		if (mBound) {
+			if (playMusicOnLaunch) {
+				musicService.playPlayer();
+			} else {
+				musicButtonPressed();
+			}
+			playMusicOnLaunch = true;
 		}
-		playMusicOnLaunch = true;
 		mapText(qManager.getCurrentQuestion());
 	}
 
@@ -135,7 +164,9 @@ public class GameActivity extends Activity implements OnClickListener {
 	 */
 	public void onPause() {
 		super.onPause();
-		music.pause();
+		if (mBound) {
+			musicService.pausePlayer();
+		}
 	}
 
 	/**
@@ -145,7 +176,9 @@ public class GameActivity extends Activity implements OnClickListener {
 	public void onStop() {
 		super.onStop();
 		counter.cancel();
-
+		if (mBound) {
+			unbindService(mConnection);
+		}
 	}
 
 	public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -154,9 +187,12 @@ public class GameActivity extends Activity implements OnClickListener {
 		savedInstanceState.putInt("correctChoice", correctChoice);
 		savedInstanceState.putString("correctAnswer", correctAnswer);
 		savedInstanceState.putInt("counter_left", (int) counter.left);
-		savedInstanceState.putBoolean("music_isPlaying", music.isPlaying());
-		savedInstanceState.putInt("music_currentPosition",
-				music.getCurrentPosition());
+		/*
+		 * savedInstanceState.putBoolean("music_isPlaying",
+		 * musicService.isPlaying());
+		 * savedInstanceState.putInt("music_currentPosition",
+		 * music.getCurrentPosition());
+		 */
 		savedInstanceState.putSerializable("qManager", qManager);
 	}
 
@@ -166,9 +202,10 @@ public class GameActivity extends Activity implements OnClickListener {
 		correctChoice = savedInstanceState.getInt("correctChoice");
 		correctAnswer = savedInstanceState.getString("correctAnswer");
 		playMusicOnLaunch = savedInstanceState.getBoolean("music_isPlaying");
-		music.setCurrentPosition(savedInstanceState
-				.getInt("music_currentPosition"));
-		counter = new MyCount(savedInstanceState.getInt("counter_left"));
+		/*
+		 * music.setCurrentPosition(savedInstanceState
+		 * .getInt("music_currentPosition"));
+		 */counter = new MyCount(savedInstanceState.getInt("counter_left"));
 		qManager = (QuestionsManager) savedInstanceState
 				.getSerializable("qManager");
 	}
@@ -188,8 +225,7 @@ public class GameActivity extends Activity implements OnClickListener {
 		timer = null;
 		qManager = null;
 		counter = null;
-		music.kill();
-		music = null;
+
 	}
 
 	/**
@@ -260,12 +296,17 @@ public class GameActivity extends Activity implements OnClickListener {
 	 * versa. The text for the button is set appropriately.
 	 */
 	public void musicButtonPressed() {
-		if (music.isPlaying()) {
-			music.pause();
-			bMusic.setText("Start Music");
+		if (mBound) {
+			if (musicService.isPlaying()) {
+				musicService.pausePlayer();
+				bMusic.setText("Start Music");
+			} else {
+				musicService.playPlayer();
+				bMusic.setText("Stop Music");
+			}
 		} else {
-			music.start();
-			bMusic.setText("Stop Music");
+			Toast.makeText(this, "Music service has not binded",
+					Toast.LENGTH_SHORT).show();
 		}
 	}
 

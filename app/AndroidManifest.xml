@@ -2,9 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.Spartacus.Trivia"
     android:versionCode="1"
-    android:versionName="0.5" >
+    android:versionName="0.9" >
 
-    <uses-sdk android:minSdkVersion="8" />
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="9" />
 
     <application
         android:icon="@drawable/spartacus"
@@ -31,8 +33,21 @@
             android:name=".MenuActivity"
             android:label="@string/main_menu" >
         </activity>
-        <activity android:name="com.google.ads.AdActivity" />
+        
+        <service android:name="com.Spartacus.Trivia.Services.MusicService"
+            android:enabled="true" >
+    
+        </service>
+        
+        <!-- <activity android:name="com.google.ads.AdActivity" /> -->
 
+        <!-- <service android:name=".MusicService" >
+            <intent-filter>
+                <action android:name=".MusicService.BIND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service> -->
         <!--
         <uses-permission android:name="android.permission.INTERNET" />
         <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

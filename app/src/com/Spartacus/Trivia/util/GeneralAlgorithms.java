@@ -37,6 +37,9 @@ public class GeneralAlgorithms {
 				store.add(i);
 			}
 		}
+		if (store.size() == 0) {
+			return -3;
+		}
 		int randomIndex = new Random().nextInt(store.size());
 		return store.get(randomIndex);
 	}
