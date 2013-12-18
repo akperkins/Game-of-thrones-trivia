@@ -36,21 +36,6 @@ public class QuestionsManager implements java.io.Serializable {
 		return currentQuestion;
 	}
 
-	public ArrayList<Object[][]> getQuestionsStates() {
-		ArrayList<Object[][]> states = new ArrayList<Object[][]>();
-
-		for (Questions q : questionsCollection) {
-			Object[] questions = q.getALLQuestions();
-			Object[] used = q.getUsed().toArray();
-			Object[] questionIndex = new Integer[] { q.getQuestionIndex() };
-			Object[] questionOrder = q.getQuestionOrder();
-
-			states.add(new Object[][] { questions, used, questionIndex,
-					questionOrder });
-		}
-
-		return states;
-	}
 
 	public Questions[] getQuestionsCollection() {
 		return questionsCollection;

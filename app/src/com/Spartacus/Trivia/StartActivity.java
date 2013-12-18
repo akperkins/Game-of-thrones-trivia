@@ -34,7 +34,7 @@ public class StartActivity extends Activity {
 			public void run() {
 				startActivity(intent);
 			}
-		}, 5000);
+		}, 4000);
 	}
 
 	public void onPause() {

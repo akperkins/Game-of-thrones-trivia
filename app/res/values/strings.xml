@@ -363,5 +363,8 @@
             <item>Greece</item>
             <item>1</item>
     </string-array>
+            <string name="disclaimer_">Disclaimer....</string>
+            <string name="spartacus_trivia_app">Spartacus Trivia App</string>
+            <string name="created_by_overnight_apps_this_app_is_an_unofficial_spartacus_trivia_app_this_app_has_no_affiliation_with_the_spartacus_franchise_">Created by: Overnight Apps. This app is an unofficial Spartacus trivia app. This app has no affiliation with the Spartacus franchise.</string>
     
 </resources>

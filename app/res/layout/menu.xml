@@ -7,55 +7,32 @@
     android:orientation="vertical"
     android:weightSum="1" >
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout1"
+    <TextView
+        android:id="@+id/textView1"
+        style="@style/CustomTheme.TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="@string/spartacus_trivia_app" >
+    </TextView>
+
+    <Button
+        android:id="@+id/quickbutton"
+        style="@style/CustomTheme.Button"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="wrap_content"
+        android:layout_marginTop="125dp"
+        android:text="Quick Game" >
+    </Button>
 
-        <RelativeLayout
-            android:id="@+id/relativeLayout2"
-            android:layout_width="fill_parent"
-            android:layout_height="300dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="68dp" >
-
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="34dp"
-                android:background="#A9A9A9"
-                android:text="Spartacus Trivia App"
-                android:textColor="#000000"
-                android:textSize="30dp"
-                android:textStyle="bold" >
-            </TextView>
-
-            <Button
-                android:id="@+id/quickbutton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/textView1"
-                android:layout_marginTop="37dp"
-                android:text="Quick Game"
-                android:textSize="20dp" >
-            </Button>
-
-            <Button
-                android:id="@+id/mainEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_below="@+id/quickbutton"
-                android:layout_marginTop="22dp"
-                android:text="E-mail developer"
-                android:textSize="20dp" >
-            </Button>
-        </RelativeLayout>
-    </RelativeLayout>
+    <Button
+        android:id="@+id/mainEmail"
+        style="@style/CustomTheme.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:text="E-mail developer" >
+    </Button>
 
 </LinearLayout>

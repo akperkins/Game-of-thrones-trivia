@@ -124,7 +124,7 @@ public class GameActivity extends Activity implements OnClickListener {
 			musicServiceHandler = MusicService.getHandler();
 		}
 		Message msg = Message.obtain();
-		msg.what = 1; // music playback
+		msg.what = MusicService.PLAYER_TOGGLE_MUSIC; // music playback
 		musicServiceHandler.sendMessage(msg);
 	}
 
@@ -133,7 +133,7 @@ public class GameActivity extends Activity implements OnClickListener {
 			musicServiceHandler = MusicService.getHandler();
 		}
 		Message msg = Message.obtain();
-		msg.what = 2; // music playback
+		msg.what = MusicService.PLAYER_KILL_THREAD; // music playback
 		musicServiceHandler.sendMessage(msg);
 	}
 
