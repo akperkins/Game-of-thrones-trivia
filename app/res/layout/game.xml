@@ -1,48 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/flames" >
+    android:background="@drawable/flames"
+    android:orientation="vertical"
+    android:weightSum="100" >
 
     <TextView
         android:id="@+id/question"
-        style="@style/CustomTheme.View.TextView.GameActivityTextView.Question" >
+        style="@style/CustomTheme.View.TextView"
+        android:layout_width="350dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="15"
+        android:text="question" >
     </TextView>
 
     <Button
         android:id="@+id/button1"
-        style="@style/CustomTheme.View.Button.GameActivityButton.Button1" >
+        style="@style/CustomTheme.View.Button"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="16"
+        android:text="Button1" >
     </Button>
 
     <Button
         android:id="@+id/button2"
-        style="@style/CustomTheme.View.Button.GameActivityButton.Button2" >
+        style="@style/CustomTheme.View.Button"
+        android:layout_height="0dp"
+        android:layout_weight="16"
+        android:text="Button2" >
     </Button>
 
     <Button
         android:id="@+id/button3"
-        style="@style/CustomTheme.View.Button.GameActivityButton.Button3" >
+        style="@style/CustomTheme.View.Button"
+        android:layout_height="0dp"
+        android:layout_weight="16"
+        android:text="Button3" >
     </Button>
 
     <Button
         android:id="@+id/button4"
-        style="@style/CustomTheme.View.Button.GameActivityButton.Button4" >
+        style="@style/CustomTheme.View.Button"
+        android:layout_height="0dp"
+        android:layout_weight="16"
+        android:text="Button4" >
     </Button>
 
-    <TextView
-        android:id="@+id/textTimer"
-        style="@style/CustomTheme.View.TextView.GameActivityTextView.Timer" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="20"
+        android:orientation="horizontal" >
 
-    <Button
-        android:id="@+id/musicButton"
-        style="@style/CustomTheme.View.Button.Music" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/Score"
-        style="@style/CustomTheme.View.TextView.GameActivityTextView.Score" />
+            <TextView
+                android:id="@+id/textTimer"
+                style="@style/CustomTheme.View.TextView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="50"
+                android:text="Left: 15" />
 
-    <TextView
-        android:id="@+id/Stats"
-        style="@style/CustomTheme.View.TextView.GameActivityTextView.Stats" />
+            <TextView
+                android:id="@+id/Stats"
+                style="@style/CustomTheme.View.TextView"
+                android:layout_height="0dp"
+                android:layout_weight="50"
+                android:text="0 / 13" />
+        </LinearLayout>
 
-</RelativeLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="50"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/Score"
+                style="@style/CustomTheme.View.TextView"
+                android:layout_height="0dp"
+                android:layout_weight="50"
+                android:text="10000" />
+
+            <Button
+                android:id="@+id/musicButton"
+                style="@style/CustomTheme.View.Button"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="50"
+                android:text="Start Music" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

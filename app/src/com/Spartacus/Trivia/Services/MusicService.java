@@ -47,42 +47,13 @@ public class MusicService extends Service implements
 		return 0;
 	}
 
-	/*
-	 * @Override protected void onHandleIntent(Intent intent) {
-	 * 
-	 * mHandler = new MusicHandler();
-	 * 
-	 * int resId = intent.getExtras().getInt("resId"); this.player =
-	 * MediaPlayer.create(this.getBaseContext(), resId); try { player.prepare();
-	 * } catch (IllegalStateException e1) { // TODO Auto-generated catch block
-	 * e1.printStackTrace(); } catch (IOException e1) { // TODO Auto-generated
-	 * catch block e1.printStackTrace(); } player.start(); try {
-	 * Log.i("worker thread", "Entered loop"); Thread.sleep(250); Looper.loop();
-	 * Log.i("worker thread", "exiting loop"); } catch (InterruptedException e)
-	 * { e.printStackTrace(); } finally { mHandler = null; } }
-	 */
-
-	/*
-	 * public class MusicHandler extends Handler { public void
-	 * handleMessage(Message msg) { if (msg.what == PLAYER_TOGGLE_MUSIC) { //
-	 * play back if (player.isPlaying()) { player.pause(); } else {
-	 * player.start(); } Log.i("worker thread",
-	 * "msg received in music worker, what = 1"); } else if (msg.what ==
-	 * PLAYER_KILL_THREAD) { player.stop(); player.release();
-	 * 
-	 * Looper.myLooper().quit(); stopSelf(); Log.i("worker thread",
-	 * "msg received in music worker, what = 2"); } else if (msg.what ==
-	 * PLAYER_RELEASE_PLAYER) { player.release(); } else if (msg.what ==
-	 * PLAYER_PAUSE_PLAYER) { player.pause(); } else if (msg.what ==
-	 * PLAYER_START_PLAYER) { player.start(); } else if (msg.what ==
-	 * PLAYER_STOP_PLAYER) { player.stop(); } } }
-	 */
 	public class LocalBinder extends Binder {
 		public MusicService getService() {
 			return MusicService.this;
 		}
 	}
-
+	
+	
 	public void initPlayer() {
 		if (!initialized) {
 			player = MediaPlayer.create(this.getBaseContext(), resid);
@@ -91,7 +62,11 @@ public class MusicService extends Service implements
 			initialized = true;
 		}
 	}
-
+	
+	/**
+	 * Sets the raw song resource to use.
+	 * @param resid - resource Id
+	 */
 	public void setSong(int resid) {
 		this.resid = resid;
 	}
@@ -99,7 +74,7 @@ public class MusicService extends Service implements
 	public void onAudioFocusChange(int focusChange) {
 		switch (focusChange) {
 		case AudioManager.AUDIOFOCUS_GAIN:
-			// resume playback
+			/** resume playback **/
 			if (player == null) {
 				initPlayer();
 				playerStart();
@@ -110,8 +85,10 @@ public class MusicService extends Service implements
 			break;
 
 		case AudioManager.AUDIOFOCUS_LOSS:
-			// Lost focus for an unbounded amount of time: stop playback and
-			// release media player
+			/**
+			 * Lost focus for an unbounded amount of time: stop playback and
+			 * release media player
+			 **/
 			if (player.isPlaying()) {
 				player.stop();
 			}
@@ -119,27 +96,38 @@ public class MusicService extends Service implements
 			break;
 
 		case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
-			// Lost focus for a short time, but we have to stop
-			// playback. We don't release the media player because playback
-			// is likely to resume
-			if (player.isPlaying())
+			/**
+			 * Lost focus for a short time, but we have to stop playback. We
+			 * don't release the media player because playback is likely to
+			 * resume
+			 **/
+			if (player.isPlaying()) {
 				playerPause();
+			}
 			break;
 
 		case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
-			// Lost focus for a short time, but it's ok to keep playing
-			// at an attenuated level
+			/**
+			 * Lost focus for a short time, but it's ok to keep playing at a
+			 * reduced level
+			 **/
 			if (player.isPlaying())
 				player.setVolume(0.1f, 0.1f);
 			break;
 		}
-
 	}
 
+	/**
+	 * playerPause - Pause playback of player
+	 */
 	public void playerPause() {
 		player.pause();
 	}
 
+	/**
+	 * playerStart - starts the music player only if we are able to gain Audio
+	 * focus
+	 */
 	public void playerStart() {
 		AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 		int result = audioManager.requestAudioFocus(this,
@@ -151,16 +139,26 @@ public class MusicService extends Service implements
 
 	}
 
+	/**
+	 * playerIsPlaying - Determine if the music player is currently playing
+	 * 
+	 * @return boolean indicating is the player is playing
+	 */
 	public boolean playerIsPlaying() {
 		return player.isPlaying();
 	}
 
+	/**
+	 * onDestroy - Cleans up player resource when service is destroyed
+	 */
 	public void onDestroy() {
-		// todo look into releasing when the player is paused
 		cleanUpPlayer();
 		super.onDestroy();
 	}
 
+	/**
+	 * cleanUpPlayer - Frees resources used by MusicPlayer object
+	 */
 	public void cleanUpPlayer() {
 		player.release();
 		player = null;

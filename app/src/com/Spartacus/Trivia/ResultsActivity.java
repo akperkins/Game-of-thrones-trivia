@@ -9,16 +9,16 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.Spartacus.Trivia.util.SendEmail;
+
 /**
  * End of game activity.
  * 
  * @author andre
- *
+ * 
  */
 public class ResultsActivity extends Activity implements OnClickListener {
 	/** Stores the game stats from the previous user game */
 	int correct, total;
-	double score;
 
 	/** References to the views in the UI layout */
 	TextView tv;
@@ -26,6 +26,7 @@ public class ResultsActivity extends Activity implements OnClickListener {
 	Button b1;
 	Button email;
 	Button backMain;
+	int score;
 
 	/**
 	 * onCreate(Bundle) - Sets the UI layout and initializes instance variables
@@ -35,12 +36,13 @@ public class ResultsActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.results);
 		correct = 0;
 		total = 0;
+		score = 0;
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			correct = extras.getInt("correct");
 			total = extras.getInt("total");
+			score = extras.getInt("score");
 		}
-		score = calcScore();
 		tv = (TextView) findViewById(R.id.endView1);
 		tv.setVisibility(2);
 		b1 = (Button) findViewById(R.id.endbutton1);
@@ -49,10 +51,6 @@ public class ResultsActivity extends Activity implements OnClickListener {
 		email.setOnClickListener(this);
 		backMain = (Button) findViewById(R.id.backMain);
 		backMain.setOnClickListener(this);
-	}
-
-	public double calcScore() {
-		return (correct * 1.0 / total) * 100;
 	}
 
 	/**
@@ -67,19 +65,19 @@ public class ResultsActivity extends Activity implements OnClickListener {
 	 * setScore() - Shows a message indicating how successful you were
 	 */
 	public void showResults() {
-		if (score >= 90.0) {
-			tv.setText("Congratulations. \nYou just may be the slayer of death after all.....\n"
-					+ "You were " + correct + " out of " + total + ".");
-
-		} else if (score >= 60) {
-			tv.setText("Good attempt but you still produce cock and piss....\n"
-					+ "You were " + correct + " out of " + total + ".");
-
+		String str = "";
+		if (score >= 1500) {
+			str = "Congratulations. \nYou just may be the slayer of death after all.....\n"
+					+ "You were " + correct + " out of " + total + ".";
+		} else if (score >= 600) {
+			str = "Good attempt but you still produce cock and piss....\n"
+					+ "You were " + correct + " out of " + total + ".";
 		} else {
-			tv.setText("Jupiters Cock!!\n You were " + correct + " out of "
-					+ total + ".");
-
+			str = "Jupiters Cock!!\n You were " + correct + " out of " + total
+					+ ".";
 		}
+		str += "\nScore : " + score;
+		tv.setText(str);
 	}
 
 	/**

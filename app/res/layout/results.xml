@@ -5,34 +5,42 @@
     android:layout_height="match_parent"
     android:background="@drawable/spartacus"
     android:orientation="vertical"
-    android:weightSum="1" >
+    android:weightSum="100" >
 
     <TextView
         android:id="@+id/endView1"
         style="@style/CustomTheme.View.TextView"
         android:layout_width="300dp"
+        android:layout_height="0dp"
         android:layout_gravity="center"
+        android:layout_weight="20"
         android:text="TextView" >
     </TextView>
 
     <Button
         android:id="@+id/backMain"
         style="@style/CustomTheme.View.Button"
+        android:layout_height="0dp"
         android:layout_marginTop="230dp"
+        android:layout_weight="20"
         android:text="Back to Main Menu" >
     </Button>
 
     <Button
         android:id="@+id/endbutton1"
         style="@style/CustomTheme.View.Button"
+        android:layout_height="0dp"
         android:layout_margin="5dp"
+        android:layout_weight="20"
         android:text="Try again!" >
     </Button>
 
     <Button
         android:id="@+id/emailButton"
         style="@style/CustomTheme.View.Button"
+        android:layout_height="0dp"
         android:layout_margin="5dp"
+        android:layout_weight="20"
         android:text="Comments, Complaints, Suggestions" >
     </Button>
 

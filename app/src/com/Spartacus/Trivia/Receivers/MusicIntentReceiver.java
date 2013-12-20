@@ -3,8 +3,6 @@ package com.Spartacus.Trivia.Receivers;
 import android.content.Context;
 import android.content.Intent;
 
-import com.Spartacus.Trivia.Services.MusicService;
-
 public class MusicIntentReceiver extends android.content.BroadcastReceiver {
 	@Override
 	public void onReceive(Context ctx, Intent intent) {

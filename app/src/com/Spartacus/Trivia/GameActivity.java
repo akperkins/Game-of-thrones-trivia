@@ -104,7 +104,7 @@ public class GameActivity extends Activity implements OnClickListener {
 		// start service
 
 		Intent intent = new Intent(this, MusicService.class);
-		this.getApplicationContext().bindService(intent, mConnection,
+		this.getApplication().bindService(intent, mConnection,
 				Context.BIND_AUTO_CREATE);
 
 		if (state != null) {
@@ -283,12 +283,11 @@ public class GameActivity extends Activity implements OnClickListener {
 	 * called and this activity is finished
 	 */
 	public void endGame() {
-		// musicService.stopThread();
-		this.getApplication().getApplicationContext()
-				.unbindService(mConnection);
+		this.getApplication().unbindService(mConnection);
 		Intent intent = new Intent(this, ResultsActivity.class);
 		intent.putExtra("correct", amountCorrect);
 		intent.putExtra("total", TOTAL_QUESTIONS);
+		intent.putExtra("score", gameScore);
 		setResult(RESULT_OK);
 		startActivity(intent);
 		finish();
@@ -355,8 +354,8 @@ public class GameActivity extends Activity implements OnClickListener {
 		}
 		if (correctChoice == button) {
 			amountCorrect++;
-			gameScore += (100 * counter.left);
-			Toast.makeText(getApplicationContext(), "Correct!",
+			gameScore += (counter.left / 100);
+			Toast.makeText(this.getBaseContext(), "Correct!",
 					Toast.LENGTH_SHORT).show();
 		} else {
 			showDialog(DIALOG_WRONG_ID);
