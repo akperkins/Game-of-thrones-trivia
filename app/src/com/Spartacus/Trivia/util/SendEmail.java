@@ -4,7 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 
 /**
- * Only used to send an email intent.
+ * Only used to send an email intent. Class will be used in a command class
+ * pattern.
  * 
  * @author Andre Perkins - akperkins1@gmail.com
  * 

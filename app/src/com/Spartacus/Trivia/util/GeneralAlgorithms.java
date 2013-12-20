@@ -3,11 +3,27 @@ package com.Spartacus.Trivia.util;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Class used to store algorithms that can be re-used in multiple instances.
+ * This class will be moved to a Android Library project. This class is not
+ * meant to be instantiated.
+ * 
+ * @author Andre Perkins - akperkins1@gmail.com
+ * 
+ */
 public class GeneralAlgorithms {
 
 	private GeneralAlgorithms() {
 	}
 
+	/**
+	 * shufffleArray - Returns an array with the same contents as the array
+	 * passed except the contents are shuffled.
+	 * 
+	 * @param array
+	 *            - Object array to be shuffled
+	 * @return Object[] - shuffled array
+	 */
 	public static Object[] shuffleArray(Object[] array) {
 		Object[] temp = array.clone();
 
@@ -22,6 +38,16 @@ public class GeneralAlgorithms {
 		return temp;
 	}
 
+	/**
+	 * getWeightedProbability() - selects a position in the array. The position
+	 * chances are multiplied by the int value of the value in that array
+	 * position. This function will return -1 for an empty array, -2 if any of
+	 * the values is less than 0 or -3 if all the values of every position is 0.
+	 * 
+	 * @param probs
+	 *            - int[] that contains weighted values
+	 * @return select probs position
+	 */
 	public static int getWeightedProbability(int[] probs) {
 		if (probs.length == 0) {
 			return -1;

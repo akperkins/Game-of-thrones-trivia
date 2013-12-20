@@ -56,8 +56,8 @@
     <TextView
         android:id="@+id/Score"
         style="@style/CustomTheme.View.TextView"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_width="100dp"
+        android:layout_height="42dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:text="1000000" >
@@ -66,8 +66,8 @@
      <TextView
         android:id="@+id/Stats"
         style="@style/CustomTheme.View.TextView"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_width="100dp"
+        android:layout_height="42dp"
         android:layout_toRightOf="@+id/Score"
         android:layout_alignParentBottom="true"
         android:text="0 / 13" />
@@ -75,8 +75,8 @@
     <Button
         android:id="@+id/musicButton"
         style="@style/CustomTheme.View.Button"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_width="100dp"
+        android:layout_height="42dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:text="Stop Music" />
@@ -84,8 +84,8 @@
     <TextView
         android:id="@+id/textTimer"
         style="@style/CustomTheme.View.TextView"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_width="100dp"
+        android:layout_height="42dp"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/musicButton"
         android:text="Left: 15" />

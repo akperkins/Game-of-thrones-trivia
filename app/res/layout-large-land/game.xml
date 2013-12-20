@@ -8,7 +8,7 @@
         android:id="@+id/question"
         style="@style/CustomTheme.View.TextView"
         android:layout_width="460dp"
-        android:layout_height="50dp"
+        android:layout_height="60dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
@@ -18,74 +18,74 @@
     <Button
         android:id="@+id/button1"
         style="@style/CustomTheme.View.Button"
+        android:layout_height="80dp"
         android:layout_below="@+id/question"
-        android:layout_height="45dp"
         android:text="Button1" >
     </Button>
 
     <Button
         android:id="@+id/button2"
         style="@style/CustomTheme.View.Button"
+        android:layout_height="80dp"
         android:layout_alignLeft="@+id/button1"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/button1"
-        android:layout_height="45dp"
         android:text="Button2" >
     </Button>
 
     <Button
         android:id="@+id/button3"
         style="@style/CustomTheme.View.Button"
+        android:layout_height="80dp"
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/button2"
         android:layout_below="@+id/button2"
-        android:layout_height="45dp"
         android:text="Button3" >
     </Button>
 
     <Button
         android:id="@+id/button4"
         style="@style/CustomTheme.View.Button"
+        android:layout_height="80dp"
         android:layout_alignLeft="@+id/button3"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/button3"
-        android:layout_height="45dp"
         android:text="Button4" >
     </Button>
 
     <TextView
         android:id="@+id/Score"
         style="@style/CustomTheme.View.TextView"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
+        android:layout_width="170dp"
+        android:layout_height="65dp"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:text="1000000" >
     </TextView>
-    
-     <TextView
+
+    <TextView
         android:id="@+id/Stats"
         style="@style/CustomTheme.View.TextView"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
-        android:layout_toRightOf="@+id/Score"
+        android:layout_width="170dp"
+        android:layout_height="65dp"
         android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/Score"
         android:text="0 / 13" />
 
     <Button
         android:id="@+id/musicButton"
         style="@style/CustomTheme.View.Button"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
+        android:layout_width="170dp"
+        android:layout_height="65dp"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:text="Stop Music" />
 
     <TextView
         android:id="@+id/textTimer"
         style="@style/CustomTheme.View.TextView"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_width="170dp"
+        android:layout_height="65dp"
         android:layout_alignParentBottom="true"
         android:layout_toLeftOf="@+id/musicButton"
         android:text="Left: 15" />

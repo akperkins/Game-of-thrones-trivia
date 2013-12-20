@@ -8,7 +8,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.Spartacus.Trivia.util.SendEmail;
-
+/**
+ * Main Menu of application.
+ * 
+ * @author andre
+ *
+ */
 public class MenuActivity extends Activity implements OnClickListener {
 
 	Button qGame;

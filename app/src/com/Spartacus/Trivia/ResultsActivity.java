@@ -9,7 +9,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.Spartacus.Trivia.util.SendEmail;
-
+/**
+ * End of game activity.
+ * 
+ * @author andre
+ *
+ */
 public class ResultsActivity extends Activity implements OnClickListener {
 	/** Stores the game stats from the previous user game */
 	int correct, total;

@@ -10,8 +10,8 @@
     <TextView
         android:id="@+id/textView1"
         style="@style/CustomTheme.View.TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="600dp"
+        android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_marginTop="0dp"
         android:text="@string/spartacus_trivia_app" >
@@ -20,16 +20,18 @@
     <Button
         android:id="@+id/quickbutton"
         style="@style/CustomTheme.View.Button"
-        android:layout_width="400dp"
+        android:layout_width="800dp"
+        android:layout_height="100dp"
         android:layout_gravity="center"
-        android:layout_marginTop="37dp"
+        android:layout_marginTop="130dp"
         android:text="Quick Game" >
     </Button>
 
     <Button
         android:id="@+id/mainEmail"
         style="@style/CustomTheme.View.Button"
-        android:layout_width="400dp"
+        android:layout_width="800dp"
+        android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:text="E-mail developer" >

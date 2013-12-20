@@ -5,81 +5,44 @@
     android:background="@drawable/flames" >
 
     <TextView
-        android:id="@+id/textView1"
-        style="@style/CustomTheme.TextView"
-        android:layout_width="250dp"
-        android:layout_height="76dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:text="TextView" >
+        android:id="@+id/question"
+        style="@style/CustomTheme.View.TextView.GameActivityTextView.Question" >
     </TextView>
 
     <Button
         android:id="@+id/button1"
-        style="@style/CustomTheme.Button"
-        android:layout_height="80dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView1"
-        android:text="Button1" >
+        style="@style/CustomTheme.View.Button.GameActivityButton.Button1" >
     </Button>
 
     <Button
         android:id="@+id/button2"
-        style="@style/CustomTheme.Button"
-        android:layout_height="80dp"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/button1"
-        android:text="Button2" >
+        style="@style/CustomTheme.View.Button.GameActivityButton.Button2" >
     </Button>
 
     <Button
         android:id="@+id/button3"
-        style="@style/CustomTheme.Button"
-        android:layout_height="80dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/button2"
-        android:layout_below="@+id/button2"
-        android:text="Button3" >
+        style="@style/CustomTheme.View.Button.GameActivityButton.Button3" >
     </Button>
 
     <Button
         android:id="@+id/button4"
-        style="@style/CustomTheme.Button"
-        android:layout_height="80dp"
-        android:layout_alignLeft="@+id/button3"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/button3"
-        android:text="Button4" >
-    </Button>
-
-    <Button
-        android:id="@+id/musicButton"
-        style="@style/CustomTheme.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/textView2"
-        android:text="Stop Music" >
+        style="@style/CustomTheme.View.Button.GameActivityButton.Button4" >
     </Button>
 
     <TextView
         android:id="@+id/textTimer"
-        style="@style/CustomTheme.TextView"
-        android:layout_width="90dp"
-        android:layout_height="40dp"
-        android:layout_alignBottom="@+id/textView2"
-        android:layout_alignRight="@+id/button3"
-        android:text="Left: 15" />
+        style="@style/CustomTheme.View.TextView.GameActivityTextView.Timer" />
+
+    <Button
+        android:id="@+id/musicButton"
+        style="@style/CustomTheme.View.Button.Music" />
 
     <TextView
-        android:id="@+id/textView2"
-        style="@style/CustomTheme.TextView"
-        android:layout_width="130dp"
-        android:layout_alignLeft="@+id/button4"
-        android:layout_alignParentBottom="true"
-        android:text="You are 0/9. Out of 10." />
+        android:id="@+id/Score"
+        style="@style/CustomTheme.View.TextView.GameActivityTextView.Score" />
+
+    <TextView
+        android:id="@+id/Stats"
+        style="@style/CustomTheme.View.TextView.GameActivityTextView.Stats" />
 
 </RelativeLayout>

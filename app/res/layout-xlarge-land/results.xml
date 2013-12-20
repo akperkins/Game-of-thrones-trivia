@@ -10,7 +10,8 @@
     <TextView
         android:id="@+id/endView1"
         style="@style/CustomTheme.View.TextView"
-        android:layout_width="300dp"
+        android:layout_width="600dp"
+        android:layout_height="100dp"
         android:layout_gravity="center"
         android:text="TextView" >
     </TextView>
@@ -18,16 +19,18 @@
     <Button
         android:id="@+id/backMain"
         style="@style/CustomTheme.View.Button"
-        android:layout_width="400dp"
+        android:layout_width="800dp"
+        android:layout_height="100dp"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="150dp"
         android:text="Back to Main Menu" >
     </Button>
 
     <Button
         android:id="@+id/endbutton1"
         style="@style/CustomTheme.View.Button"
-        android:layout_width="400dp"
+        android:layout_width="800dp"
+        android:layout_height="100dp"
         android:layout_gravity="center"
         android:text="Try again!" >
     </Button>
@@ -35,7 +38,8 @@
     <Button
         android:id="@+id/emailButton"
         style="@style/CustomTheme.View.Button"
-        android:layout_width="400dp"
+        android:layout_width="800dp"
+        android:layout_height="100dp"
         android:layout_gravity="center"
         android:text="Comments, Complaints, Suggestions" >
     </Button>

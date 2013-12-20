@@ -16,9 +16,9 @@ public class QuestionsManager implements java.io.Serializable {
 
 	public QuestionsManager(ArrayList<String[]> strQuestions,
 			QuestionMangeStrategy questionStrategy) {
-		questionsCollection = new TriviaQuestions[strQuestions.size()];
+		questionsCollection = new Questions[strQuestions.size()];
 		for (int i = 0; i < strQuestions.size(); i++) {
-			questionsCollection[i] = new TriviaQuestions(strQuestions.get(i));
+			questionsCollection[i] = new Questions(strQuestions.get(i));
 		}
 		this.questionStrategy = questionStrategy;
 	}
@@ -35,7 +35,6 @@ public class QuestionsManager implements java.io.Serializable {
 	public String[] getCurrentQuestion() {
 		return currentQuestion;
 	}
-
 
 	public Questions[] getQuestionsCollection() {
 		return questionsCollection;

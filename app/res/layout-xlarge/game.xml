@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/flames" >
+
+    <TextView
+        android:id="@+id/question"
+        style="@style/CustomTheme.View.TextView.GameActivityTextView.Question"
+        android:layout_width="600dp"
+        android:layout_height="200dp" >
+    </TextView>
+
+    <Button
+        android:id="@+id/button1"
+        style="@style/CustomTheme.View.Button.GameActivityButton.Button1"
+        android:layout_height="180dp" >
+    </Button>
+
+    <Button
+        android:id="@+id/button2"
+        style="@style/CustomTheme.View.Button.GameActivityButton.Button2"
+        android:layout_height="180dp" >
+    </Button>
+
+    <Button
+        android:id="@+id/button3"
+        style="@style/CustomTheme.View.Button.GameActivityButton.Button3"
+        android:layout_height="180dp" >
+    </Button>
+
+    <Button
+        android:id="@+id/button4"
+        style="@style/CustomTheme.View.Button.GameActivityButton.Button4"
+        android:layout_height="180dp" >
+    </Button>
+
+    <TextView
+        android:id="@+id/textTimer"
+        style="@style/CustomTheme.View.TextView.GameActivityTextView.Timer"
+        android:layout_width="350dp"
+        android:layout_height="110dp" />
+
+    <Button
+        android:id="@+id/musicButton"
+        style="@style/CustomTheme.View.Button.Music"
+        android:layout_width="350dp"
+        android:layout_height="110dp" />
+
+    <TextView
+        android:id="@+id/Score"
+        style="@style/CustomTheme.View.TextView.GameActivityTextView.Score"
+        android:layout_width="350dp"
+        android:layout_height="110dp" />
+
+    <TextView
+        android:id="@+id/Stats"
+        style="@style/CustomTheme.View.TextView.GameActivityTextView.Stats"
+        android:layout_width="350dp"
+        android:layout_height="110dp" />
+
+</RelativeLayout>
