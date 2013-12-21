@@ -129,17 +129,6 @@ public class GameActivity extends Activity implements OnClickListener {
 		}
 	}
 
-	/*
-	 * public void sendToggleBackMssage() { if (musicServiceHandler == null) {
-	 * musicServiceHandler = MusicService.getHandler(); } Message msg =
-	 * Message.obtain(); msg.what = MusicService.PLAYER_TOGGLE_MUSIC; // music
-	 * playback musicServiceHandler.sendMessage(msg); }
-	 * 
-	 * public void sendKillThreadMessage() { if (musicServiceHandler == null) {
-	 * musicServiceHandler = MusicService.getHandler(); } Message msg =
-	 * Message.obtain(); msg.what = MusicService.PLAYER_KILL_THREAD; // music
-	 * playback musicServiceHandler.sendMessage(msg); }
-	 */
 
 	private ServiceConnection mConnection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName className, IBinder service) {
@@ -147,7 +136,7 @@ public class GameActivity extends Activity implements OnClickListener {
 			musicService = binder.getService();
 
 			if (!initServiceSong) {
-				musicService.setSong(R.raw.spartacus_cool_mix);
+				musicService.setSong(R.raw.game_of_thrones_theme_song);
 				musicService.initPlayer();
 				initServiceSong = true;
 			} else {

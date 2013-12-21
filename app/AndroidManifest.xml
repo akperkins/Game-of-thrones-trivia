@@ -39,7 +39,7 @@
         </activity>
 
         <service
-            android:name="com.Spartacus.Trivia.Services.MusicService"
+            android:name="com.GameOfThrones.Trivia.Services.MusicService"
             android:enabled="true" >
         </service>
 
