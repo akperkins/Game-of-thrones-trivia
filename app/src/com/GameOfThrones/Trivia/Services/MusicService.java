@@ -1,4 +1,4 @@
-package com.Spartacus.Trivia.Services;
+package com.GameOfThrones.Trivia.Services;
 
 import android.app.Service;
 import android.content.Context;

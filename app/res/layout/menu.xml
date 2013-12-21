@@ -3,7 +3,7 @@
     android:id="@+id/layout1"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/spartacus"
+    android:background="@drawable/dany_port"
     android:orientation="vertical"
     android:weightSum="100" >
 

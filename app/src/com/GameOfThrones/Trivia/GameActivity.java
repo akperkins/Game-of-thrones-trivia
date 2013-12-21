@@ -1,4 +1,4 @@
-package com.Spartacus.Trivia;
+package com.GameOfThrones.Trivia;
 
 import java.util.ArrayList;
 
@@ -20,10 +20,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.Spartacus.Trivia.Exceptions.OutOfQuestionsException;
-import com.Spartacus.Trivia.Models.QuestionsManager;
-import com.Spartacus.Trivia.Models.WeightedRemainingQuestionStrategy;
-import com.Spartacus.Trivia.Services.MusicService;
+import com.GameOfThrones.Trivia.Exceptions.OutOfQuestionsException;
+import com.GameOfThrones.Trivia.Models.QuestionsManager;
+import com.GameOfThrones.Trivia.Models.WeightedRemainingQuestionStrategy;
+import com.GameOfThrones.Trivia.Services.MusicService;
 
 /**
  * The trivia game loop executes here.

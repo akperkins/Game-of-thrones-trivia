@@ -1,4 +1,4 @@
-package com.Spartacus.Trivia;
+package com.GameOfThrones.Trivia;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-import com.Spartacus.Trivia.util.SendEmail;
+import com.GameOfThrones.Trivia.util.SendEmail;
 /**
  * Main Menu of application.
  * 

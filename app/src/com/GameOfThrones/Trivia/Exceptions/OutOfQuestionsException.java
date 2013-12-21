@@ -1,4 +1,4 @@
-package com.Spartacus.Trivia.Exceptions;
+package com.GameOfThrones.Trivia.Exceptions;
 
 public class OutOfQuestionsException extends Exception {
 

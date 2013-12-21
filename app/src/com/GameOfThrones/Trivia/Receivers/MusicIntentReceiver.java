@@ -1,4 +1,4 @@
-package com.Spartacus.Trivia.Receivers;
+package com.GameOfThrones.Trivia.Receivers;
 
 import android.content.Context;
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package com.Spartacus.Trivia.util;
+package com.GameOfThrones.Trivia.util;
 
 import java.util.ArrayList;
 import java.util.Random;

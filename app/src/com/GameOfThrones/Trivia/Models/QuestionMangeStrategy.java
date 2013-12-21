@@ -1,8 +1,8 @@
-package com.Spartacus.Trivia.Models;
+package com.GameOfThrones.Trivia.Models;
 
 import java.io.Serializable;
 
-import com.Spartacus.Trivia.Exceptions.OutOfQuestionsException;
+import com.GameOfThrones.Trivia.Exceptions.OutOfQuestionsException;
 
 /**
  * QuestionsManageStrategy - Subclasses inherit this class and determine the

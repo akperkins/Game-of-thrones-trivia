@@ -1,7 +1,7 @@
-package com.Spartacus.Trivia.Models;
+package com.GameOfThrones.Trivia.Models;
 
-import com.Spartacus.Trivia.Exceptions.OutOfQuestionsException;
-import com.Spartacus.Trivia.util.GeneralAlgorithms;
+import com.GameOfThrones.Trivia.Exceptions.OutOfQuestionsException;
+import com.GameOfThrones.Trivia.util.GeneralAlgorithms;
 
 public class WeightedRemainingQuestionStrategy extends QuestionMangeStrategy {
 

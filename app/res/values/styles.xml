@@ -6,7 +6,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:typeface">monospace</item>
         <item name="android:textSize">15sp</item>
-        <item name="android:textColor">#FFA500</item>
+        <item name="android:textColor">#111</item>
     </style>
 
     <style name="CustomTheme.View">

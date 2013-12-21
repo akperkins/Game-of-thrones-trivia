@@ -1,4 +1,4 @@
-package com.Spartacus.Trivia.util;
+package com.GameOfThrones.Trivia.util;
 
 import android.app.Activity;
 import android.content.Intent;

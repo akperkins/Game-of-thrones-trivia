@@ -1,10 +1,10 @@
-package com.Spartacus.Trivia.Models;
+package com.GameOfThrones.Trivia.Models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import com.Spartacus.Trivia.Exceptions.OutOfQuestionsException;
-import com.Spartacus.Trivia.util.GeneralAlgorithms;
+import com.GameOfThrones.Trivia.Exceptions.OutOfQuestionsException;
+import com.GameOfThrones.Trivia.util.GeneralAlgorithms;
 
 /**
  * 
@@ -85,6 +85,6 @@ public class Questions implements Serializable{
 	}
 
 	public int unusedLeft() {
-		return questionOrder.length - (questionIndex + 1);
+		return questionOrder.length - questionIndex;
 	}
 }

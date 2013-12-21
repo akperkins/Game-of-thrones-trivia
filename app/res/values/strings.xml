@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="hello">Hello World, SpartaucsTriviaActivity!</string>
     <string name="app_name">Spartacus Trivia</string>
     <string name="example_label"> TriviaMenuActivity</string>
@@ -8,364 +9,135 @@
     <string name="disclaimer_">Disclaimer....</string>
     <string name="spartacus_trivia_app">Spartacus Trivia App</string>
     <string name="created_by">App Created by: Overnight Apps. This app is an unofficial Spartacus trivia app. This app has no affiliation with the Spartacus franchise.</string>
-    
-    
-    <string-array
-        name="easyQuestions">
-        
-            <item> Ratio of Batiatus gladiators to Solonius in final battle(prequel)?  </item> //1
-            <item> 1 to 1</item>
-            <item> 1 to 3</item>
-            <item> 1 to 2</item>
-            <item> 2 to 3</item>
-            <item> 3 </item>
-            <item> What is Barca? </item> //2
-            <item> Gaul</item>
-          	<item> African-american</item>
-            <item> Carthaginian </item>
-            <item> Thracian</item>
-            <item> 3 </item>
-            <item> Number of episodes in Blood and Sand?</item> //3
-            <item> 15</item>
-            <item> 12</item>
-            <item> 14</item>
-            <item> 13</item>
-            <item> 4 </item>
-            <item> Title of second episode (Blood and Sand)?</item> //4
-            <item> The Test</item>
-            <item> The Red Serpent</item>
-            <item> Sacramentum Gladiatorum</item>
-            <item> Shadow of Death</item>
-            <item> 3 </item>
-            <item> Who is Capua first champion(that is alive during the show) ?</item> //5
-            <item> Theokoles</item>
-            <item> Oenomaus</item>
-            <item> Krixius</item>
-            <item> Pericules</item>
-            <item> 2 </item>
-            <item> Why do the Thracians initially team up with the Romans?</item> //6
-            <item> To kill theokoles </item>
-            <item> To kill the Getae</item>
-            <item> To form an empire</item>
-            <item> To stop the war between them</item>
-            <item> 2 </item>
-            <item> "The Shadow of Rome is vast and you will die under it."</item> //7
-            <item> Glauber </item>
-            <item> Sura </item>
-            <item> The Magistrate</item>
-            <item> Batiatus </item>
-            <item> 1 </item>
-            <item> What is written on the head of the slave who dies in the pit?</item> //8
-            <item> Fugitive </item>
-            <item> Prisoner </item>
-            <item> Murderer</item>
-            <item> There is nothing on his head</item>
-            <item> 1</item>
-            <item> Name  of the actor that plays Batiatus? </item>
-            <item> Peter Jack</item>
-            <item> Josh Hannah</item>
-            <item> Mark arkov</item>
-            <item> Peter Ustinov</item>
-            <item> 2 </item>
-            <item> What does Spartacus say to Krixius when they first meet?</item>
-            <item> He smells like a women </item>
-            <item> That he does not deserve to be champion</item>
-            <item> He is not a Gaul</item>
-            <item> That he can defeat Krixius</item>
-            <item> 1 </item>
-            <item> What does Oenomaus do to the recruit that laughs in episode 2(Blood and Sand)?</item> //11
-            <item> Nothing</item>
-            <item> Whips him </item>
-            <item> Challenges him to battle </item>
-            <item> Hits him in the genitals </item>
-            <item> 4 </item>
-            <item> "Beg for your life little rabbit" </item>
-            <item> Lucretia </item>
-            <item> Batiatus</item>
-            <item> Krixus</item>
-            <item> Oenomaus</item>
-            <item> 4 </item>\
-            <item> What is Spartacus real name?</item>
-            <item> Tutlin</item>
-            <item> It is never mentioned </item>
-            <item> Linkus</item>
-            <item> Rignus</item>
-            <item> 2 </item>
-            <item> Who is the first to say "Jupiters Cock!"?</item>
-            <item> Batiatus</item>
-            <item> Spartacus</item>
-            <item> Varo</item>
-            <item> Asher</item>
-            <item> 3 </item>
-            <item> What is the name of Glabbers wife?</item>
-            <item> Gaia </item>
-            <item> Olivia</item>
-            <item> Maconista</item>
-            <item> Teahs</item>
-            <item> 2</item>
-            <item> Who built the lotus that Batiatus inherits?</item>// 16
-            <item> Solonius</item>
-            <item> Batiatus father</item>
-            <item> Batiatus grandfather</item>
-            <item> None of the above</item>
-            <item> 3 </item>
-            <item> Why does Krixius mock Spartacus right before Spartacus test?</item>
-            <item> Spartacus cries</item>
-            <item> Spartacus flees</item>
-            <item> Spartacus refuses to fight</item>
-            <item> Spartacus is sick</item>
-            <item> 1</item>
-            <item> In what episode do Krixius and Spartacus have their first official match?</item>
-            <item>103</item>
-            <item>102</item>
-            <item>104</item>
-            <item>None of the above</item>
-            <item>1 </item>
-            <item>How long does Lucretia have to become pregnant after being treated by the doctor?</item>
-            <item>30 days</item>
-            <item>Until she dies</item>
-            <item>1 day</item>
-            <item>1 hour</item>
-            <item>4</item>
-            <item>What is Solonius middle name?</item>
-            <item>It was never mentioned</item>
-            <item>Decadus</item>
-            <item>Linkus</item>
-            <item>Horario</item>
-            <item>2 </item>
-            <item>Who is Classlus?</item> //21
-            <item>Syrian trader who bought Spartacus wife</item>
-            <item>The first champion of Capua</item>
-            <item>Barca father</item>
-            <item>There is no one named Classlus</item>
-            <item>4 </item>
-            <item>How does Spartacus acquire the nickname Bringer of the Rains?</item>
-            <item>He makes it rain pools of blood in the arena</item>
-            <item>He is the bearer of bad news</item>
-            <item>It rains when he defeats the Theokoles</item>
-            <item>Everyone believes he is cursed</item>
-            <item>3 </item>
-            <item>Name of the actor that plays krixius</item>
-            <item>Manu Bennet</item>
-            <item>Josh Hannah</item>
-            <item>Andy Whitfield</item>
-            <item>Randy Newfield</item>
-            <item>1</item>
-            <item>In what episode does Spartacus becomes Champion of Capua?</item>
-            <item>104</item>
-            <item>105</item>
-            <item>106</item>
-            <item>107</item>
-            <item>2</item>
-            <item>Who is the only gladiator to fight Theokoles alone and survive? </item>
-            <item>Spartacus</item>
-            <item>Oenomaus</item>
-            <item>No gladiator accomplished such a feat</item>
-            <item>Pericules</item>
-            <item>2</item>
-            <item>Why does Theokoles come to Capua?</item> // 26
-            <item>For the glory of defeating the champion</item>
-            <item>For the money of winning the primest</item>
-            <item>He has no control since he is a slave</item>
-            <item>It is never metioned </item>
-            <item>1</item>
-            <item>Which gladiator does Olivia get a private showing of in episode 104?</item>
-            <item>Krixius</item>
-            <item>Varo</item>
-            <item>Barca</item>
-            <item>Naues</item>
-            <item>2</item>
-            <item>How did Oenemaus receive the wounds on his body?</item>
-            <item>Inflicted by Theokoles</item>
-            <item>He was caught in a house that was on fire</item>
-            <item>A rough childhood</item>
-            <item>It is never mentioned</item>
-            <item>1</item>
-            <item>What is Barca boyfriend name?(season 1)</item>
-            <item>Beatrius</item>
-            <item>Bernard</item>
-            <item>Bintin</item>
-            <item>Beavon</item>
-            <item>1</item>
-            <item>What weapon does Spartacus second opponent in the pit use?</item>
-            <item>large hammmer</item>
-            <item>brass knuckles with kives on it</item>
-            <item>boxing gloves that are chained together</item>
-            <item>large axe</item>
-            <item>3</item>
-            <item>How many times does Krixius sleep with the domina in episode 104?</item> //31
-            <item>1</item>
-            <item>0</item>
-            <item>3</item>
-            <item>2</item>
-            <item>1</item>
-            <item>In what episode do Krixius and Nivea first kiss?</item>
-            <item>102</item>
-            <item>103</item>
-            <item>104</item>
-            <item>105</item>
-            <item>3</item>
-            <item>Q: How much more blood until we are free</item>
-            <item>Lucretia</item>
-            <item>Navea</item>
-            <item>Sura</item>
-            <item>Beatrius</item>
-            <item>3</item>
-            <item>What plan does Spartacus and Batiatus make in the pit?</item>
-            <item>That Batiatus will locate his wife if he wins the final match</item>
-            <item>That Spartacus can leave the pit by paying off Batiatus</item>
-            <item>To kill Ovidius</item>
-            <item>That Spartacus will throw his final match</item>
-            <item>4</item>
-            <item>What weapon does Spartacus final opponent in the pit use against him?</item>
-            <item>Large Hammer</item>
-            <item>brass knuckles</item>
-            <item>Double-edge sword</item>
-            <item>Large axe</item>
-            <item>4</item>
-            <item>What is the brand that the assaisins(from the pit) sport?</item>
-            <item>XY</item>
-            <item>YX</item>
-            <item>XX</item>
-            <item>YY</item>
-            <item>4</item>
-            <item>Q:He(Spartacus) is cursed, cursed by the gods!</item>
-            <item>Sura</item>
-            <item>Varo</item>
-            <item>Lucretia</item>
-            <item>Oenomaus</item>
-            <item>3</item>
-            <item>What weapon is Spartacus given his first fight in the pit?</item>
-            <item>Large hammer</item>
-            <item>Sword</item>
-            <item>Brass knuckles</item>
-            <item>He was forced to fight bare-handed</item>
-            <item>3</item>
-            <item>What is the name of Spartacus first opponent in the pit</item>
-            <item>ragex</item>
-            <item>calipso</item>
-            <item>tethera</item>
-            <item>mermex</item>
-            <item>4</item>
-            <item>Q:I want everything yet, can afford nothing</item> //40
-            <item>Batiatus</item>
-            <item>Solonious</item>
-            <item>Varo</item>
-            <item>Spartacus</item>
-            <item>1</item>
+
+    <string-array name="easyQuestions">
+        <item>What are the names of the Brothers of the Night\'s Watch in the prologue?</item>
+        <item>Garett, Wal and Willem Risley</item>
+        <item>Gared, Will and Waymar Royce</item>
+        <item>Gareth, Whin and Walder Ryswell</item>
+        <item>Gerry, Whis and Whynton Redfort</item>
+        <item>2</item>
+        <item>What is the name of Daenery\'s husband?</item>
+        <item>Moro</item>
+        <item>Rhogoro</item>
+        <item>Qotho</item>
+        <item>Drogo</item>
+        <item>4</item>
+        <item>Which is not one of the Seven Gods?</item>
+        <item>The Mother</item>
+        <item>The Crone</item>
+        <item>The Healer</item>
+        <item>The Smith</item>
+        <item>3</item>
+        <item>At the book\'s beginning, what is the name of the former Lord Commander of the Kingsguard?</item>
+        <item>Barristan Selmy</item>
+        <item>Oswell Whent</item>
+        <item>Gerold Hightower</item>
+        <item>Arthur Dayne</item>
+        <item>1</item>
+        <item>In the forging of a Maester\'s chain, which metal indicates study in the field of warcraft?</item>
+        <item>Bronze</item>
+        <item>Iron</item>
+        <item>Silver</item>
+        <item>Blackened Iron</item>
+        <item>3</item>
+        <item>What is the blazon on the Tarly coat of arms?</item>
+        <item>A striding huntsman</item>
+        <item>A rearing horse</item>
+        <item>A grape cluster</item>
+        <item>A winged chalice</item>
+        <item>2</item>
+        <item>Which sword is not made of Valyrian Steel?</item>
+        <item>Ice</item>
+        <item>Dawn</item>
+        <item>Longclaw</item>
+        <item>Heartsbane</item>
+        <item>3</item>
+        <item>Who serves as the High Steward of the Vale?</item>
+        <item>Nestor Royce</item>
+        <item>Brynden Tully</item>
+        <item>Lyn Corbray</item>
+        <item>Vardis Egen</item>
+        <item>2</item>
+        <item>At what age is Jon Snow when he asks to join the Night\'s Watch?</item>
+        <item>Fourteen</item>
+        <item>Fifteen</item>
+        <item>Sixteen</item>
+        <item>Seventeen</item>
+        <item>2</item>
+        <item>Which Stark Lord was the last of the Kings in the North?</item>
+        <item>Jon Stark</item>
+        <item>Theon Stark</item>
+        <item>Torrhen Stark</item>
+        <item>Cregan Stark</item>
+        <item>3</item>
+        <item>Game of Thrones is set in the fictional land of Westeros. How many Kingdoms does it have?</item>
+        <item>One</item>
+        <item>Five</item>
+        <item>Seven</item>
+        <item>Thirteen</item>
+        <item>3</item>
+        <item>Thrones Season One focused primarily on the family of "Ned" Stark. What is his real name?</item>
+        <item>Edmond</item>
+        <item>Eddard</item>
+        <item>Edward</item>
+        <item>Egdar</item>
+        <item>2</item>
+        <item>What is the name of the youngest Stark child?</item>
+        <item>Rickon</item>
+        <item>Bran</item>
+        <item>Arya</item>
+        <item>Sansa</item>
+        <item>1</item>
+        <item>Who is Joffrey Lannister\'s real father?</item>
+        <item>King Robert</item>
+        <item>Jamie Lannister</item>
+        <item>Ned Stark</item>
+        <item>Petyr Baelish</item>
+        <item>2</item>
+        <item>In the first episode of the season, a humanoid creature is shown in the snow-covered wilderness. What is this creature known as?</item>
+        <item>A Snowghast</item>
+        <item>A White Walker</item>
+        <item>A Winterwolf</item>
+        <item>A Whiteshade</item>
+        <item>2</item>
+        <item>Bran Stark was thrown from a window by whom or what?</item>
+        <item>A direwolf</item>
+        <item>Joffrey Lannister</item>
+        <item>Jon Snow</item>
+        <item>Jamie Lannister</item>
+        <item>4</item>
+        <item>Daenarys Targaryen is referred to as "Khaleesi" by the Dothraki. What, literally, does that word mean?</item>
+        <item>Slave</item>
+        <item>Queen</item>
+        <item>Golden-Haired</item>
+        <item>Wife of the Khal</item>
+        <item>4</item>
+        <item>Which of the following characters is NOT dead as we enter Season 2?</item>
+        <item>Khal Drogo</item>
+        <item>Robb Stark</item>
+        <item>Robert Baratheon</item>
+        <item>Viserys Targaryen</item>
+        <item>2</item>
+        <item>Which of the following characters died from molten gold?</item>
+        <item>Viserys Targaryen</item>
+        <item>Ned Stark</item>
+        <item>Khal Drogo</item>
+        <item>Jorah Mormont</item>
+        <item>1</item>
+        <item>How many baby dragons hatch from Daenerys\'s eggs?</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>3</item>
+        <item>What is the first name of Ned Stark\'s late sister, who was married to King Robert before being kidnapped by Rhaegar Targaryen?</item>
+        <item>Cersei</item>
+        <item>Catelyn</item>
+        <item>Arya</item>
+        <item>Lyanna</item>
+        <item>4</item>
     </string-array>
-    
-    <string-array
-        name="hardQuestions">
-        
-            <item> Which Gladiator wins his freedom in the arena?</item>
-            <item> Asher </item>
-            <item> Spartacus </item>
-            <item> Theokoles</item>
-            <item> Gannicus</item>
-            <item> 4 </item>
-            <item> Why does Olivia stay in rome in episode 3 (blood and sand)?</item>
-            <item> To make love to Krixius</item>
-            <item> To divorce her husband</item>
-            <item> To watch the games</item>
-            <item> None of the above</item>
-            <item> 3 </item>
-            <item> What is the only phrase Theokoles ever says?</item>
-            <item> Capua! Shall I begin!?</item>
-            <item> Get overr here little man</item>
-            <item> Capua!!</item>
-            <item> Nothing (All he does is scream)</item>
-            <item> 1 </item>
-            <item> How many times does Spartacus jumps off of krixius shield throughout season 1?</item> //4
-            <item> 1</item>
-            <item> 2</item>
-            <item> 3</item>
-            <item> 4 </item>
-            <item> 2</item>
-            <item> Actor that plays Oenmomaus?</item>
-            <item> Andre Perkins</item>
-            <item> John Jackson</item>
-            <item> Julius Perkins</item>
-            <item> Peter Mensah</item>
-            <item> 4 </item>
-            <item> Q:May the gods give us a miracle, they fucking owe us something</item>
-            <item> Krixius</item>
-            <item> Lucretia</item>
-            <item> Navea</item>
-            <item> Batiatus</item>
-            <item> 4 </item>
-            <item> Who does Solonius pay to kill Batiatus?</item>
-            <item> Name is never given</item>
-            <item> Ovidious</item>
-            <item> Glaber </item>
-            <item> He pays no one, he just uses his own slaves</item>
-            <item> 2 </item>
-            <item> What gift does krixius give Nevea in episode 103?</item>
-            <item> Exspensive cloth</item>
-            <item> Exspensive Ring</item>
-            <item> He does not give her anything</item>
-            <item> Exspensive Necklace</item>
-            <item> 4</item>
-            <item> What debt does Batiatus owe Ovidius?</item> //9
-            <item> 3 months of grain</item>
-            <item> 400 dinari</item>
-            <item> 4 moths of grain</item>
-            <item> 500 dinari</item>
-            <item> 1</item>
-            <item>In what episode do Krixius and Lucretia first have sex?</item>
-            <item>102</item>
-            <item>105</item>
-            <item>104</item>
-            <item>103</item>
-            <item>4</item>
-            <item>Q:I will show these fuckinng cunts that my cock was forged in vulcan flames</item>
-            <item>Barca</item>
-            <item>Batiatus</item>
-            <item>Glaber</item>
-            <item>None of the above</item>
-            <item>4</item>
-            <item>What is the reason the Lucreatia starts love affair with Krixius</item>
-            <item>She is attracted to him</item>
-            <item>To piss off Batiatus</item>
-            <item>To become pregnant</item>
-            <item>To take his fortune from winnings</item>
-            <item>3</item>
-            <item>What is the name of the debt collector?</item>
-            <item>Tullies</item>
-            <item>Ovidius</item>
-            <item>Regex</item>
-            <item>It is never mentioned</item>
-            <item>2</item>
-            <item>What does Spartacus final opponent in the pit do once he rips off his fallen opponent face?</item> //14
-            <item>eats it</item>
-            <item>burns it</item>
-            <item>gives it to his next opponent</item>
-            <item>Wears it</item>
-            <item>4</item>
-            <item>Q:Do you shoot magic coins out of your ass? If so, squat and produce!</item>
-            <item>Batiatus</item>
-            <item>Varo</item>
-            <item>Tullies</item>
-            <item>The Magistrate</item>
-            <item>1</item>
-            <item>What happens to the slave that runs away? (prequel)</item>
-            <item>Unknown</item>
-            <item>She is executed</item>
-            <item>She marries Spartacus</item>
-            <item>She comes back to the lotus</item>
-            <item>2</item>
-            <item>Why does Tullies beat up Batiatus?</item>
-            <item>To force Batiatus to give hime Gannicus</item>
-            <item>Batiatus humiliates him</item>
-            <item>Tullies is ordered by Batiatus father</item>
-            <item>Tullies is in love with Lucretia</item>
-            <item>1</item>
-            <item>Where is Gannicus from?</item> //18
-            <item>Celt</item>
-            <item>Thrace</item>
-            <item>Capua</item>
-            <item>Greece</item>
-            <item>1</item>
-    </string-array>
-        
+    <string-array name="hardQuestions"></string-array>
+
 </resources>
