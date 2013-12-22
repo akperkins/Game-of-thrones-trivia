@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.GameOfThrones.Trivia"
+    android:installLocation="auto"
     android:versionCode="1"
     android:versionName="0.9" >
 
@@ -9,7 +10,6 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
-    <!-- min==7 but need 8 for AudioManager -->
 
     <application
         android:allowBackup="true"
@@ -48,6 +48,14 @@
                 <action android:name="android.media.AUDIO_BECOMING_NOISY" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name="com.GameOfThrones.Trivia.HighScoreActivity"
+            android:label="@string/title_activity_high_score" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.GameOfThrones.Trivia.MenuActivity" />
+        </activity>
     </application>
 
 </manifest>

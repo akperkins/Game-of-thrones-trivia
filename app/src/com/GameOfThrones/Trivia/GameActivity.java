@@ -1,5 +1,9 @@
 package com.GameOfThrones.Trivia;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -33,7 +37,9 @@ import com.GameOfThrones.Trivia.Services.MusicService;
  */
 public class GameActivity extends Activity implements OnClickListener {
 	/** number of trivia question per game */
-	static final int TOTAL_QUESTIONS = 13;
+	static final int TOTAL_QUESTIONS = 10;
+
+	static final String HIGHSCORE_FILENAME = "high_score";
 
 	/** number that represents the wrong answer dialog */
 	static final int DIALOG_WRONG_ID = 0;
@@ -128,7 +134,6 @@ public class GameActivity extends Activity implements OnClickListener {
 			}
 		}
 	}
-
 
 	private ServiceConnection mConnection = new ServiceConnection() {
 		public void onServiceConnected(ComponentName className, IBinder service) {
@@ -277,6 +282,7 @@ public class GameActivity extends Activity implements OnClickListener {
 		intent.putExtra("correct", amountCorrect);
 		intent.putExtra("total", TOTAL_QUESTIONS);
 		intent.putExtra("score", gameScore);
+		saveHighScore();
 		setResult(RESULT_OK);
 		startActivity(intent);
 		finish();
@@ -371,6 +377,26 @@ public class GameActivity extends Activity implements OnClickListener {
 		if (counter.startQuestionTime < MyCount.QUESTION_TIME) {
 			counter = new MyCount();
 		}
+	}
+
+	public void saveHighScore() {
+		FileOutputStream fos = null;
+
+		try {
+			fos = openFileOutput(HIGHSCORE_FILENAME, Context.MODE_APPEND);
+
+			PrintWriter pw = new PrintWriter(fos, true);
+			pw.println(gameScore);
+			pw.flush();
+
+			fos.close();
+		} catch (FileNotFoundException e) {
+			Log.e("Error", "File not found while trying to save high score", e);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	/**

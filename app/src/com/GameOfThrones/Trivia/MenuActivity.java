@@ -8,16 +8,18 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.GameOfThrones.Trivia.util.SendEmail;
+
 /**
  * Main Menu of application.
  * 
  * @author andre
- *
+ * 
  */
 public class MenuActivity extends Activity implements OnClickListener {
 
 	Button qGame;
 	Button email;
+	Button highScore;
 
 	final static int GAME_ACTIVITY_RESULT_CODE = 1;
 
@@ -27,6 +29,8 @@ public class MenuActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.menu);
 		qGame = (Button) findViewById(R.id.quickbutton);
 		email = (Button) findViewById(R.id.mainEmail);
+		highScore = (Button) findViewById(R.id.highScore);
+		highScore.setOnClickListener(this);
 		qGame.setOnClickListener(this);
 		email.setOnClickListener(this);
 	}
@@ -40,6 +44,10 @@ public class MenuActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.mainEmail:
 			SendEmail.send(this, "Concerns about Spartacus app");
+			break;
+		case R.id.highScore:
+			Intent scoreIntent = new Intent(this, HighScoreActivity.class);
+			startActivityForResult(scoreIntent, GAME_ACTIVITY_RESULT_CODE);
 			break;
 		}
 	}

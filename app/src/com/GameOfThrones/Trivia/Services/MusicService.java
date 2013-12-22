@@ -52,8 +52,7 @@ public class MusicService extends Service implements
 			return MusicService.this;
 		}
 	}
-	
-	
+
 	public void initPlayer() {
 		if (!initialized) {
 			player = MediaPlayer.create(this.getBaseContext(), resid);
@@ -62,10 +61,12 @@ public class MusicService extends Service implements
 			initialized = true;
 		}
 	}
-	
+
 	/**
 	 * Sets the raw song resource to use.
-	 * @param resid - resource Id
+	 * 
+	 * @param resid
+	 *            - resource Id
 	 */
 	public void setSong(int resid) {
 		this.resid = resid;
@@ -121,7 +122,9 @@ public class MusicService extends Service implements
 	 * playerPause - Pause playback of player
 	 */
 	public void playerPause() {
-		player.pause();
+		if (player != null && player.isPlaying()) {
+			player.pause();
+		}
 	}
 
 	/**
