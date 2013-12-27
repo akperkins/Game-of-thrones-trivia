@@ -1,6 +1,5 @@
 package com.GameOfThrones.Trivia;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +7,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity;
 import com.GameOfThrones.Trivia.util.SendEmail;
 
 /**
@@ -16,7 +16,8 @@ import com.GameOfThrones.Trivia.util.SendEmail;
  * @author andre
  * 
  */
-public class ResultsActivity extends Activity implements OnClickListener {
+public class ResultsActivity extends DynamicBackgroundActivity implements
+		OnClickListener {
 	/** Stores the game stats from the previous user game */
 	int correct, total;
 
@@ -100,6 +101,11 @@ public class ResultsActivity extends Activity implements OnClickListener {
 		}
 	}
 
+	public void onStop() {
+		super.onStop();
+		super.refreshBackground();
+	}
+
 	/**
 	 * onDestroy() - Cleans up instance variables.
 	 */
@@ -109,5 +115,11 @@ public class ResultsActivity extends Activity implements OnClickListener {
 		b1 = null;
 		email = null;
 		backMain = null;
+	}
+
+	@Override
+	protected int getBackgroundLayout() {
+		// TODO Auto-generated method stub
+		return R.id.resultsActivity;
 	}
 }

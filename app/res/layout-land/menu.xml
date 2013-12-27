@@ -15,7 +15,7 @@
         android:layout_weight="25"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:text="@string/spartacus_trivia_app" >
+        android:text="@string/game_of_thrones_trivia_app" >
     </TextView>
 
     <Button

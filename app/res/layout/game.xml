@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/dany_port"
     android:orientation="vertical"
-    android:weightSum="100" >
+    android:weightSum="100"
+    android:id="@+id/gameActivity" >
 
     <TextView
         android:id="@+id/question"

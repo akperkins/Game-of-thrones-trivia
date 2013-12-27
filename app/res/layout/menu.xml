@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/layout1"
+    android:id="@+id/menuActivity"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/dany_port"
@@ -15,7 +15,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         android:layout_weight="10"
-        android:text="@string/spartacus_trivia_app" >
+        android:text="@string/game_of_thrones_trivia_app" >
     </TextView>
 
     <Button
@@ -26,6 +26,16 @@
         android:layout_marginTop="125dp"
         android:layout_weight="10"
         android:text="Quick Game" >
+    </Button>
+    
+    <Button
+        android:id="@+id/characterGame"
+        style="@style/CustomTheme.View.Button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="22dp"
+        android:layout_weight="10"
+        android:text="Character Game" >
     </Button>
 
     <Button
@@ -46,6 +56,16 @@
         android:layout_marginTop="22dp"
         android:layout_weight="10"
         android:text="High Scores" >
+    </Button>
+
+    <Button
+        android:id="@+id/about"
+        style="@style/CustomTheme.View.Button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="22dp"
+        android:layout_weight="10"
+        android:text="About" >
     </Button>
 
 </LinearLayout>

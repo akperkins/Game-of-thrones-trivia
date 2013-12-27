@@ -1,4 +1,4 @@
-package com.GameOfThrones.Trivia.Models;
+package com.GameOfThrones.Trivia.Question;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,31 +10,37 @@ import com.GameOfThrones.Trivia.util.GeneralAlgorithms;
  * 
  * @author Andre Perkins - akperkins1@gmail.com
  */
-public class Questions implements Serializable{
+public class Questions implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1869523227810548866L;
-	int numQuestions;
-	public String[] allQuestions;
+
+	ArrayList<Question> allQuestions;
 	public ArrayList<Integer> used;
 	public int questionIndex;
 	public Integer[] questionOrder;
 
 	public Questions(String[] array) {
-		numQuestions = array.length / 6;
-		allQuestions = array;
+		int numQuestions = array.length / 6;
+		for (int i = 0; i < array.length / 6; i = i + 6) {
+			allQuestions.add(new Question(array[i],
+					(String[]) GeneralAlgorithms
+							.sliceArray(array, i + 1, i + 4), Integer
+							.parseInt(array[i + 5])));
+		}
+
 		used = new ArrayList<Integer>();
 		questionIndex = 0;
 		prepareOrder(questionIndex);
 	}
 
 	public int getSize() {
-		return numQuestions;
+		return allQuestions.size();
 	}
 
-	public String[] getQuestion() throws OutOfQuestionsException {
-		if (used.size() == numQuestions) {
+	public String[] getQuestionStrings() throws OutOfQuestionsException {
+		if (used.size() == allQuestions.size()) {
 			System.err
 					.println("All triviaQuestion are used! Program terminating.....");
 			throw new OutOfQuestionsException();
@@ -45,12 +51,17 @@ public class Questions implements Serializable{
 		int tempPos = questionOrder[questionIndex];
 		used.add(questionIndex++);
 
-		str[0] = allQuestions[tempPos * 6 + 0];
-		str[1] = allQuestions[tempPos * 6 + 1];
-		str[2] = allQuestions[tempPos * 6 + 2];
-		str[3] = allQuestions[tempPos * 6 + 3];
-		str[4] = allQuestions[tempPos * 6 + 4];
-		str[5] = allQuestions[tempPos * 6 + 5];
+		for (Question q : allQuestions) {
+			str[0] = q.getQuestion();
+
+			String[] tempQuestions = q.getAnswers();
+			str[1] = tempQuestions[1];
+			str[2] = tempQuestions[2];
+			str[3] = tempQuestions[3];
+			str[4] = tempQuestions[4];
+
+			str[5] = String.valueOf(q.getCorrectAnswer());
+		}
 
 		return str;
 	}
@@ -76,8 +87,8 @@ public class Questions implements Serializable{
 	}
 
 	public void prepareOrder(int start) {
-		Integer[] temp = new Integer[numQuestions];
-		for (int i = 0; i < numQuestions; i++) {
+		Integer[] temp = new Integer[allQuestions.size()];
+		for (int i = 0; i < temp.length; i++) {
 			temp[i] = i;
 		}
 		Integer[] tempPos = (Integer[]) GeneralAlgorithms.shuffleArray(temp);

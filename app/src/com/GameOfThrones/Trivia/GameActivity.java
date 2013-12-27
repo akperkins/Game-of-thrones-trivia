@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ComponentName;
@@ -25,9 +24,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.GameOfThrones.Trivia.Exceptions.OutOfQuestionsException;
-import com.GameOfThrones.Trivia.Models.QuestionsManager;
-import com.GameOfThrones.Trivia.Models.WeightedRemainingQuestionStrategy;
+import com.GameOfThrones.Trivia.Question.QuestionsManager;
+import com.GameOfThrones.Trivia.Question.WeightedRemainingQuestionStrategy;
 import com.GameOfThrones.Trivia.Services.MusicService;
+import com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity;
 
 /**
  * The trivia game loop executes here.
@@ -35,7 +35,7 @@ import com.GameOfThrones.Trivia.Services.MusicService;
  * @author Andre Perkins - akperkins1@gmail.com
  * 
  */
-public class GameActivity extends Activity implements OnClickListener {
+public class GameActivity extends DynamicBackgroundActivity implements OnClickListener {
 	/** number of trivia question per game */
 	static final int TOTAL_QUESTIONS = 10;
 
@@ -513,5 +513,11 @@ public class GameActivity extends Activity implements OnClickListener {
 			left = millisUntilFinished;
 		}
 
+	}
+
+	@Override
+	protected int getBackgroundLayout() {
+		// TODO Auto-generated method stub
+		return R.id.gameActivity;
 	}
 }

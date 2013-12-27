@@ -1,4 +1,4 @@
-package com.GameOfThrones.Trivia.Models;
+package com.GameOfThrones.Trivia.Question;
 
 import java.io.Serializable;
 

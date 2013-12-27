@@ -1,8 +1,10 @@
 package com.GameOfThrones.Trivia;
 
-import android.app.Activity;
+import com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Debug;
 import android.os.Handler;
 
 /**
@@ -12,13 +14,14 @@ import android.os.Handler;
  * @author Andre Perkins - akperkins1@gmail.com
  * 
  */
-public class StartActivity extends Activity {
+public class StartActivity extends DynamicBackgroundActivity {
 
 	/**
 	 * onCreate() - set the layout
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		Debug.waitForDebugger();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.start);
 	}
@@ -35,6 +38,7 @@ public class StartActivity extends Activity {
 				startActivity(intent);
 			}
 		}, 4000);
+		
 	}
 
 	public void onPause() {
@@ -51,5 +55,11 @@ public class StartActivity extends Activity {
 
 	public void onDestroy() {
 		super.onDestroy();
+	}
+
+	@Override
+	protected int getBackgroundLayout() {
+		// TODO Auto-generated method stub
+		return R.id.startActivity;
 	}
 }

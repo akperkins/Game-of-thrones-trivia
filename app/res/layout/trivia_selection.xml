@@ -1,18 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/triviaSelection"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/dany_port"
     android:orientation="vertical"
-    android:weightSum="100"
-     android:id="@+id/highScoreActivity" >
+    android:weightSum="100" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world" />
 
     <ListView
-        android:id="@+id/listview"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:drawSelectorOnTop="false" />
+        android:id="@+id/characters"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" >
+    </ListView>
 
     <TextView
         android:id="@android:id/empty"

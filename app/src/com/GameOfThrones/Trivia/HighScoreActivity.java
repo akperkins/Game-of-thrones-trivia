@@ -7,26 +7,29 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import android.app.ListActivity;
+import com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity;
+
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 
-public class HighScoreActivity extends ListActivity {
+public class HighScoreActivity extends DynamicBackgroundActivity {
 	static final String HIGHSCORE_FILENAME = "high_score";
-
+	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.high_score);
+		
+		final ListView listview = (ListView) findViewById(R.id.listview);
 
 		String[] highScores = getHighScores();
 
 		ListAdapter adapter = new ArrayAdapter<String>(getBaseContext(),
 				android.R.layout.simple_list_item_1, highScores);
 		// Bind to our new adapter.
-		setListAdapter(adapter);
+		listview.setAdapter(adapter);
 	}
 
 	public String[] getHighScores() {
@@ -58,6 +61,12 @@ public class HighScoreActivity extends ListActivity {
 		}
 
 		return temp;
+	}
+
+	@Override
+	protected int getBackgroundLayout() {
+		// TODO Auto-generated method stub
+		return R.id.highScoreActivity;
 	}
 
 }

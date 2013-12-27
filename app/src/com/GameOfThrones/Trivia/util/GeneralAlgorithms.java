@@ -69,4 +69,16 @@ public class GeneralAlgorithms {
 		int randomIndex = new Random().nextInt(store.size());
 		return store.get(randomIndex);
 	}
+
+	public static Object[] sliceArray(Object[] objArray, int startIndex,
+			int endIndex) {
+		if (startIndex < 0 || endIndex > objArray.length || objArray == null) {
+			return null;
+		}
+		Object[] temp = new Object[(endIndex + 1) - startIndex ];
+		for (int i = startIndex; i <= endIndex; i++) {
+			temp[i - startIndex] = objArray[i];
+		}
+		return temp;
+	}
 }

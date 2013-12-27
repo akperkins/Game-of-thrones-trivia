@@ -1,12 +1,12 @@
 package com.GameOfThrones.Trivia;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity;
 import com.GameOfThrones.Trivia.util.SendEmail;
 
 /**
@@ -15,11 +15,14 @@ import com.GameOfThrones.Trivia.util.SendEmail;
  * @author andre
  * 
  */
-public class MenuActivity extends Activity implements OnClickListener {
+public class MenuActivity extends DynamicBackgroundActivity implements
+		OnClickListener {
 
 	Button qGame;
 	Button email;
 	Button highScore;
+	Button about;
+	Button characterGame;
 
 	final static int GAME_ACTIVITY_RESULT_CODE = 1;
 
@@ -30,13 +33,22 @@ public class MenuActivity extends Activity implements OnClickListener {
 		qGame = (Button) findViewById(R.id.quickbutton);
 		email = (Button) findViewById(R.id.mainEmail);
 		highScore = (Button) findViewById(R.id.highScore);
+		about = (Button) findViewById(R.id.about);
+		characterGame = (Button) findViewById(R.id.characterGame);
+		characterGame.setOnClickListener(this);
 		highScore.setOnClickListener(this);
 		qGame.setOnClickListener(this);
 		email.setOnClickListener(this);
+		about.setOnClickListener(this);
 	}
 
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.characterGame:
+			Intent triviaSelect = new Intent(this,
+					TriviaSelectionActivity.class);
+			startActivity(triviaSelect);
+			break;
 		case R.id.quickbutton:
 			Intent intent = new Intent(this, GameActivity.class);
 			intent.putExtra("game", "quick");
@@ -47,7 +59,11 @@ public class MenuActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.highScore:
 			Intent scoreIntent = new Intent(this, HighScoreActivity.class);
-			startActivityForResult(scoreIntent, GAME_ACTIVITY_RESULT_CODE);
+			startActivity(scoreIntent);
+			break;
+		case R.id.about:
+			Intent aboutIntent = new Intent(this, AboutActivity.class);
+			startActivity(aboutIntent);
 			break;
 		}
 	}
@@ -69,5 +85,11 @@ public class MenuActivity extends Activity implements OnClickListener {
 		super.onDestroy();
 		qGame = null;
 		email = null;
+	}
+
+	@Override
+	protected int getBackgroundLayout() {
+		// TODO Auto-generated method stub
+		return R.id.menuActivity;
 	}
 }

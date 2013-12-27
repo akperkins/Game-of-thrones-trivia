@@ -1,9 +1,8 @@
-package com.GameOfThrones.Trivia.Models;
+package com.GameOfThrones.Trivia.Question;
 
 import java.util.ArrayList;
 
 import com.GameOfThrones.Trivia.Exceptions.OutOfQuestionsException;
-import com.GameOfThrones.Trivia.util.GeneralAlgorithms;
 
 public class QuestionsManager implements java.io.Serializable {
 	/**
@@ -27,7 +26,7 @@ public class QuestionsManager implements java.io.Serializable {
 		Questions questions = questionStrategy
 				.getNextQuestion(questionsCollection);
 
-		String[] questionStrings = questions.getQuestion();
+		String[] questionStrings = questions.getQuestionStrings();
 
 		currentQuestion = questionStrings;
 	}

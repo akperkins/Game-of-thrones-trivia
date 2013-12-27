@@ -43,18 +43,31 @@
             android:enabled="true" >
         </service>
 
+        <!--
         <receiver android:name="com.GameOfThrones.Trivia.MusicIntentReceiver" >
             <intent-filter>
                 <action android:name="android.media.AUDIO_BECOMING_NOISY" />
             </intent-filter>
         </receiver>
-
+        -->
         <activity
             android:name="com.GameOfThrones.Trivia.HighScoreActivity"
             android:label="@string/title_activity_high_score" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.GameOfThrones.Trivia.MenuActivity" />
+        </activity>
+        <activity
+            android:name="com.GameOfThrones.Trivia.AboutActivity"
+            android:label="@string/title_activity_about" >
+        </activity>
+        <activity
+            android:name="com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity"
+            android:label="@string/title_activity_dynamic_background" >
+        </activity>
+        <activity
+            android:name="com.GameOfThrones.Trivia.TriviaSelectionActivity"
+            android:label="@string/title_activity_trivia_selection" >
         </activity>
     </application>
 
