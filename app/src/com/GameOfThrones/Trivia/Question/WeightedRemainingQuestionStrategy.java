@@ -2,8 +2,8 @@ package com.GameOfThrones.Trivia.Question;
 
 import java.util.ArrayList;
 
-import com.GameOfThrones.Trivia.Exceptions.OutOfQuestionsException;
 import com.GameOfThrones.Trivia.util.GeneralAlgorithms;
+import com.GameOfThrones.Trivia.util.OutOfQuestionsException;
 
 public class WeightedRemainingQuestionStrategy extends QuestionMangeStrategy {
 

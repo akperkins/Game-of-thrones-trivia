@@ -3,7 +3,7 @@ package com.GameOfThrones.Trivia.Question;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import com.GameOfThrones.Trivia.Exceptions.OutOfQuestionsException;
+import com.GameOfThrones.Trivia.util.OutOfQuestionsException;
 
 /**
  * QuestionsManageStrategy - Subclasses inherit this class and determine the

@@ -3,8 +3,8 @@ package com.GameOfThrones.Trivia.Question;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import com.GameOfThrones.Trivia.Exceptions.OutOfQuestionsException;
 import com.GameOfThrones.Trivia.util.GeneralAlgorithms;
+import com.GameOfThrones.Trivia.util.OutOfQuestionsException;
 
 /**
  * 
@@ -20,7 +20,7 @@ public class QuestionCollection implements Serializable {
 	public int lastUsedIndex;
 
 	public QuestionCollection(String[] array) {
-			allQuestions = new ArrayList<Question>();
+		allQuestions = new ArrayList<Question>();
 		for (int i = 0; i < array.length; i = i + 6) {
 			allQuestions.add(new Question(array[i], GeneralAlgorithms
 					.converToStrArray(GeneralAlgorithms.sliceArray(array,
@@ -56,4 +56,46 @@ public class QuestionCollection implements Serializable {
 	public int unusedLeft() {
 		return (allQuestions.size() - 1) - lastUsedIndex;
 	}
+
+	public void keepOnly(ArrayList<Integer> keepsIds) {
+		ArrayList<Question> temp = new ArrayList<Question>();
+
+		for (Question question : allQuestions) {
+			if (keepsIds.contains(question.getId())) {
+				temp.add(question);
+			}
+		}
+		allQuestions = temp;
+	}
+
+	/**
+	 * @return the allQuestions
+	 */
+	public ArrayList<Question> getAllQuestions() {
+		return allQuestions;
+	}
+
+	/**
+	 * @param allQuestions
+	 *            the allQuestions to set
+	 */
+	public void setAllQuestions(ArrayList<Question> allQuestions) {
+		this.allQuestions = allQuestions;
+	}
+
+	/**
+	 * @return the lastUsedIndex
+	 */
+	public int getLastUsedIndex() {
+		return lastUsedIndex;
+	}
+
+	/**
+	 * @param lastUsedIndex
+	 *            the lastUsedIndex to set
+	 */
+	public void setLastUsedIndex(int lastUsedIndex) {
+		this.lastUsedIndex = lastUsedIndex;
+	}
+
 }

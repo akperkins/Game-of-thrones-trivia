@@ -15,10 +15,17 @@
     </Button>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/sources"
         style="@style/CustomTheme.View.Button"
         android:layout_weight="16"
         android:text="sources" >
+    </Button>
+
+    <Button
+        android:id="@+id/twitter"
+        style="@style/CustomTheme.View.Button"
+        android:layout_weight="16"
+        android:text="twitter" >
     </Button>
 
 </LinearLayout>

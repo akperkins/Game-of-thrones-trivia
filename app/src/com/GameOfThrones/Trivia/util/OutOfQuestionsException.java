@@ -1,4 +1,4 @@
-package com.GameOfThrones.Trivia.Exceptions;
+package com.GameOfThrones.Trivia.util;
 
 public class OutOfQuestionsException extends Exception {
 

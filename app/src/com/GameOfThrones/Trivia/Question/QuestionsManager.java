@@ -2,7 +2,7 @@ package com.GameOfThrones.Trivia.Question;
 
 import java.util.ArrayList;
 
-import com.GameOfThrones.Trivia.Exceptions.OutOfQuestionsException;
+import com.GameOfThrones.Trivia.util.OutOfQuestionsException;
 
 public class QuestionsManager implements java.io.Serializable {
 	/**
@@ -52,4 +52,17 @@ public class QuestionsManager implements java.io.Serializable {
 		this.questionsCollections = questionsCollections;
 	}
 
+	public void keepOnlyQuestions(ArrayList<Integer> idsKept) {
+		for (QuestionCollection q : questionsCollections) {
+			q.keepOnly(idsKept);
+		}
+	}
+
+	public ArrayList<Question> getAllQuestions() {
+		ArrayList<Question> questions = new ArrayList<Question>();
+		for (QuestionCollection collections : questionsCollections) {
+			questions.addAll(collections.getAllQuestions());
+		}
+		return questions;
+	}
 }

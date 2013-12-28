@@ -113,7 +113,23 @@ public class Question implements Serializable {
 	public String toString() {
 		return "Question [question=" + question + ", answers="
 				+ Arrays.toString(answers) + ", correctAnswer=" + correctAnswer
-				+ ", characters=" + Arrays.toString(characters) + "]";
+				+ ", gameCharacters=" + Arrays.toString(characters) + "]";
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Question other = (Question) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
 }

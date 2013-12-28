@@ -1,11 +1,12 @@
 package com.GameOfThrones.Trivia;
 
-import com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Debug;
 import android.os.Handler;
+
+import com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity;
+import com.GameOfThrones.Trivia.util.SimpleEula;
 
 /**
  * This activity does nothing except display the disclaimer message for 7
@@ -24,6 +25,8 @@ public class StartActivity extends DynamicBackgroundActivity {
 		Debug.waitForDebugger();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.start);
+		
+		 new SimpleEula(this).show();
 	}
 
 	/**

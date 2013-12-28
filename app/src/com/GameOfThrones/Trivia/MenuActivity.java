@@ -51,7 +51,6 @@ public class MenuActivity extends DynamicBackgroundActivity implements
 			break;
 		case R.id.quickbutton:
 			Intent intent = new Intent(this, GameActivity.class);
-			intent.putExtra("game", "quick");
 			startActivityForResult(intent, GAME_ACTIVITY_RESULT_CODE);
 			break;
 		case R.id.mainEmail:

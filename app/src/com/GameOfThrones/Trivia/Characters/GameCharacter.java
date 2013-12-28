@@ -2,11 +2,11 @@ package com.GameOfThrones.Trivia.Characters;
 
 import java.util.ArrayList;
 
-public class Character {
+public class GameCharacter {
 	String name;
 	ArrayList<String> searchTerms;
 
-	public Character(String name, ArrayList<String> aliases) {
+	public GameCharacter(String name, ArrayList<String> aliases) {
 		super();
 		this.name = name;
 		setSearchTerms(aliases);
@@ -52,7 +52,28 @@ public class Character {
 	 */
 	@Override
 	public String toString() {
-		return "Character [name=" + name + ", searchTerms=" + searchTerms + "]";
+		return "GameCharacter [name=" + name + ", searchTerms=" + searchTerms + "]";
+	}
+
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GameCharacter other = (GameCharacter) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
 	}
 
 }

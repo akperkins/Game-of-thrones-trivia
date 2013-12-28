@@ -2,17 +2,17 @@ package com.GameOfThrones.Trivia.Characters;
 
 import java.util.ArrayList;
 
-import main.HashArray;
-
 import com.GameOfThrones.Trivia.Question.Question;
 import com.GameOfThrones.Trivia.util.GeneralAlgorithms;
+import com.GameOfThrones.Trivia.util.HashArray;
 
 public class CharacterToQuestionsMap {
-	HashArray<Character, Integer> map;
-	ArrayList<Character> characters;
+	HashArray<GameCharacter, Integer> map;
+	ArrayList<GameCharacter> gameCharacters;
 
-	public CharacterToQuestionsMap(ArrayList<Character> characters) {
-		this.characters = characters;
+	public CharacterToQuestionsMap(ArrayList<GameCharacter> gameCharacters) {
+		this.gameCharacters = gameCharacters;
+		map = new HashArray<GameCharacter, Integer>();
 	}
 
 	/**
@@ -23,7 +23,7 @@ public class CharacterToQuestionsMap {
 	 */
 	public void addMappings(Question question) {
 		String[] questions = question.getStrings();
-		for (Character c : characters) {
+		for (GameCharacter c : gameCharacters) {
 			ArrayList<String> searchEle = c.getSearchTerms();
 			for (String s : questions) {
 				if (GeneralAlgorithms.containsString(s, searchEle)) {
@@ -46,7 +46,7 @@ public class CharacterToQuestionsMap {
 	/**
 	 * @return the map
 	 */
-	public HashArray<Character, Integer> getMap() {
+	public HashArray<GameCharacter, Integer> getMap() {
 		return map;
 	}
 
@@ -54,12 +54,12 @@ public class CharacterToQuestionsMap {
 	 * @param map
 	 *            the map to set
 	 */
-	public void setMap(HashArray<Character, Integer> map) {
+	public void setMap(HashArray<GameCharacter, Integer> map) {
 		this.map = map;
 	}
 
-	public ArrayList<Integer> getCharacterQuestion(Character character) {
-		return map.getElement(character);
+	public ArrayList<Integer> get(GameCharacter gameCharacter) {
+		return map.getElement(gameCharacter);
 	}
 
 }

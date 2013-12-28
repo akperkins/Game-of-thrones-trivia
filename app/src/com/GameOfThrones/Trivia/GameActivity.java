@@ -20,12 +20,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.GameOfThrones.Trivia.Exceptions.OutOfQuestionsException;
+import com.GameOfThrones.Trivia.Characters.CharacterToQuestionsMap;
+import com.GameOfThrones.Trivia.Characters.GameCharacter;
 import com.GameOfThrones.Trivia.HighScore.HighScorePrefs;
 import com.GameOfThrones.Trivia.Music.MusicService;
+import com.GameOfThrones.Trivia.Question.Question;
 import com.GameOfThrones.Trivia.Question.QuestionsManager;
 import com.GameOfThrones.Trivia.Question.WeightedRemainingQuestionStrategy;
 import com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity;
+import com.GameOfThrones.Trivia.util.OutOfQuestionsException;
 
 /**
  * The trivia game loop executes here.
@@ -36,7 +39,9 @@ import com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity;
 public class GameActivity extends DynamicBackgroundActivity implements
 		OnClickListener {
 	/** number of trivia question per game */
-	static final int TOTAL_QUESTIONS = 10;
+	static final int MAX_QUESTIONS = 10;
+
+	int total_questions;
 
 	static final String HIGHSCORE_FILENAME = "high_score";
 
@@ -111,7 +116,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 		Intent intent = new Intent(this, MusicService.class);
 		this.getApplication().bindService(intent, mConnection,
 				Context.BIND_AUTO_CREATE);
-
+		total_questions = MAX_QUESTIONS;
 		if (state != null) {
 			restoreCreate(state);
 		} else {
@@ -123,6 +128,28 @@ public class GameActivity extends DynamicBackgroundActivity implements
 			temp.add(getResources().getStringArray(R.array.hardQuestions));
 			qManager = new QuestionsManager(temp,
 					new WeightedRemainingQuestionStrategy());
+
+			Bundle extras = getIntent().getExtras();
+			if (extras != null) {
+				String characterGame = extras.getString("gameCharacters");
+				if (characterGame != null) {
+					ArrayList<String> aliases = new ArrayList<String>();
+					aliases.add("Mother of Dragons");
+					aliases.add("Daenery");
+					GameCharacter c = new GameCharacter("Daenerys", aliases);
+					ArrayList<GameCharacter> characters = new ArrayList<GameCharacter>();
+					characters.add(c);
+					CharacterToQuestionsMap map = new CharacterToQuestionsMap(
+							characters);
+					for (Question q : qManager.getAllQuestions()) {
+						map.addMappings(q);
+					}
+					qManager.keepOnlyQuestions(map.get(c));
+					if (qManager.getAllQuestions().size() < MAX_QUESTIONS) {
+						total_questions = qManager.getAllQuestions().size();
+					}
+				}
+			}
 			counter = new MyCount();
 			gameScore = 0;
 			playMusicOnLaunch = false;
@@ -279,7 +306,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 		this.getApplication().unbindService(mConnection);
 		Intent intent = new Intent(this, ResultsActivity.class);
 		intent.putExtra("correct", amountCorrect);
-		intent.putExtra("total", TOTAL_QUESTIONS);
+		intent.putExtra("total", total_questions);
 		intent.putExtra("score", gameScore);
 		saveHighScore();
 		setResult(RESULT_OK);
@@ -359,7 +386,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 		questionsAnswered++;
 		new Handler().postDelayed(new Runnable() {
 			public void run() {
-				if (questionsAnswered == TOTAL_QUESTIONS) {
+				if (questionsAnswered == total_questions) {
 					endGame();
 				} else {
 					try {
@@ -367,7 +394,8 @@ public class GameActivity extends DynamicBackgroundActivity implements
 					} catch (OutOfQuestionsException e) {
 						Log.e(this.toString(), "Ran out of trivia questions", e);
 					}
-					String[] nextQuestion = qManager.getCurrentQuestionStrings();
+					String[] nextQuestion = qManager
+							.getCurrentQuestionStrings();
 					mapText(nextQuestion);
 				}
 			}
@@ -446,7 +474,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	 * */
 	public void updateStats() {
 		score.setText(String.valueOf(gameScore));
-		stats.setText(questionsAnswered + " / " + TOTAL_QUESTIONS);
+		stats.setText(questionsAnswered + " / " + total_questions);
 	}
 
 	/**

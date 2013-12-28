@@ -14,7 +14,6 @@
         <item name="android:layout_marginLeft">@dimen/default_margin</item>
         <item name="android:layout_marginRight">@dimen/default_margin</item>
         <item name="android:layout_marginTop">@dimen/default_margin</item>
-        <item name="android:padding">@dimen/default_padding</item>
     </style>
 
     <style name="CustomTheme.View.Button">
