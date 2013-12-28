@@ -1,4 +1,4 @@
-package com.GameOfThrones.Trivia.Services;
+package com.GameOfThrones.Trivia.Music;
 
 import android.app.Service;
 import android.content.Context;

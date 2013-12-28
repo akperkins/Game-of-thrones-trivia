@@ -1,4 +1,4 @@
-package com.GameOfThrones.Trivia.Receivers;
+package com.GameOfThrones.Trivia.Music;
 
 import android.content.Context;
 import android.content.Intent;

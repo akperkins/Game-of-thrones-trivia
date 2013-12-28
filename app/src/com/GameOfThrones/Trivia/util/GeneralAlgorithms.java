@@ -75,10 +75,34 @@ public class GeneralAlgorithms {
 		if (startIndex < 0 || endIndex > objArray.length || objArray == null) {
 			return null;
 		}
-		Object[] temp = new Object[(endIndex + 1) - startIndex ];
+		Object[] temp = new Object[(endIndex + 1) - startIndex];
 		for (int i = startIndex; i <= endIndex; i++) {
 			temp[i - startIndex] = objArray[i];
 		}
 		return temp;
+	}
+
+	public static String[] converToStrArray(Object[] strs) {
+		String[] temp = new String[strs.length];
+
+		for (int i = 0; i < strs.length; i++) {
+			if (strs[i] instanceof String) {
+				temp[i] = (String) strs[i];
+			} else {
+				throw new ClassCastException("the " + i + " object in array"
+						+ " failed instanceof String check");
+			}
+		}
+
+		return temp;
+	}
+
+	public static boolean containsString(String searched, ArrayList<String> searchEle) {
+		for (String s : searchEle) {
+			if (searched.contains(s)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

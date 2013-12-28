@@ -36,4 +36,15 @@ public class HighScore {
 		this.score = score;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "HighScore [id=" + id + ", date=" + date + ", score=" + score
+				+ "]";
+	}
+
 }

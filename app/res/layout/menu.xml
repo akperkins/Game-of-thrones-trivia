@@ -13,7 +13,6 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
         android:layout_weight="10"
         android:text="@string/game_of_thrones_trivia_app" >
     </TextView>
@@ -23,17 +22,15 @@
         style="@style/CustomTheme.View.Button"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="125dp"
+        android:layout_marginTop="@dimen/after_title_textview_space"
         android:layout_weight="10"
         android:text="Quick Game" >
     </Button>
-    
+
     <Button
         android:id="@+id/characterGame"
         style="@style/CustomTheme.View.Button"
-        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="22dp"
         android:layout_weight="10"
         android:text="Character Game" >
     </Button>
@@ -41,9 +38,7 @@
     <Button
         android:id="@+id/mainEmail"
         style="@style/CustomTheme.View.Button"
-        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="22dp"
         android:layout_weight="10"
         android:text="E-mail developer" >
     </Button>
@@ -51,9 +46,7 @@
     <Button
         android:id="@+id/highScore"
         style="@style/CustomTheme.View.Button"
-        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="22dp"
         android:layout_weight="10"
         android:text="High Scores" >
     </Button>
@@ -61,9 +54,7 @@
     <Button
         android:id="@+id/about"
         style="@style/CustomTheme.View.Button"
-        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="22dp"
         android:layout_weight="10"
         android:text="About" >
     </Button>

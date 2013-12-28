@@ -1,10 +1,7 @@
 package com.GameOfThrones.Trivia;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -24,9 +21,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.GameOfThrones.Trivia.Exceptions.OutOfQuestionsException;
+import com.GameOfThrones.Trivia.HighScore.HighScorePrefs;
+import com.GameOfThrones.Trivia.Music.MusicService;
 import com.GameOfThrones.Trivia.Question.QuestionsManager;
 import com.GameOfThrones.Trivia.Question.WeightedRemainingQuestionStrategy;
-import com.GameOfThrones.Trivia.Services.MusicService;
 import com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity;
 
 /**
@@ -35,7 +33,8 @@ import com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity;
  * @author Andre Perkins - akperkins1@gmail.com
  * 
  */
-public class GameActivity extends DynamicBackgroundActivity implements OnClickListener {
+public class GameActivity extends DynamicBackgroundActivity implements
+		OnClickListener {
 	/** number of trivia question per game */
 	static final int TOTAL_QUESTIONS = 10;
 
@@ -170,7 +169,7 @@ public class GameActivity extends DynamicBackgroundActivity implements OnClickLi
 	 */
 	public void onStart() {
 		super.onStart();
-		mapText(qManager.getCurrentQuestion());
+		mapText(qManager.getCurrentQuestionStrings());
 	}
 
 	/**
@@ -368,7 +367,7 @@ public class GameActivity extends DynamicBackgroundActivity implements OnClickLi
 					} catch (OutOfQuestionsException e) {
 						Log.e(this.toString(), "Ran out of trivia questions", e);
 					}
-					String[] nextQuestion = qManager.getCurrentQuestion();
+					String[] nextQuestion = qManager.getCurrentQuestionStrings();
 					mapText(nextQuestion);
 				}
 			}
@@ -380,23 +379,8 @@ public class GameActivity extends DynamicBackgroundActivity implements OnClickLi
 	}
 
 	public void saveHighScore() {
-		FileOutputStream fos = null;
-
-		try {
-			fos = openFileOutput(HIGHSCORE_FILENAME, Context.MODE_APPEND);
-
-			PrintWriter pw = new PrintWriter(fos, true);
-			pw.println(gameScore);
-			pw.flush();
-
-			fos.close();
-		} catch (FileNotFoundException e) {
-			Log.e("Error", "File not found while trying to save high score", e);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		HighScorePrefs prefs = new HighScorePrefs(this.getBaseContext());
+		prefs.addNewHighScore(new Date().toString(), gameScore);
 	}
 
 	/**

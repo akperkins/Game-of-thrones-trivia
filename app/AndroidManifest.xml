@@ -39,7 +39,7 @@
         </activity>
 
         <service
-            android:name="com.GameOfThrones.Trivia.Services.MusicService"
+            android:name="com.GameOfThrones.Trivia.Music.MusicService"
             android:enabled="true" >
         </service>
 
@@ -53,9 +53,6 @@
         <activity
             android:name="com.GameOfThrones.Trivia.HighScoreActivity"
             android:label="@string/title_activity_high_score" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.GameOfThrones.Trivia.MenuActivity" />
         </activity>
         <activity
             android:name="com.GameOfThrones.Trivia.AboutActivity"

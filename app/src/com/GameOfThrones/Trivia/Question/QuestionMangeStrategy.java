@@ -1,6 +1,7 @@
 package com.GameOfThrones.Trivia.Question;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import com.GameOfThrones.Trivia.Exceptions.OutOfQuestionsException;
 
@@ -19,7 +20,8 @@ public abstract class QuestionMangeStrategy implements Serializable {
 	 */
 	private static final long serialVersionUID = 4249523061864095095L;
 
-	abstract Questions getNextQuestion(Questions[] questions)
+	abstract QuestionCollection getNextQuestion(
+			ArrayList<QuestionCollection> questions)
 			throws OutOfQuestionsException;
 
 }

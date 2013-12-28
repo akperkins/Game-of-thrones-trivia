@@ -9,38 +9,47 @@ public class QuestionsManager implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -408390483770836593L;
-	Questions[] questionsCollection;
+	ArrayList<QuestionCollection> questionsCollections;
 	String[] currentQuestion;
 	QuestionMangeStrategy questionStrategy;
 
 	public QuestionsManager(ArrayList<String[]> strQuestions,
 			QuestionMangeStrategy questionStrategy) {
-		questionsCollection = new Questions[strQuestions.size()];
+		questionsCollections = new ArrayList<QuestionCollection>();
 		for (int i = 0; i < strQuestions.size(); i++) {
-			questionsCollection[i] = new Questions(strQuestions.get(i));
+			questionsCollections
+					.add(new QuestionCollection(strQuestions.get(i)));
 		}
 		this.questionStrategy = questionStrategy;
 	}
 
 	public void nextQuestion() throws OutOfQuestionsException {
-		Questions questions = questionStrategy
-				.getNextQuestion(questionsCollection);
+		QuestionCollection chosen = questionStrategy
+				.getNextQuestion(questionsCollections);
 
-		String[] questionStrings = questions.getQuestionStrings();
+		String[] questionStrings = chosen.getCurrentQuestionStrings();
 
 		currentQuestion = questionStrings;
 	}
 
-	public String[] getCurrentQuestion() {
+	public String[] getCurrentQuestionStrings() {
 		return currentQuestion;
 	}
 
-	public Questions[] getQuestionsCollection() {
-		return questionsCollection;
+	/**
+	 * @return the questionsCollections
+	 */
+	public ArrayList<QuestionCollection> getQuestionsCollections() {
+		return questionsCollections;
 	}
 
-	public void setQuestionsCollection(Questions[] questionsCollection) {
-		this.questionsCollection = questionsCollection;
+	/**
+	 * @param questionsCollections
+	 *            the questionsCollections to set
+	 */
+	public void setQuestionsCollections(
+			ArrayList<QuestionCollection> questionsCollections) {
+		this.questionsCollections = questionsCollections;
 	}
 
 }

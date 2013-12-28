@@ -37,7 +37,8 @@ public class HighScorePrefs {
 	}
 
 	/** The prefix for flattened user keys */
-	public static final String KEY_PREFIX = "com.our.package.KEY";
+	public static final String KEY_PREFIX = "com.GameOfThrones.package.KEY";
+	public static final String KEY_SCORE_COUNT = "com.GameOfThrones.ScoreCount";
 
 	/**
 	 * Method to return a unique key for any field belonging to a given object
@@ -53,19 +54,22 @@ public class HighScorePrefs {
 	}
 
 	/** generic field keys */
-	private static final String KEY_DATE = "com.our.package.KEY_DATE";
-	private static final String KEY_SCORE = "com.our.package.KEY_SCORE";
+	private static final String KEY_DATE = "com.GameOfThrones.package.KEY_DATE";
+	private static final String KEY_SCORE = "com.GameOfThrones.package.KEY_SCORE";
 
-	/** Store or Update */
-	public void setHighScore(HighScore score) {
-		if (score == null)
-			return; // don't bother
+	/** Add a new high score */
+	public HighScore addNewHighScore(String date, int score) {
+		if (date == null)
+			return null; // don't bother
 
-		int id = score.getId();
-		editor.putString(getFieldKey(id, KEY_DATE), score.getDate());
-		editor.putInt(getFieldKey(id, KEY_SCORE), score.getScore());
+		int id = getHighScoreCount();
+		editor.putString(getFieldKey(id, KEY_DATE), date);
+		editor.putInt(getFieldKey(id, KEY_SCORE), score);
 
+		addScoreCount(1);
 		editor.commit();
+
+		return new HighScore(id, date, score);
 	}
 
 	/** Retrieve */
@@ -77,16 +81,16 @@ public class HighScorePrefs {
 		return new HighScore(id, date, score);
 	}
 
-	/** Delete */
-	public void deleteHighScore(HighScore highScore) {
-		if (highScore == null)
-			return; // don't bother
+	public int getHighScoreCount() {
+		return settings.getInt(KEY_SCORE_COUNT, 0);
+	}
 
-		int id = highScore.getId();
-		editor.remove(getFieldKey(id, KEY_DATE));
-		editor.remove(getFieldKey(id, KEY_SCORE));
+	public int addScoreCount(int number) {
+		int scoreCount = getHighScoreCount();
+		editor.putInt(KEY_SCORE_COUNT, scoreCount + number);
 
 		editor.commit();
+		return getHighScoreCount();
 	}
-	
+
 }

@@ -1,31 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/aboutActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/dany_port"
     android:orientation="vertical"
-    android:weightSum="100"
-    android:id="@+id/aboutActivity" >
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-
-    <Button
-        android:id="@+id/privacyPolicy"
-        style="@style/CustomTheme.View.Button"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_weight="16"
-        android:text="privacypolicy" >
-    </Button>
+    android:weightSum="100" >
 
     <Button
         android:id="@+id/eula"
         style="@style/CustomTheme.View.Button"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
         android:layout_weight="16"
         android:text="eula" >
     </Button>
@@ -33,12 +17,8 @@
     <Button
         android:id="@+id/button1"
         style="@style/CustomTheme.View.Button"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
         android:layout_weight="16"
         android:text="sources" >
     </Button>
-    
-    
 
 </LinearLayout>

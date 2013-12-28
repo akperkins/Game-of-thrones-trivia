@@ -10,7 +10,6 @@
     <TextView
         android:id="@+id/endView1"
         style="@style/CustomTheme.View.TextView"
-        android:layout_width="300dp"
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_weight="20"
@@ -21,7 +20,7 @@
         android:id="@+id/backMain"
         style="@style/CustomTheme.View.Button"
         android:layout_height="0dp"
-        android:layout_marginTop="230dp"
+        android:layout_marginTop="@dimen/after_title_textview_space"
         android:layout_weight="20"
         android:text="Back to Main Menu" >
     </Button>
@@ -30,8 +29,7 @@
         android:id="@+id/endbutton1"
         style="@style/CustomTheme.View.Button"
         android:layout_height="0dp"
-        android:layout_margin="5dp"
-        android:layout_weight="20"
+         android:layout_weight="20"
         android:text="Try again!" >
     </Button>
 
