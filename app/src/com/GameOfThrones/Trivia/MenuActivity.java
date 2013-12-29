@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity;
 import com.GameOfThrones.Trivia.util.SendEmail;
+import com.GameOfThrones.Trivia.util.ShowInfoBox;
 
 /**
  * Main Menu of application.
@@ -40,6 +41,9 @@ public class MenuActivity extends DynamicBackgroundActivity implements
 		qGame.setOnClickListener(this);
 		email.setOnClickListener(this);
 		about.setOnClickListener(this);
+
+		new ShowInfoBox(this)
+				.show(new int[] { R.string.updates, R.string.eula }, true);
 	}
 
 	public void onClick(View v) {

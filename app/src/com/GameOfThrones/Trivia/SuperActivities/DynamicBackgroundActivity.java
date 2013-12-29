@@ -7,11 +7,10 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 
 import com.GameOfThrones.Trivia.R;
-import com.GameOfThrones.Trivia.R.drawable;
 import com.GameOfThrones.Trivia.util.Session;
 
 public abstract class DynamicBackgroundActivity extends Activity {
-	Session session = Session.getInstance();
+	protected Session session = Session.getInstance();
 
 	private static final int[] landscapePics = new int[] {
 			R.drawable.dany_land, R.drawable.eddard_land,

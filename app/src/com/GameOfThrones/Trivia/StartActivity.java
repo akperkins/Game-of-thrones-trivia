@@ -1,12 +1,15 @@
 package com.GameOfThrones.Trivia;
 
+import java.util.ArrayList;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Debug;
 import android.os.Handler;
 
+import com.GameOfThrones.Trivia.Characters.GameCharacter;
 import com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity;
-import com.GameOfThrones.Trivia.util.SimpleEula;
+import com.GameOfThrones.Trivia.util.ShowInfoBox;
 
 /**
  * This activity does nothing except display the disclaimer message for 7
@@ -16,6 +19,7 @@ import com.GameOfThrones.Trivia.util.SimpleEula;
  * 
  */
 public class StartActivity extends DynamicBackgroundActivity {
+	final static public String[] characters = new String[] { "Daenerys" };
 
 	/**
 	 * onCreate() - set the layout
@@ -25,8 +29,6 @@ public class StartActivity extends DynamicBackgroundActivity {
 		Debug.waitForDebugger();
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.start);
-		
-		 new SimpleEula(this).show();
 	}
 
 	/**
@@ -41,11 +43,7 @@ public class StartActivity extends DynamicBackgroundActivity {
 				startActivity(intent);
 			}
 		}, 4000);
-		
-	}
-
-	public void onPause() {
-		super.onPause();
+		intitializeSessionData();
 	}
 
 	/**
@@ -56,8 +54,18 @@ public class StartActivity extends DynamicBackgroundActivity {
 		finish();
 	}
 
-	public void onDestroy() {
-		super.onDestroy();
+	public void intitializeSessionData() {
+		// Create characters
+		ArrayList<String> aliases = new ArrayList<String>();
+		aliases.add("Mother of Dragons");
+		aliases.add("Daenery");
+		
+		GameCharacter danerys = new GameCharacter(characters[0], aliases);
+		
+		ArrayList<GameCharacter> characters = new ArrayList<GameCharacter>();
+		characters.add(danerys);
+		
+		session.setCharacters(characters);
 	}
 
 	@Override

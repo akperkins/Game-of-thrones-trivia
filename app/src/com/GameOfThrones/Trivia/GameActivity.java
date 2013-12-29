@@ -131,20 +131,15 @@ public class GameActivity extends DynamicBackgroundActivity implements
 
 			Bundle extras = getIntent().getExtras();
 			if (extras != null) {
-				String characterGame = extras.getString("gameCharacters");
-				if (characterGame != null) {
-					ArrayList<String> aliases = new ArrayList<String>();
-					aliases.add("Mother of Dragons");
-					aliases.add("Daenery");
-					GameCharacter c = new GameCharacter("Daenerys", aliases);
-					ArrayList<GameCharacter> characters = new ArrayList<GameCharacter>();
-					characters.add(c);
+				String chosenCharacter = extras.getString("gameCharacters");
+				if (chosenCharacter != null) {
 					CharacterToQuestionsMap map = new CharacterToQuestionsMap(
-							characters);
+							session.getCharacters());
 					for (Question q : qManager.getAllQuestions()) {
 						map.addMappings(q);
 					}
-					qManager.keepOnlyQuestions(map.get(c));
+					ArrayList<Integer> ids = map.get(chosenCharacter);
+					qManager.keepOnlyQuestions(ids);
 					if (qManager.getAllQuestions().size() < MAX_QUESTIONS) {
 						total_questions = qManager.getAllQuestions().size();
 					}

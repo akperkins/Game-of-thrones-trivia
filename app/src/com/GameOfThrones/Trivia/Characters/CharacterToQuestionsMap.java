@@ -1,6 +1,7 @@
 package com.GameOfThrones.Trivia.Characters;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 import com.GameOfThrones.Trivia.Question.Question;
 import com.GameOfThrones.Trivia.util.GeneralAlgorithms;
@@ -22,10 +23,9 @@ public class CharacterToQuestionsMap {
 	 * @param question
 	 */
 	public void addMappings(Question question) {
-		String[] questions = question.getStrings();
 		for (GameCharacter c : gameCharacters) {
 			ArrayList<String> searchEle = c.getSearchTerms();
-			for (String s : questions) {
+			for (String s : question.getStrings()) {
 				if (GeneralAlgorithms.containsString(s, searchEle)) {
 					map.add(c, question.getId());
 				}
@@ -62,4 +62,9 @@ public class CharacterToQuestionsMap {
 		return map.getElement(gameCharacter);
 	}
 
+	public ArrayList<Integer> get(String gameCharacter) {
+		GameCharacter c = new GameCharacter(gameCharacter,
+				new ArrayList<String>());
+		return map.getElement(c);
+	}
 }
