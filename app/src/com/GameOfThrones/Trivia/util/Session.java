@@ -2,18 +2,18 @@ package com.GameOfThrones.Trivia.util;
 
 import java.util.ArrayList;
 
+import com.GameOfThrones.Trivia.Characters.CharacterToQuestionsMap;
 import com.GameOfThrones.Trivia.Characters.GameCharacter;
 
 public class Session {
 	private static Session instance;
 	private String username;
-	private int textSize;
 	private int background;
 	private ArrayList<GameCharacter> characters;
+	CharacterToQuestionsMap map;
 
 	private Session() {
 		username = "";
-		textSize = 0;
 		background = 0;
 		characters = new ArrayList<GameCharacter>();
 	}
@@ -46,6 +46,7 @@ public class Session {
 	 */
 	public void setCharacters(ArrayList<GameCharacter> characters) {
 		this.characters = characters;
+		map = new CharacterToQuestionsMap(characters);
 	}
 
 	/**
@@ -55,6 +56,21 @@ public class Session {
 	 */
 	public boolean add(GameCharacter object) {
 		return characters.add(object);
+	}
+
+	/**
+	 * @return the map
+	 */
+	public CharacterToQuestionsMap getMap() {
+		return map;
+	}
+
+	/**
+	 * @param map
+	 *            the map to set
+	 */
+	public void setMap(CharacterToQuestionsMap map) {
+		this.map = map;
 	}
 
 }

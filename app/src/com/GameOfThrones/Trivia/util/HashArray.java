@@ -83,7 +83,8 @@ public class HashArray<K, V> {
 	 *         listed
 	 */
 	public ArrayList<V> getElement(K key) {
-		return hashMatrix.get(key);
+		ArrayList<V> ele = hashMatrix.get(key);
+		return ele;
 	}
 
 	/**

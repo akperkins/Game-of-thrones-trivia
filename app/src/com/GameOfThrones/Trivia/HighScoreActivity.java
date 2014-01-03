@@ -22,8 +22,8 @@ public class HighScoreActivity extends DynamicBackgroundActivity {
 
 		ArrayList<String> highScores = getHighScores();
 
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(),
-				android.R.layout.simple_list_item_1, highScores);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+				getBaseContext(), R.layout.row, highScores);
 		// Bind to our new adapter.
 		listview.setAdapter(adapter);
 	}

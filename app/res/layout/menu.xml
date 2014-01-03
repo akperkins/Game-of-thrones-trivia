@@ -7,56 +7,43 @@
     android:orientation="vertical"
     android:weightSum="100" >
 
-    <TextView
-        android:id="@+id/textView1"
-        style="@style/CustomTheme.View.TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_weight="10"
-        android:text="@string/game_of_thrones_trivia_app" >
-    </TextView>
-
     <Button
-        android:id="@+id/quickbutton"
+        android:id="@+id/game"
         style="@style/CustomTheme.View.Button"
-        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/after_title_textview_space"
-        android:layout_weight="10"
-        android:text="Quick Game" >
+        android:layout_weight="30"
+        android:text="play"
+        android:textSize="@dimen/largeText" >
     </Button>
 
-    <Button
-        android:id="@+id/characterGame"
-        style="@style/CustomTheme.View.Button"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:text="Character Game" >
-    </Button>
+    <LinearLayout
+        android:layout_weight="15"
+        android:orientation="horizontal" >
 
-    <Button
-        android:id="@+id/mainEmail"
-        style="@style/CustomTheme.View.Button"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:text="E-mail developer" >
-    </Button>
+        <Button
+            android:id="@+id/mainEmail"
+            style="@style/CustomTheme.View.Button"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:text="message" >
+        </Button>
 
-    <Button
-        android:id="@+id/highScore"
-        style="@style/CustomTheme.View.Button"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:text="High Scores" >
-    </Button>
+        <Button
+            android:id="@+id/highScore"
+            style="@style/CustomTheme.View.Button"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:text="Scores" >
+        </Button>
 
-    <Button
-        android:id="@+id/about"
-        style="@style/CustomTheme.View.Button"
-        android:layout_height="0dp"
-        android:layout_weight="10"
-        android:text="About" >
-    </Button>
+        <Button
+            android:id="@+id/about"
+            style="@style/CustomTheme.View.Button"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:text="About" >
+        </Button>
+    </LinearLayout>
 
 </LinearLayout>

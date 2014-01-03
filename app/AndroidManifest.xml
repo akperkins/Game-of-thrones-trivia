@@ -10,7 +10,7 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
-
+s
     <application
         android:allowBackup="true"
         android:icon="@drawable/dany_port"
@@ -19,11 +19,6 @@
         <activity
             android:name="com.GameOfThrones.Trivia.StartActivity"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.GameOfThrones.Trivia.GameActivity"
@@ -36,6 +31,11 @@
         <activity
             android:name="com.GameOfThrones.Trivia.MenuActivity"
             android:label="@string/main_menu" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <service

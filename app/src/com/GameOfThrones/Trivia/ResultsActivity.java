@@ -22,11 +22,8 @@ public class ResultsActivity extends DynamicBackgroundActivity implements
 	int correct, total;
 
 	/** References to the views in the UI layout */
-	TextView tv;
-	Button submit;
-	Button b1;
-	Button email;
-	Button backMain;
+	TextView tv, scoreText;
+	Button submit, b1, backMain;
 	int score;
 
 	/**
@@ -48,8 +45,8 @@ public class ResultsActivity extends DynamicBackgroundActivity implements
 		tv.setVisibility(2);
 		b1 = (Button) findViewById(R.id.endbutton1);
 		b1.setOnClickListener(this);
-		email = (Button) findViewById(R.id.emailButton);
-		email.setOnClickListener(this);
+		scoreText = (TextView) findViewById(R.id.scoreText);
+
 		backMain = (Button) findViewById(R.id.backMain);
 		backMain.setOnClickListener(this);
 	}
@@ -67,18 +64,15 @@ public class ResultsActivity extends DynamicBackgroundActivity implements
 	 */
 	public void showResults() {
 		String str = "";
-		if (score >= 1500) {
-			str = "Congratulations. \nYou just may be the slayer of death after all.....\n"
-					+ "You were " + correct + " out of " + total + ".";
+		if (score >= 1000) {
+			str = "Azor Ahai reborn!!";
 		} else if (score >= 600) {
-			str = "Good attempt but you still produce cock and piss....\n"
-					+ "You were " + correct + " out of " + total + ".";
+			str = "On your way to the throne....";
 		} else {
-			str = "Jupiters Cock!!\n You were " + correct + " out of " + total
-					+ ".";
+			str = "Worse than a whitewalker...";
 		}
-		str += "\nScore : " + score;
 		tv.setText(str);
+		scoreText.setText("Score : " + score);
 	}
 
 	/**
@@ -88,11 +82,8 @@ public class ResultsActivity extends DynamicBackgroundActivity implements
 	public void onClick(View arg0) {
 		switch (arg0.getId()) {
 		case R.id.endbutton1:
-			startActivity(new Intent(this, GameActivity.class));
+			startActivity(new Intent(this, TriviaSelectionActivity.class));
 			finish();
-			break;
-		case R.id.emailButton:
-			SendEmail.send(this, "Concerns about Spartacus app");
 			break;
 		case R.id.backMain:
 			startActivity(new Intent(this, MenuActivity.class));
@@ -113,7 +104,6 @@ public class ResultsActivity extends DynamicBackgroundActivity implements
 		super.onDestroy();
 		tv = null;
 		b1 = null;
-		email = null;
 		backMain = null;
 	}
 

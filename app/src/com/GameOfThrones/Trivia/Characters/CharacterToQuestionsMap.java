@@ -1,19 +1,20 @@
 package com.GameOfThrones.Trivia.Characters;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
 
 import com.GameOfThrones.Trivia.Question.Question;
 import com.GameOfThrones.Trivia.util.GeneralAlgorithms;
-import com.GameOfThrones.Trivia.util.HashArray;
 
 public class CharacterToQuestionsMap {
-	HashArray<GameCharacter, Integer> map;
+	ArrayList<ArrayList<Integer>> gameCharactersIDs;
 	ArrayList<GameCharacter> gameCharacters;
 
 	public CharacterToQuestionsMap(ArrayList<GameCharacter> gameCharacters) {
 		this.gameCharacters = gameCharacters;
-		map = new HashArray<GameCharacter, Integer>();
+		gameCharactersIDs = new ArrayList<ArrayList<Integer>>();
+		for (int i = 0; i < gameCharacters.size(); i++) {
+			gameCharactersIDs.add(new ArrayList<Integer>());
+		}
 	}
 
 	/**
@@ -23,48 +24,21 @@ public class CharacterToQuestionsMap {
 	 * @param question
 	 */
 	public void addMappings(Question question) {
-		for (GameCharacter c : gameCharacters) {
-			ArrayList<String> searchEle = c.getSearchTerms();
+		for (int i = 0; i < gameCharacters.size(); i++) {
+			ArrayList<String> searchEle = gameCharacters.get(i)
+					.getSearchTerms();
 			for (String s : question.getStrings()) {
 				if (GeneralAlgorithms.containsString(s, searchEle)) {
-					map.add(c, question.getId());
+					gameCharactersIDs.get(i).add(question.getId());
+					break;
 				}
 			}
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "CharacterToQuestionsMap [map=" + map + "]";
+	public ArrayList<Integer> get(int i) {
+		ArrayList<Integer> ele = gameCharactersIDs.get(i);
+		return ele;
 	}
 
-	/**
-	 * @return the map
-	 */
-	public HashArray<GameCharacter, Integer> getMap() {
-		return map;
-	}
-
-	/**
-	 * @param map
-	 *            the map to set
-	 */
-	public void setMap(HashArray<GameCharacter, Integer> map) {
-		this.map = map;
-	}
-
-	public ArrayList<Integer> get(GameCharacter gameCharacter) {
-		return map.getElement(gameCharacter);
-	}
-
-	public ArrayList<Integer> get(String gameCharacter) {
-		GameCharacter c = new GameCharacter(gameCharacter,
-				new ArrayList<String>());
-		return map.getElement(c);
-	}
 }

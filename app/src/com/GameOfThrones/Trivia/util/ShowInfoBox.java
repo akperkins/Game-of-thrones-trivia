@@ -31,8 +31,8 @@ public class ShowInfoBox {
 		return pi;
 	}
 
-	public void show(int[] stringIds, boolean acceptBooleans,
-			boolean showEverytime) {
+	public void show(String message, boolean acceptButtons,
+			boolean showEveryTime) {
 		PackageInfo versionInfo = getPackageInfo();
 
 		// the eulaKey changes every time you increment the version number in
@@ -44,7 +44,7 @@ public class ShowInfoBox {
 
 		boolean show = false;
 
-		if (!showEverytime) {
+		if (!showEveryTime) {
 			show = !hasBeenShown;
 		} else {
 			show = true;
@@ -56,14 +56,7 @@ public class ShowInfoBox {
 			String title = mActivity.getString(R.string.app_name) + " v"
 					+ versionInfo.versionName;
 
-			// Includes the updates as well so users know what changed.
-			String message = "";
-
-			for (int stringId : stringIds) {
-				message += (mActivity.getString(stringId) + "\n\n");
-			}
-
-			if (acceptBooleans) {
+			if (acceptButtons) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(mActivity)
 						.setTitle(title)
 						.setMessage(message)
@@ -110,5 +103,16 @@ public class ShowInfoBox {
 				builder.create().show();
 			}
 		}
+	}
+
+	public void show(int[] stringIds, boolean acceptBooleans,
+			boolean showEverytime) {
+		// Includes the updates as well so users know what changed.
+		String message = "";
+
+		for (int stringId : stringIds) {
+			message += (mActivity.getString(stringId) + "\n\n");
+		}
+		show(message, acceptBooleans, showEverytime);
 	}
 }

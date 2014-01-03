@@ -5,9 +5,10 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     
     <!-- Spacing applied to views in different situations -->
-    <dimen name="textSize">15sp</dimen>
+    <dimen name="defaultText">15sp</dimen>
     <dimen name="default_margin">1dp</dimen>
     <dimen name="default_padding">1dp</dimen>
     <dimen name="after_title_textview_space">230dp</dimen>
+    <dimen name="largeText">45sp</dimen>
 
 </resources>

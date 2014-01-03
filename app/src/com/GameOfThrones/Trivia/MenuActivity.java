@@ -19,7 +19,6 @@ import com.GameOfThrones.Trivia.util.ShowInfoBox;
 public class MenuActivity extends DynamicBackgroundActivity implements
 		OnClickListener {
 
-	Button qGame;
 	Button email;
 	Button highScore;
 	Button about;
@@ -31,31 +30,28 @@ public class MenuActivity extends DynamicBackgroundActivity implements
 	public void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.menu);
-		qGame = (Button) findViewById(R.id.quickbutton);
 		email = (Button) findViewById(R.id.mainEmail);
 		highScore = (Button) findViewById(R.id.highScore);
 		about = (Button) findViewById(R.id.about);
-		characterGame = (Button) findViewById(R.id.characterGame);
+		characterGame = (Button) findViewById(R.id.game);
 		characterGame.setOnClickListener(this);
 		highScore.setOnClickListener(this);
-		qGame.setOnClickListener(this);
 		email.setOnClickListener(this);
 		about.setOnClickListener(this);
 
-		new ShowInfoBox(this)
-				.show(new int[] { R.string.updates, R.string.eula }, true);
+		new ShowInfoBox(this).show(new int[] { R.string.disclaimer_ }, false,
+				true);
+
+		new ShowInfoBox(this).show(
+				new int[] { R.string.updates, R.string.license }, true, false);
 	}
 
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.characterGame:
+		case R.id.game:
 			Intent triviaSelect = new Intent(this,
 					TriviaSelectionActivity.class);
 			startActivity(triviaSelect);
-			break;
-		case R.id.quickbutton:
-			Intent intent = new Intent(this, GameActivity.class);
-			startActivityForResult(intent, GAME_ACTIVITY_RESULT_CODE);
 			break;
 		case R.id.mainEmail:
 			SendEmail.send(this, "Concerns about Spartacus app");
@@ -86,7 +82,6 @@ public class MenuActivity extends DynamicBackgroundActivity implements
 	 */
 	public void onDestoy() {
 		super.onDestroy();
-		qGame = null;
 		email = null;
 	}
 

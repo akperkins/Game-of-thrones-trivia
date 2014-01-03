@@ -16,6 +16,15 @@
         android:text="TextView" >
     </TextView>
 
+    <TextView
+        android:id="@+id/scoreText"
+        style="@style/CustomTheme.View.TextView"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="TextView"
+        android:textSize="@dimen/largeText" >
+    </TextView>
+
     <Button
         android:id="@+id/backMain"
         style="@style/CustomTheme.View.Button"
@@ -29,16 +38,8 @@
         android:id="@+id/endbutton1"
         style="@style/CustomTheme.View.Button"
         android:layout_height="0dp"
-         android:layout_weight="20"
-        android:text="Try again!" >
-    </Button>
-
-    <Button
-        android:id="@+id/emailButton"
-        style="@style/CustomTheme.View.Button"
-        android:layout_height="0dp"
         android:layout_weight="20"
-        android:text="Comments, Complaints, Suggestions" >
+        android:text="Try again!" >
     </Button>
 
 </LinearLayout>

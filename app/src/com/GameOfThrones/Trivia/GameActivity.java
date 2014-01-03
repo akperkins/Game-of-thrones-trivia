@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.GameOfThrones.Trivia.Characters.CharacterToQuestionsMap;
 import com.GameOfThrones.Trivia.Characters.GameCharacter;
+import com.GameOfThrones.Trivia.Data.GOTCharacters;
 import com.GameOfThrones.Trivia.HighScore.HighScorePrefs;
 import com.GameOfThrones.Trivia.Music.MusicService;
 import com.GameOfThrones.Trivia.Question.Question;
@@ -29,6 +30,7 @@ import com.GameOfThrones.Trivia.Question.QuestionsManager;
 import com.GameOfThrones.Trivia.Question.WeightedRemainingQuestionStrategy;
 import com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity;
 import com.GameOfThrones.Trivia.util.OutOfQuestionsException;
+import com.GameOfThrones.Trivia.util.Session;
 
 /**
  * The trivia game loop executes here.
@@ -131,14 +133,16 @@ public class GameActivity extends DynamicBackgroundActivity implements
 
 			Bundle extras = getIntent().getExtras();
 			if (extras != null) {
-				String chosenCharacter = extras.getString("gameCharacters");
-				if (chosenCharacter != null) {
-					CharacterToQuestionsMap map = new CharacterToQuestionsMap(
-							session.getCharacters());
+				int chosenCharacter = extras.getInt("gameCharacters");
+
+				if (chosenCharacter != 0) {
+
+					CharacterToQuestionsMap map = session.getMap();
 					for (Question q : qManager.getAllQuestions()) {
 						map.addMappings(q);
 					}
-					ArrayList<Integer> ids = map.get(chosenCharacter);
+					ArrayList<Integer> ids = map.get(chosenCharacter - 1);
+
 					qManager.keepOnlyQuestions(ids);
 					if (qManager.getAllQuestions().size() < MAX_QUESTIONS) {
 						total_questions = qManager.getAllQuestions().size();
