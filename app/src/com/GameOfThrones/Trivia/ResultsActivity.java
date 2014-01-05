@@ -72,7 +72,7 @@ public class ResultsActivity extends DynamicBackgroundActivity implements
 			str = "Worse than a whitewalker...";
 		}
 		tv.setText(str);
-		scoreText.setText("Score : " + score);
+		scoreText.setText("Score: " + score);
 	}
 
 	/**
@@ -80,21 +80,19 @@ public class ResultsActivity extends DynamicBackgroundActivity implements
 	 * selects
 	 * */
 	public void onClick(View arg0) {
+		super.refreshBackground();
 		switch (arg0.getId()) {
 		case R.id.endbutton1:
-			startActivity(new Intent(this, TriviaSelectionActivity.class));
-			finish();
+			nextActivity(TriviaSelectionActivity.class);
 			break;
 		case R.id.backMain:
-			startActivity(new Intent(this, MenuActivity.class));
-			finish();
+			nextActivity(MenuActivity.class);
 			break;
 		}
 	}
 
 	public void onStop() {
 		super.onStop();
-		super.refreshBackground();
 	}
 
 	/**

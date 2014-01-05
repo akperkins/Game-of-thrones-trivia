@@ -41,7 +41,7 @@ import com.GameOfThrones.Trivia.util.Session;
 public class GameActivity extends DynamicBackgroundActivity implements
 		OnClickListener {
 	/** number of trivia question per game */
-	static final int MAX_QUESTIONS = 10;
+	static final int MAX_QUESTIONS = 7;
 
 	int total_questions;
 
@@ -272,7 +272,6 @@ public class GameActivity extends DynamicBackgroundActivity implements
 		timer = null;
 		qManager = null;
 		counter = null;
-
 	}
 
 	/**

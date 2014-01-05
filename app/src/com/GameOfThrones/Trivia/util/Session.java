@@ -8,13 +8,15 @@ import com.GameOfThrones.Trivia.Characters.GameCharacter;
 public class Session {
 	private static Session instance;
 	private String username;
-	private int background;
+	private int backgroundPort;
+	private int backgroundLand;
 	private ArrayList<GameCharacter> characters;
 	CharacterToQuestionsMap map;
 
 	private Session() {
 		username = "";
-		background = 0;
+		backgroundPort = 0;
+		backgroundLand = 0;
 		characters = new ArrayList<GameCharacter>();
 	}
 
@@ -25,12 +27,32 @@ public class Session {
 		return instance;
 	}
 
-	public int getBackground() {
-		return background;
+	/**
+	 * @return the backgroundPort
+	 */
+	public int getBackgroundPort() {
+		return backgroundPort;
 	}
 
-	public void setBackground(int background) {
-		this.background = background;
+	/**
+	 * @param backgroundPort the backgroundPort to set
+	 */
+	public void setBackgroundPort(int backgroundPort) {
+		this.backgroundPort = backgroundPort;
+	}
+
+	/**
+	 * @return the backgroundLand
+	 */
+	public int getBackgroundLand() {
+		return backgroundLand;
+	}
+
+	/**
+	 * @param backgroundLand the backgroundLand to set
+	 */
+	public void setBackgroundLand(int backgroundLand) {
+		this.backgroundLand = backgroundLand;
 	}
 
 	/**

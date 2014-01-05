@@ -3,6 +3,7 @@ package com.GameOfThrones.Trivia.SuperActivities;
 import java.util.Random;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
@@ -32,25 +33,46 @@ public abstract class DynamicBackgroundActivity extends Activity {
 	}
 
 	protected void setBackground(int backgroundId) {
-		if (session.getBackground() == 0) {
-			refreshBackground();
+		if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+			if (session.getBackgroundPort() == 0) {
+				refreshBackground();
+			}
+			findViewById(backgroundId).setBackgroundResource(
+					session.getBackgroundPort());
+		} else {
+			if (session.getBackgroundLand() == 0) {
+				refreshBackground();
+			}
+			findViewById(backgroundId).setBackgroundResource(
+					session.getBackgroundLand());
 		}
-		findViewById(backgroundId).setBackgroundResource(
-				session.getBackground());
+
 	}
 
-	protected int refreshBackground() {
-		int[] temp;
-		if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-			temp = portraitPics;
-		} else {
-			temp = landscapePics;
-		}
-		int resource = temp[new Random().nextInt(temp.length)];
+	protected void refreshBackground() {
 
-		session.setBackground(resource);
-		return resource;
+		int resourcePort = portraitPics[new Random()
+				.nextInt(portraitPics.length)];
+		int resourceLand = landscapePics[new Random()
+				.nextInt(landscapePics.length)];
+
+		session.setBackgroundPort(resourcePort);
+		session.setBackgroundLand(resourceLand);
+
 	}
 
 	protected abstract int getBackgroundLayout();
+
+	public void nextActivity(Class<?> cls) {
+		Intent aboutIntent = new Intent(this, cls);
+		startActivity(aboutIntent);
+		finish();
+	}
+
+	public void nextActivity(Bundle bundle, Class<?> cls) {
+		Intent aboutIntent = new Intent(this, cls);
+		aboutIntent.putExtras(bundle);
+		startActivity(aboutIntent);
+		finish();
+	}
 }

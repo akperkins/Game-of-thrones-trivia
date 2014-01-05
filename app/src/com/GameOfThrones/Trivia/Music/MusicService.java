@@ -163,7 +163,9 @@ public class MusicService extends Service implements
 	 * cleanUpPlayer - Frees resources used by MusicPlayer object
 	 */
 	public void cleanUpPlayer() {
-		player.release();
-		player = null;
+		if (player != null) {
+			player.release();
+			player = null;
+		}
 	}
 }

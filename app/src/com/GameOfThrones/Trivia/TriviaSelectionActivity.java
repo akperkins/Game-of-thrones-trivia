@@ -50,9 +50,9 @@ public class TriviaSelectionActivity extends DynamicBackgroundActivity
 	}
 
 	public void startGameForCharacter(int character) {
-		Intent intent = new Intent(this, GameActivity.class);
-		intent.putExtra("gameCharacters", character);
-		startActivityForResult(intent, 0);
+		Bundle bundle = new Bundle();
+		bundle.putInt("gameCharacters", character);
+		nextActivity(bundle, GameActivity.class);
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -87,11 +87,7 @@ public class TriviaSelectionActivity extends DynamicBackgroundActivity
 		Toast.makeText(getBaseContext(), "Clicked " + charactersName.get(row),
 				Toast.LENGTH_LONG).show();
 		// all was selected
-		if (row == 0) {
-			startGameForCharacter(0);
-		} else {
-			startGameForCharacter(row);
-		}
+		startGameForCharacter(row);
 	}
 
 }

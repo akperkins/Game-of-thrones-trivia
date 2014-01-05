@@ -43,8 +43,7 @@ public class HighScore {
 	 */
 	@Override
 	public String toString() {
-		return "HighScore [id=" + id + ", date=" + date + ", score=" + score
-				+ "]";
+		return "Entry=" + id + ", date=" + date + ", score=" + score;
 	}
 
 }

@@ -40,18 +40,16 @@ public class MenuActivity extends DynamicBackgroundActivity implements
 		about.setOnClickListener(this);
 
 		new ShowInfoBox(this).show(new int[] { R.string.disclaimer_ }, false,
-				true);
+				false);
 
-		new ShowInfoBox(this).show(
-				new int[] { R.string.updates, R.string.license }, true, false);
+		new ShowInfoBox(this).show(new int[] { R.string.updates,
+				R.string.license }, true, false);
 	}
 
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.game:
-			Intent triviaSelect = new Intent(this,
-					TriviaSelectionActivity.class);
-			startActivity(triviaSelect);
+			nextActivity(TriviaSelectionActivity.class);
 			break;
 		case R.id.mainEmail:
 			SendEmail.send(this, "Concerns about Spartacus app");

@@ -31,7 +31,7 @@ public class HighScoreActivity extends DynamicBackgroundActivity {
 	public ArrayList<String> getHighScores() {
 		ArrayList<String> list = new ArrayList<String>();
 		HighScorePrefs prefs = new HighScorePrefs(getBaseContext());
-		for (int i = 0; i < prefs.getHighScoreCount(); i++) {
+		for (int i = prefs.getHighScoreCount() -1; i > -1; i--) {
 			HighScore temp = prefs.getHighScore(i);
 
 			list.add(temp.toString());

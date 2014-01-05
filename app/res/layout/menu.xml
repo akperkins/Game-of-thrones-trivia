@@ -9,16 +9,14 @@
 
     <Button
         android:id="@+id/game"
-        style="@style/CustomTheme.View.Button"
-        android:layout_height="0dp"
+        style="@style/CustomTheme.View.Button.SpecialAttention"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/after_title_textview_space"
-        android:layout_weight="30"
-        android:text="play"
-        android:textSize="@dimen/largeText" >
+        android:text="play" >
     </Button>
 
     <LinearLayout
-        android:layout_weight="15"
+        android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
         <Button
@@ -34,7 +32,7 @@
             style="@style/CustomTheme.View.Button"
             android:layout_height="match_parent"
             android:layout_weight="10"
-            android:text="Scores" >
+            android:text="scores" >
         </Button>
 
         <Button
@@ -42,7 +40,7 @@
             style="@style/CustomTheme.View.Button"
             android:layout_height="match_parent"
             android:layout_weight="10"
-            android:text="About" >
+            android:text="about" >
         </Button>
     </LinearLayout>
 
