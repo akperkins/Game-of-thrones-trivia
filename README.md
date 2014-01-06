@@ -6,7 +6,7 @@ Apps out that were built from this repo:
 
 As you can probably already tell, I am pretty big geek that loves trivia about my favorite pieces of fiction. I also love building software. Combine these two hobbies and you get this FOSS repo. I hope to eventually build high quality trivia apps for every one of my favorite shows (Game Of Thrones, Breaking Bad, Walking Dead :-) )
 
-Feel free to help. No fan should have to live without a fantastic trivia app any longer! :-) 
+Feel free to help. No fan, regardless of the show, should have to live without a fantastic trivia app any longer! Unless they use the Iphone :-) 
 
 ## Contributing
 
