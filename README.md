@@ -1,12 +1,14 @@
+Apps out that were built from this repo:
 
 # Spartacus Trivia App  [![Google Play](http://developer.android.com/images/brand/en_generic_rgb_wo_45.png)](https://play.google.com/store/apps/details?id=com.Spartacus.Trivia)
 
-My Spartacus Trivia for the Android market. This is currently an application on the android market.
+# Game Of Thrones Trivia App  [![Google Play](http://developer.android.com/images/brand/en_generic_rgb_wo_45.png)](https://play.google.com/store/apps/details?id=com.GameOfThrones.Trivia)
 
-The version of the code on this repo is an earlier build version (and incorrectly files mixed with another android project
-that I was working on at the time) than the one that is on the google play market.
-Unfortunately that code is lost however I plan to restore the application and maybe port it to one of
-my newer favorite shows (Game Of Thrones, Breaking Bad, Walking Dead :-) ) whenever I get the free time.
+A few trivia apps that I built for the Android market.
+
+As you can probably already tell, I am pretty big geek that loves trivia about my favorite pieces of fiction. I also love building software. Combine these two hobbies and you get this FOSS repo. I hope to eventually build high quality trivia apps for every one of my favorite shows (Game Of Thrones, Breaking Bad, Walking Dead :-) )
+
+Feel free to help. 
 
 ## Contributing
 
