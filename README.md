@@ -6,17 +6,14 @@ My goal is to have only the res (resource) folder differ between branches, which
 
 Apps out that were built from this repo:
 
+# Game Of Thrones Trivia App  [![Google Play](http://developer.android.com/images/brand/en_generic_rgb_wo_45.png)](https://play.google.com/store/apps/details?id=com.GameOfThrones.Trivia)
+
 # Spartacus Trivia App  [![Google Play](http://developer.android.com/images/brand/en_generic_rgb_wo_45.png)](https://play.google.com/store/apps/details?id=com.Spartacus.Trivia)
 Unfortunately, I lost the keystore for this application so it cannot be updated.
-
 
 # Girl with the dragon tattoo Trivia App  [![Google Play](http://developer.android.com/images/brand/en_generic_rgb_wo_45.png)](https://play.google.com/store/apps/details?id=com.trivia.girlwithdragontattootrivia&hl=en_GB)
 
 The keystore is lost for this one as well.
-
-# Game Of Thrones Trivia App  [![Google Play](http://developer.android.com/images/brand/en_generic_rgb_wo_45.png)](https://play.google.com/store/apps/details?id=com.GameOfThrones.Trivia)
-
-
 
 ## Contributing
 
