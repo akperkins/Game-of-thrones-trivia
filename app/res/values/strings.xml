@@ -333,7 +333,14 @@
         <item>She was one of the heirs to the Mad King</item>
         <item>4</item>
     </string-array>
+    
     <string-array name="hardQuestions"></string-array>
+    
+    <string-array name="characters">
+        <item> Daenerys_Mother Of Dragons_Daenery</item>
+        <item> Eddard_Ned</item>
+        <item> Tyrion_Dwarf_Half-man</item>
+    </string-array>
 
     <string name="title_activity_high_score">HighScoreActivity</string>
     <string name="action_settings">Settings</string>

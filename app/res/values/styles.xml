@@ -5,7 +5,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:typeface">monospace</item>
-        <item name="android:textSize">@dimen/defaultText</item>
+        <item name="android:textSize">@dimen/menuText</item>
         <item name="android:textColor">@color/red</item>
     </style>
 
@@ -28,6 +28,10 @@
         <item name="android:background">@color/red</item>
         <item name="android:textSize">@dimen/largeText</item>
         <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="CustomTheme.View.Button.Menu">
+        <item name="android:textSize">@dimen/menuText</item>
     </style>
 
 </resources>

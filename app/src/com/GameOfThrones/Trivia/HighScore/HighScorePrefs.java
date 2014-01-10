@@ -1,13 +1,23 @@
 package com.GameOfThrones.Trivia.HighScore;
 
+import com.GameOfThrones.Trivia.R;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 
+/**
+ * Class used to query HighScore objects stored in SharedPreferences
+ * 
+ * @author andre
+ * 
+ */
 public class HighScorePrefs {
 
 	/** This application's preferences label */
 
-	private static final String PREFS_NAME = "com.GameOfThrones.Trivia.HighScore";
+	private static String PREFS_NAME;
+
+	private String appName;
 
 	/** This application's preferences */
 
@@ -17,28 +27,37 @@ public class HighScorePrefs {
 
 	private static SharedPreferences.Editor editor;
 
+	public String KEY_PREFIX = appName + ".KEY";
+	public String KEY_SCORE_COUNT = appName + ".ScoreCount";
+
+	/** generic field keys */
+	private String KEY_DATE = appName + ".KEY_DATE";
+	private String KEY_SCORE = appName + ".KEY_SCORE";
+
+	/**
+	 * Constructor
+	 * 
+	 * @param ctx
+	 *            - Context in which the sharedPreferences are stored
+	 */
 	public HighScorePrefs(Context ctx) {
+		this.appName = ctx.getString(R.string.app_name);
 		if (settings == null) {
+			PREFS_NAME = appName + ".HighScore";
 			settings = ctx.getSharedPreferences(PREFS_NAME,
 					Context.MODE_PRIVATE);
 		}
-
-		/*
-		 * 
-		 * Get a SharedPreferences editor instance.
-		 * 
-		 * SharedPreferences ensures that updates are atomic
-		 * 
-		 * and non-concurrent
-		 */
-
 		editor = settings.edit();
 
+		KEY_PREFIX = appName + ".KEY";
+		KEY_SCORE_COUNT = appName + ".ScoreCount";
+		
+		/** generic field keys */
+		KEY_DATE = appName + ".KEY_DATE";
+		KEY_SCORE = appName + ".KEY_SCORE";
 	}
 
 	/** The prefix for flattened user keys */
-	public static final String KEY_PREFIX = "com.GameOfThrones.package.KEY";
-	public static final String KEY_SCORE_COUNT = "com.GameOfThrones.ScoreCount";
 
 	/**
 	 * Method to return a unique key for any field belonging to a given object
@@ -53,11 +72,12 @@ public class HighScorePrefs {
 		return KEY_PREFIX + id + "_" + fieldKey;
 	}
 
-	/** generic field keys */
-	private static final String KEY_DATE = "com.GameOfThrones.package.KEY_DATE";
-	private static final String KEY_SCORE = "com.GameOfThrones.package.KEY_SCORE";
-
-	/** Add a new high score */
+	/**
+	 * Saves a new highscore in the shared preferences
+	 * @param date
+	 * @param score
+	 * @return
+	 */
 	public HighScore addNewHighScore(String date, int score) {
 		if (date == null)
 			return null; // don't bother
@@ -72,7 +92,12 @@ public class HighScorePrefs {
 		return new HighScore(id, date, score);
 	}
 
-	/** Retrieve */
+	/**
+	 * Retrieves the HighScore that is mapped to this id
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public HighScore getHighScore(int id) {
 		String date = settings.getString(getFieldKey(id, KEY_DATE), ""); // default
 																			// value
@@ -80,11 +105,20 @@ public class HighScorePrefs {
 																	// value
 		return new HighScore(id, date, score);
 	}
-
+	
+	/**
+	 * Returns the number of high scores currently saved
+	 * @return
+	 */
 	public int getHighScoreCount() {
 		return settings.getInt(KEY_SCORE_COUNT, 0);
 	}
-
+	
+	/**
+	 * Increment High score count.
+	 * @param number
+	 * @return
+	 */
 	public int addScoreCount(int number) {
 		int scoreCount = getHighScoreCount();
 		editor.putInt(KEY_SCORE_COUNT, scoreCount + number);
@@ -92,5 +126,4 @@ public class HighScorePrefs {
 		editor.commit();
 		return getHighScoreCount();
 	}
-
 }

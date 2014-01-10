@@ -1,22 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/menuActivity"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/dany_port"
-    android:orientation="vertical"
-    android:weightSum="100" >
-
-    <Button
-        android:id="@+id/game"
-        style="@style/CustomTheme.View.Button.SpecialAttention"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/after_title_textview_space"
-        android:text="play" >
-    </Button>
+    android:background="@drawable/dany_port" >
 
     <LinearLayout
+        android:id="@+id/navButtons"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal" >
 
         <Button
@@ -44,4 +36,13 @@
         </Button>
     </LinearLayout>
 
-</LinearLayout>
+    <Button
+        android:id="@+id/game"
+        style="@style/CustomTheme.View.Button.SpecialAttention"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/navButtons"
+        android:layout_marginTop="@dimen/after_title_textview_space"
+        android:text="play" >
+    </Button>
+
+</RelativeLayout>

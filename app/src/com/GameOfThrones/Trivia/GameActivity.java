@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import com.GameOfThrones.Trivia.Characters.CharacterToQuestionsMap;
 import com.GameOfThrones.Trivia.Characters.GameCharacter;
-import com.GameOfThrones.Trivia.Data.GOTCharacters;
+import com.GameOfThrones.Trivia.Data.TriviaCharactersInfo;
 import com.GameOfThrones.Trivia.HighScore.HighScorePrefs;
 import com.GameOfThrones.Trivia.Music.MusicService;
 import com.GameOfThrones.Trivia.Question.Question;

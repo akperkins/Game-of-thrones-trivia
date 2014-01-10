@@ -1,37 +1,85 @@
 package com.GameOfThrones.Trivia.HighScore;
 
+/**
+ * Score that a user obtain at the end of a game.
+ * 
+ * @author andre
+ * 
+ */
 public class HighScore {
-
-	private int id; // used for object storage
+	/** unique identifier */
+	private int id;
+	/** date the score was obtained */
 	private String date;
+	/** numeric value of score */
 	private int score;
 
+	/**
+	 * Construtor
+	 * 
+	 * @param id
+	 *            - unique identifier
+	 * @param date
+	 *            - date the score was obtained
+	 * @param score
+	 *            - int - value of score
+	 */
 	public HighScore(int id, String date, int score) {
 		this.id = id;
 		this.date = date;
 		this.score = score;
 	}
 
+	/**
+	 * id getter
+	 * 
+	 * @return
+	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * id setter
+	 * 
+	 * @param id
+	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 
+	/**
+	 * date getter
+	 * 
+	 * @return
+	 */
 	public String getDate() {
 		return date;
 	}
 
+	/**
+	 * date setter
+	 * 
+	 * @param date
+	 */
 	public void setDate(String date) {
 		this.date = date;
 	}
 
+	/**
+	 * score getter
+	 * 
+	 * @return
+	 */
 	public int getScore() {
 		return score;
 	}
 
+	/**
+	 * score setter
+	 * 
+	 * @param score
+	 */
 	public void setScore(int score) {
 		this.score = score;
 	}

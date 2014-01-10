@@ -12,7 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.GameOfThrones.Trivia.Characters.GameCharacter;
-import com.GameOfThrones.Trivia.Data.GOTCharacters;
+import com.GameOfThrones.Trivia.Data.TriviaCharactersInfo;
 import com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity;
 
 public class TriviaSelectionActivity extends DynamicBackgroundActivity
@@ -72,7 +72,8 @@ public class TriviaSelectionActivity extends DynamicBackgroundActivity
 
 	public void intitializeSessionData() {
 		ArrayList<GameCharacter> characters = new ArrayList<GameCharacter>();
-		for (String[] characterInfo : GOTCharacters.characters) {
+		for (String[] characterInfo : TriviaCharactersInfo
+				.getInfo(getResources())) {
 			ArrayList<String> aliases = new ArrayList<String>();
 			for (int i = 1; i < characterInfo.length; i++) {
 				aliases.add(characterInfo[i]);
