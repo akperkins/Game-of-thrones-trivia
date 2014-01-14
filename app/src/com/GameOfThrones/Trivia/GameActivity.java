@@ -158,6 +158,8 @@ public class GameActivity extends DynamicBackgroundActivity implements
 				Log.e(this.toString(), "Out of questions", e);
 			}
 		}
+		/** give game full screen */
+		/*hideActionBar();*/
 	}
 
 	private ServiceConnection mConnection = new ServiceConnection() {

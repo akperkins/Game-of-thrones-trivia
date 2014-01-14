@@ -6,6 +6,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 import com.GameOfThrones.Trivia.R;
 import com.GameOfThrones.Trivia.util.Session;
@@ -75,4 +79,17 @@ public abstract class DynamicBackgroundActivity extends Activity {
 		startActivity(aboutIntent);
 		finish();
 	}
+	
+	/*protected void hideActionBar(){
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.hide();
+	}*/
+	
+	/*@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    // Inflate the menu items for use in the action bar
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.about, menu);
+	    return super.onCreateOptionsMenu(menu);
+	}*/
 }

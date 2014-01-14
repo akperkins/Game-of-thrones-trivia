@@ -1,6 +1,7 @@
 package com.GameOfThrones.Trivia;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -8,7 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity;
-import com.GameOfThrones.Trivia.util.SendEmail;
 
 /**
  * End of game activity.
@@ -23,7 +23,7 @@ public class ResultsActivity extends DynamicBackgroundActivity implements
 
 	/** References to the views in the UI layout */
 	TextView tv, scoreText;
-	Button submit, b1, backMain;
+	Button submit, b1, backMain, rateApp;
 	int score;
 
 	/**
@@ -49,6 +49,9 @@ public class ResultsActivity extends DynamicBackgroundActivity implements
 
 		backMain = (Button) findViewById(R.id.backMain);
 		backMain.setOnClickListener(this);
+
+		rateApp = (Button) findViewById(R.id.rateApp);
+		rateApp.setOnClickListener(this);
 	}
 
 	/**
@@ -87,6 +90,11 @@ public class ResultsActivity extends DynamicBackgroundActivity implements
 			break;
 		case R.id.backMain:
 			nextActivity(MenuActivity.class);
+			break;
+		case R.id.rateApp:
+			Intent i = new Intent(Intent.ACTION_VIEW);
+			i.setData(Uri.parse(this.getString(R.string.appUrl)));
+			startActivity(i);
 			break;
 		}
 	}

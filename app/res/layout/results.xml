@@ -37,5 +37,12 @@
         android:layout_above="@id/endbutton1"
         android:text="Back to Main Menu" >
     </Button>
+    
+    <Button
+        android:id="@+id/rateApp"
+        style="@style/CustomTheme.View.Button"
+        android:layout_above="@id/backMain"
+        android:text="Rate this App" >
+    </Button>
 
 </RelativeLayout>
