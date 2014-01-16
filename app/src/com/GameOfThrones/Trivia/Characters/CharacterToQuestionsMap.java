@@ -3,12 +3,21 @@ package com.GameOfThrones.Trivia.Characters;
 import java.util.ArrayList;
 
 import com.GameOfThrones.Trivia.Question.Question;
-import com.GameOfThrones.Trivia.util.GeneralAlgorithms;
 
+/**
+ * Creates and stores mapping info of characters to questions that reference the
+ * characters.
+ * 
+ * @author andre
+ * 
+ */
 public class CharacterToQuestionsMap {
+	/**
+	 * 
+	 */
 	ArrayList<ArrayList<Integer>> gameCharactersIDs;
 	ArrayList<GameCharacter> gameCharacters;
-
+	
 	public CharacterToQuestionsMap(ArrayList<GameCharacter> gameCharacters) {
 		this.gameCharacters = gameCharacters;
 		gameCharactersIDs = new ArrayList<ArrayList<Integer>>();
@@ -18,6 +27,10 @@ public class CharacterToQuestionsMap {
 	}
 
 	/**
+	 * Examines each string associated with a question and if the question
+	 * matches to one of the characters aliases then add that to the mappings
+	 * collection
+	 * 
 	 * TODO - Expensive to perform for each question on each startup. will have
 	 * to find a way to cache mappings. Probably move all related pieces to DB
 	 * 
@@ -28,7 +41,7 @@ public class CharacterToQuestionsMap {
 			ArrayList<String> searchEle = gameCharacters.get(i)
 					.getSearchTerms();
 			for (String s : question.getStrings()) {
-				if (GeneralAlgorithms.containsString(s, searchEle)) {
+				if (searchEle.contains(s)) {
 					gameCharactersIDs.get(i).add(question.getId());
 					break;
 				}
@@ -36,6 +49,12 @@ public class CharacterToQuestionsMap {
 		}
 	}
 
+	/**
+	 * Returns the ids of questions mapped to a particular character
+	 * 
+	 * @param i
+	 * @return
+	 */
 	public ArrayList<Integer> get(int i) {
 		ArrayList<Integer> ele = gameCharactersIDs.get(i);
 		return ele;

@@ -11,15 +11,35 @@ import android.preference.PreferenceManager;
 
 import com.GameOfThrones.Trivia.R;
 
+/**
+ * @author andre
+ * 
+ */
 public class ShowInfoBox {
-
-	private String EULA_PREFIX = "eula_";
+	/**
+	 * Part of the string used to obtain sharedPref that store is the dialog was shown
+	 */
+	final static private String NEW = "NEW";
+	
+	/**
+	 * Stores the current activity context
+	 */
 	private Activity mActivity;
 
+	/**
+	 * Constructor - stores current activity context
+	 * 
+	 * @param context
+	 */
 	public ShowInfoBox(Activity context) {
 		mActivity = context;
 	}
 
+	/**
+	 * Obtain package info for Application
+	 * 
+	 * @return
+	 */
 	private PackageInfo getPackageInfo() {
 		PackageInfo pi = null;
 		try {
@@ -31,13 +51,50 @@ public class ShowInfoBox {
 		return pi;
 	}
 
+	/**
+	 * Displays a dialog box. Displays strings stored in string resources.
+	 * 
+	 * @param stringIds
+	 *            - String res ids to display in message
+	 * @param acceptBooleans
+	 *            - true if ok and cancel button, false if just ok displayed
+	 * @param showEverytime
+	 *            -showEveryTime if true box displays everytime. if false
+	 *            displays if first time for new version of app
+	 */
+	public void show(int[] stringIds, boolean acceptBooleans,
+			boolean showEverytime) {
+		// Includes the updates as well so users know what changed.
+		String message = "";
+
+		for (int stringId : stringIds) {
+			message += (mActivity.getString(stringId) + "\n\n");
+		}
+		show(message, acceptBooleans, showEverytime);
+	}
+
+	/**
+	 * Displays a dialog box.
+	 * 
+	 * @param message
+	 *            - String that is shown in dialog box
+	 * @param acceptButtons
+	 *            - true if ok and cancel button, false if just ok displayed
+	 * @param showEveryTime
+	 *            if true box displays everytime. if false displays if first
+	 *            time for new version of app
+	 * 
+	 */
+	// @TODO Refactor this - remove showEveryTime param
 	public void show(String message, boolean acceptButtons,
 			boolean showEveryTime) {
 		PackageInfo versionInfo = getPackageInfo();
 
-		// the eulaKey changes every time you increment the version number in
-		// the AndroidManifest.xml
-		final String eulaKey = EULA_PREFIX + versionInfo.versionCode;
+		/**
+		 * the eulaKey changes every time you increment the version number in
+		 * the AndroidManifest.xml
+		 **/
+		final String eulaKey = NEW + versionInfo.versionCode;
 		final SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(mActivity);
 		boolean hasBeenShown = prefs.getBoolean(eulaKey, false);
@@ -96,23 +153,10 @@ public class ShowInfoBox {
 									public void onClick(
 											DialogInterface dialogInterface,
 											int i) {
-										// Mark this version as read.
-
 									}
 								});
 				builder.create().show();
 			}
 		}
-	}
-
-	public void show(int[] stringIds, boolean acceptBooleans,
-			boolean showEverytime) {
-		// Includes the updates as well so users know what changed.
-		String message = "";
-
-		for (int stringId : stringIds) {
-			message += (mActivity.getString(stringId) + "\n\n");
-		}
-		show(message, acceptBooleans, showEverytime);
 	}
 }

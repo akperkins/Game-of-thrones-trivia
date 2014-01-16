@@ -15,10 +15,22 @@ import com.GameOfThrones.Trivia.Characters.GameCharacter;
 import com.GameOfThrones.Trivia.Data.TriviaCharactersInfo;
 import com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity;
 
+/**
+ * Activity to select which character the trivia questions would focus on
+ * 
+ * @author andre
+ * 
+ */
 public class TriviaSelectionActivity extends DynamicBackgroundActivity
 		implements OnItemClickListener {
+	/**
+	 * List of characters
+	 */
 	ArrayList<String> charactersName;
 
+	/* (non-Javadoc)
+	 * @see com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,7 +49,11 @@ public class TriviaSelectionActivity extends DynamicBackgroundActivity
 		listview.setAdapter(adapter);
 		listview.setOnItemClickListener(this);
 	}
-
+	
+	/**
+	 * Obtains each character name from characterlist in session and 
+	 * places that information in the charactersName instance variable.
+	 */
 	public void initCharactersName() {
 		ArrayList<GameCharacter> gameCharacters = session.getCharacters();
 
@@ -48,13 +64,20 @@ public class TriviaSelectionActivity extends DynamicBackgroundActivity
 			charactersName.add(g.getName());
 		}
 	}
-
+	
+	/**
+	 * Starts the trivia app for character option selected
+	 * @param character
+	 */
 	public void startGameForCharacter(int character) {
 		Bundle bundle = new Bundle();
 		bundle.putInt("gameCharacters", character);
 		nextActivity(bundle, GameActivity.class);
 	}
-
+	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onActivityResult(int, int, android.content.Intent)
+	 */
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
 		case 0:
@@ -65,11 +88,17 @@ public class TriviaSelectionActivity extends DynamicBackgroundActivity
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity#getBackgroundLayout()
+	 */
 	@Override
 	protected int getBackgroundLayout() {
 		return R.id.triviaSelection;
 	}
-
+	
+	/**
+	 * Generates an arraylist of users from data in string.xml and store in session class
+	 */
 	public void intitializeSessionData() {
 		ArrayList<GameCharacter> characters = new ArrayList<GameCharacter>();
 		for (String[] characterInfo : TriviaCharactersInfo
@@ -83,6 +112,9 @@ public class TriviaSelectionActivity extends DynamicBackgroundActivity
 		session.setCharacters(characters);
 	}
 
+	/* (non-Javadoc)
+	 * @see android.widget.AdapterView.OnItemClickListener#onItemClick(android.widget.AdapterView, android.view.View, int, long)
+	 */
 	public void onItemClick(AdapterView<?> arg0, View arg1, int row, long arg3) {
 		// TODO Auto-generated method stub
 		Toast.makeText(getBaseContext(), "Clicked " + charactersName.get(row),

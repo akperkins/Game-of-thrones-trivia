@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 /**
- * Class used to query HighScore objects stored in SharedPreferences
+ * Cool way to store multiple HighScores in SharedPreferences
  * 
  * @author andre
  * 

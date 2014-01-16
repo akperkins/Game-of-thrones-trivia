@@ -5,21 +5,49 @@ import java.util.ArrayList;
 import com.GameOfThrones.Trivia.Characters.CharacterToQuestionsMap;
 import com.GameOfThrones.Trivia.Characters.GameCharacter;
 
+/**
+ * Singleton used to store persistent data throughout application
+ * 
+ * @author andre
+ * 
+ */
 public class Session {
+	/**
+	 * Session object for this application execution
+	 */
 	private static Session instance;
-	private String username;
+	/**
+	 * drawable reference to background image when in portrait mode
+	 */
 	private int backgroundPort;
+	/**
+	 * drawable reference to background image when in landscape mode
+	 */
 	private int backgroundLand;
+	/**
+	 * GameCharacters created created in application
+	 */
 	private ArrayList<GameCharacter> characters;
+	/**
+	 * Used to know which questions reference which GameCharacter
+	 */
 	CharacterToQuestionsMap map;
 
+	/**
+	 * private Constructor - ensures only this class can create session instance
+	 */
 	private Session() {
-		username = "";
 		backgroundPort = 0;
 		backgroundLand = 0;
 		characters = new ArrayList<GameCharacter>();
 	}
 
+	/**
+	 * Session instance - guaranteed to always return same instance (Lazy
+	 * instantiation)
+	 * 
+	 * @return
+	 */
 	public static Session getInstance() {
 		if (instance == null) {
 			instance = new Session();
@@ -35,7 +63,8 @@ public class Session {
 	}
 
 	/**
-	 * @param backgroundPort the backgroundPort to set
+	 * @param backgroundPort
+	 *            the backgroundPort to set
 	 */
 	public void setBackgroundPort(int backgroundPort) {
 		this.backgroundPort = backgroundPort;
@@ -49,7 +78,8 @@ public class Session {
 	}
 
 	/**
-	 * @param backgroundLand the backgroundLand to set
+	 * @param backgroundLand
+	 *            the backgroundLand to set
 	 */
 	public void setBackgroundLand(int backgroundLand) {
 		this.backgroundLand = backgroundLand;

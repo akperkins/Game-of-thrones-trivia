@@ -4,15 +4,25 @@ import java.util.ArrayList;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.GameOfThrones.Trivia.HighScore.HighScore;
 import com.GameOfThrones.Trivia.HighScore.HighScorePrefs;
 import com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity;
-
+/**
+ * Displays user high scores saved in sharedPreferences
+ * 
+ * @author andre
+ *
+ */
 public class HighScoreActivity extends DynamicBackgroundActivity {
 
+	/* (non-Javadoc)
+	 * @see com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity#onCreate(android.os.Bundle)
+	 */
+	/**
+	 * Set up listview
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,7 +37,11 @@ public class HighScoreActivity extends DynamicBackgroundActivity {
 		// Bind to our new adapter.
 		listview.setAdapter(adapter);
 	}
-
+	
+	/***
+	 * Returns an arraylist of Strings that represent each highscore
+	 * @return
+	 */
 	public ArrayList<String> getHighScores() {
 		ArrayList<String> list = new ArrayList<String>();
 		HighScorePrefs prefs = new HighScorePrefs(getBaseContext());
@@ -39,6 +53,9 @@ public class HighScoreActivity extends DynamicBackgroundActivity {
 		return list;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity#getBackgroundLayout()
+	 */
 	@Override
 	protected int getBackgroundLayout() {
 		// TODO Auto-generated method stub

@@ -12,7 +12,7 @@ import com.GameOfThrones.Trivia.R;
  */
 public class TriviaCharactersInfo {
 	/**
-	 * Returns a string[][] that obtains charcter data from the array in the
+	 * Returns a string[][] that obtains character data from the array in the
 	 * string.xml file.
 	 * 
 	 * @param res

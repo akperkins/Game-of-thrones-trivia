@@ -24,10 +24,18 @@ public class ResultsActivity extends DynamicBackgroundActivity implements
 	/** References to the views in the UI layout */
 	TextView tv, scoreText;
 	Button submit, b1, backMain, rateApp;
+	/** Score the user obtained while playing game in GameActivity */
 	int score;
 
 	/**
 	 * onCreate(Bundle) - Sets the UI layout and initializes instance variables
+	 */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity#onCreate
+	 * (android.os.Bundle)
 	 */
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -57,6 +65,11 @@ public class ResultsActivity extends DynamicBackgroundActivity implements
 	/**
 	 * onReumse() - show the score calculation results in textview
 	 */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.app.Activity#onResume()
+	 */
 	public void onResume() {
 		super.onResume();
 		showResults();
@@ -82,6 +95,11 @@ public class ResultsActivity extends DynamicBackgroundActivity implements
 	 * onClick() - Performs the appropriate action for the button the user
 	 * selects
 	 * */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
 	public void onClick(View arg0) {
 		super.refreshBackground();
 		switch (arg0.getId()) {
@@ -99,10 +117,6 @@ public class ResultsActivity extends DynamicBackgroundActivity implements
 		}
 	}
 
-	public void onStop() {
-		super.onStop();
-	}
-
 	/**
 	 * onDestroy() - Cleans up instance variables.
 	 */
@@ -113,6 +127,12 @@ public class ResultsActivity extends DynamicBackgroundActivity implements
 		backMain = null;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity#
+	 * getBackgroundLayout()
+	 */
 	@Override
 	protected int getBackgroundLayout() {
 		// TODO Auto-generated method stub

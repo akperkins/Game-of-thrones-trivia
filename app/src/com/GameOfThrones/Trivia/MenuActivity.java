@@ -18,16 +18,33 @@ import com.GameOfThrones.Trivia.util.ShowInfoBox;
  * @author andre
  * 
  */
+/**
+ * @author andre
+ * 
+ */
 public class MenuActivity extends DynamicBackgroundActivity implements
 		OnClickListener {
+	/**
+	 * Navigation to other sections of the App
+	 */
+	Button email, highScore, about, characterGame;
 
-	Button email;
-	Button highScore;
-	Button about;
-	Button characterGame;
-
+	/**
+	 * Used to indicate that a a activity startedForResult returned successfully
+	 */
 	final static int GAME_ACTIVITY_RESULT_CODE = 1;
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity#onCreate
+	 * (android.os.Bundle)
+	 */
+	/**
+	 * Initializes instance variables and displays disclaimer and updates if the
+	 * situation is appropriate
+	 */
 	@Override
 	public void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
@@ -48,6 +65,16 @@ public class MenuActivity extends DynamicBackgroundActivity implements
 				R.string.license }, true, false);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.game:
@@ -67,6 +94,12 @@ public class MenuActivity extends DynamicBackgroundActivity implements
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.app.Activity#onActivityResult(int, int,
+	 * android.content.Intent)
+	 */
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
 		case GAME_ACTIVITY_RESULT_CODE:
@@ -85,10 +118,16 @@ public class MenuActivity extends DynamicBackgroundActivity implements
 		email = null;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity#
+	 * getBackgroundLayout()
+	 */
 	@Override
 	protected int getBackgroundLayout() {
 		// TODO Auto-generated method stub
 		return R.id.menuActivity;
 	}
-	
+
 }

@@ -9,6 +9,17 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.os.PowerManager;
 
+/**
+ * Bounded Service that wraps a mediaplayer object. Used to play music while
+ * adhering to the Android's system AudioManager
+ * 
+ * @author andre
+ * 
+ */
+/**
+ * @author andre
+ * 
+ */
 public class MusicService extends Service implements
 		AudioManager.OnAudioFocusChangeListener {
 	MediaPlayer player;
@@ -18,19 +29,6 @@ public class MusicService extends Service implements
 
 	public static final String ACTION_PLAY = "com.example.action.PLAY";
 	public static final String STOP_PLAY = "com.example.action.STOP";
-
-	int resid;
-
-	/**
-	 * Class used for the client Binder. Because we know this service always
-	 * runs in the same process as its clients, we don't need to deal with IPC.
-	 */
-
-	@Override
-	public IBinder onBind(Intent intent) {
-		return mBinder;
-	}
-
 	public static final int PLAYER_TOGGLE_MUSIC = 1;
 	public static final int PLAYER_KILL_THREAD = 2;
 	public static final int PLAYER_START_PLAYER = 3;
@@ -38,6 +36,34 @@ public class MusicService extends Service implements
 	public static final int PLAYER_STOP_PLAYER = 5;
 	public static final int PLAYER_RELEASE_PLAYER = 6;
 
+	int resid;
+
+	/**
+	 * MusicService inner class used to provide an interface to the service
+	 * 
+	 * @author andre
+	 * 
+	 */
+	public class LocalBinder extends Binder {
+		public MusicService getService() {
+			return MusicService.this;
+		}
+	}
+
+	/**
+	 * Class used for the client Binder. Because we know this service always
+	 * runs in the same process as its clients, we don't need to deal with IPC.
+	 */
+	@Override
+	public IBinder onBind(Intent intent) {
+		return mBinder;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.app.Service#onStartCommand(android.content.Intent, int, int)
+	 */
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		if (intent.getAction().equals(ACTION_PLAY)) {
 			initPlayer();
@@ -47,12 +73,9 @@ public class MusicService extends Service implements
 		return 0;
 	}
 
-	public class LocalBinder extends Binder {
-		public MusicService getService() {
-			return MusicService.this;
-		}
-	}
-
+	/**
+	 * Initialize mediaplayer object.
+	 */
 	public void initPlayer() {
 		if (!initialized) {
 			player = MediaPlayer.create(this.getBaseContext(), resid);
@@ -63,15 +86,20 @@ public class MusicService extends Service implements
 	}
 
 	/**
-	 * Sets the raw song resource to use.
-	 * 
-	 * @param resid
-	 *            - resource Id
+	 * @param Sets
+	 *            the raw song resource to use.
 	 */
 	public void setSong(int resid) {
 		this.resid = resid;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * android.media.AudioManager.OnAudioFocusChangeListener#onAudioFocusChange
+	 * (int)
+	 */
 	public void onAudioFocusChange(int focusChange) {
 		switch (focusChange) {
 		case AudioManager.AUDIOFOCUS_GAIN:
@@ -84,7 +112,6 @@ public class MusicService extends Service implements
 			}
 			player.setVolume(1.0f, 1.0f);
 			break;
-
 		case AudioManager.AUDIOFOCUS_LOSS:
 			/**
 			 * Lost focus for an unbounded amount of time: stop playback and
@@ -95,7 +122,6 @@ public class MusicService extends Service implements
 			}
 			cleanUpPlayer();
 			break;
-
 		case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
 			/**
 			 * Lost focus for a short time, but we have to stop playback. We
@@ -106,14 +132,13 @@ public class MusicService extends Service implements
 				playerPause();
 			}
 			break;
-
 		case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
 			/**
 			 * Lost focus for a short time, but it's ok to keep playing at a
 			 * reduced level
 			 **/
 			if (player.isPlaying())
-				player.setVolume(0.1f, 0.1f);
+				player.setVolume(0.5f, 0.5f);
 			break;
 		}
 	}

@@ -2,10 +2,26 @@ package com.GameOfThrones.Trivia.Characters;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a chracter from the content the trivia app is built from
+ * @author andre
+ *
+ */
 public class GameCharacter {
+	/**
+	 * Character's name
+	 */
 	String name;
+	/**
+	 * Names to search under the character
+	 */
 	ArrayList<String> searchTerms;
-
+	
+	/**
+	 * Constructor
+	 * @param name - initialize instance variable
+	 * @param aliases - init instance variable
+	 */
 	public GameCharacter(String name, ArrayList<String> aliases) {
 		super();
 		this.name = name;

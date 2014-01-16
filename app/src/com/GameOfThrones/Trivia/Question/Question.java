@@ -5,10 +5,10 @@ import java.util.Arrays;
 
 public class Question implements Serializable {
 	/**
-	 * 
+	 * Used to identify object during Serialization processes
 	 */
 	private static final long serialVersionUID = 7306464553446020989L;
-
+	
 	static int classId;
 	String question;
 	String[] answers = new String[4];

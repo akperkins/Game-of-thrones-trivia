@@ -6,11 +6,12 @@ import java.util.Random;
 /**
  * Class used to store algorithms that can be re-used in multiple instances.
  * This class will be moved to a Android Library project. This class is not
- * meant to be instantiated.
+ * allowed to be instantiated.
  * 
  * @author Andre Perkins - akperkins1@gmail.com
  * 
  */
+// @TODO all invalid inputs should throw exceptions?
 public class GeneralAlgorithms {
 
 	private GeneralAlgorithms() {
@@ -18,7 +19,7 @@ public class GeneralAlgorithms {
 
 	/**
 	 * shufffleArray - Returns an array with the same contents as the array
-	 * passed except the contents are shuffled.
+	 * passed except the contents positions are shuffled.
 	 * 
 	 * @param array
 	 *            - Object array to be shuffled
@@ -70,6 +71,17 @@ public class GeneralAlgorithms {
 		return store.get(randomIndex);
 	}
 
+	/**
+	 * Return only a portion of an array.
+	 * 
+	 * @param objArray
+	 *            - array
+	 * @param startIndex
+	 *            - start position inclusive
+	 * @param endIndex
+	 *            - end position inclusive
+	 * @return smaller array
+	 */
 	public static Object[] sliceArray(Object[] objArray, int startIndex,
 			int endIndex) {
 		if (startIndex < 0 || endIndex > objArray.length || objArray == null) {
@@ -82,6 +94,13 @@ public class GeneralAlgorithms {
 		return temp;
 	}
 
+	/**
+	 * Converts an object array that (contains String instances) to array of
+	 * String objects
+	 * 
+	 * @param strs
+	 * @return
+	 */
 	public static String[] converToStrArray(Object[] strs) {
 		String[] temp = new String[strs.length];
 
@@ -93,16 +112,6 @@ public class GeneralAlgorithms {
 						+ " failed instanceof String check");
 			}
 		}
-
 		return temp;
-	}
-
-	public static boolean containsString(String searched, ArrayList<String> searchEle) {
-		for (String s : searchEle) {
-			if (searched.contains(s)) {
-				return true;
-			}
-		}
-		return false;
 	}
 }
