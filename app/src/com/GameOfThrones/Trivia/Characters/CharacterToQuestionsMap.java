@@ -27,14 +27,14 @@ public class CharacterToQuestionsMap {
 	}
 
 	/**
-	 * Examines each string associated with a question and if the question
+	 * Examines each string associated with a trivia and if the trivia
 	 * matches to one of the characters aliases then add that to the mappings
 	 * collection
 	 * 
-	 * TODO - Expensive to perform for each question on each startup. will have
+	 * TODO - Expensive to perform for each trivia on each startup. will have
 	 * to find a way to cache mappings. Probably move all related pieces to DB
 	 * 
-	 * @param question
+	 * @param trivia
 	 */
 	public void addMappings(Question question) {
 		for (int i = 0; i < gameCharacters.size(); i++) {

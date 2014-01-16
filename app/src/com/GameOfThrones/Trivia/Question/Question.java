@@ -2,25 +2,27 @@ package com.GameOfThrones.Trivia.Question;
 
 import java.io.Serializable;
 import java.util.Arrays;
-
+/**
+ * Represents a trivia question
+ * @author andre
+ *
+ */
 public class Question implements Serializable {
 	/**
 	 * Used to identify object during Serialization processes
 	 */
 	private static final long serialVersionUID = 7306464553446020989L;
-	
+
 	static int classId;
-	String question;
+	String trivia;
 	String[] answers = new String[4];
 	int correctAnswer;
-	String[] characters;
 	int id;
 
-	public Question(String question, String[] answers, int correctAnswer) {
-		this.question = question;
+	public Question(String trivia, String[] answers, int correctAnswer) {
+		this.trivia = trivia;
 		this.answers = answers;
 		this.correctAnswer = correctAnswer;
-		this.characters = new String[0];
 		id = classId++;
 	}
 
@@ -54,53 +56,69 @@ public class Question implements Serializable {
 		this.id = id;
 	}
 
-	public Question(String question, String[] answers, int correctAnswer,
-			String[] characters) {
-		this(question, answers, correctAnswer);
-		this.characters = characters;
+	/**
+	 * 
+	 * @return trivia getter
+	 */
+	public String getTrivia() {
+		return trivia;
 	}
 
-	public String[] getCharacters() {
-		return characters;
+	/***
+	 * 
+	 * @param trivia
+	 *            trivia setter
+	 */
+	public void setTrivia(String question) {
+		this.trivia = question;
 	}
 
-	public void setCharacters(String[] characters) {
-		this.characters = characters;
-	}
-
-	public String getQuestion() {
-		return question;
-	}
-
-	public void setQuestion(String question) {
-		this.question = question;
-	}
-
+	/**
+	 * 
+	 * @return answers setter
+	 */
 	public String[] getAnswer() {
 		return answers;
 	}
 
+	/**
+	 * 
+	 * @param answers
+	 *            setter
+	 */
 	public void setAnswers(String[] answers) {
 		this.answers = answers;
 	}
 
+	/**
+	 * 
+	 * @return correctAnswer getter
+	 */
 	public int getCorrectAnswer() {
 		return correctAnswer;
 	}
 
+	/**
+	 * 
+	 * @param correctAnswer
+	 *            setter
+	 */
 	public void setCorrectAnswer(int correctAnswer) {
 		this.correctAnswer = correctAnswer;
 	}
 
+	/**
+	 * Returns the instance variable all in String format.
+	 * @return question data
+	 */
 	public String[] getStrings() {
 		String[] str = new String[6];
-		str[0] = question;
+		str[0] = trivia;
 		str[1] = answers[0];
 		str[2] = answers[1];
 		str[3] = answers[2];
 		str[4] = answers[3];
 		str[5] = String.valueOf(correctAnswer);
-
 		return str;
 	}
 
@@ -111,12 +129,13 @@ public class Question implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "Question [question=" + question + ", answers="
-				+ Arrays.toString(answers) + ", correctAnswer=" + correctAnswer
-				+ ", gameCharacters=" + Arrays.toString(characters) + "]";
+		return "Question [trivia=" + trivia + ", answers="
+				+ Arrays.toString(answers) + ", correctAnswer=" + correctAnswer;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

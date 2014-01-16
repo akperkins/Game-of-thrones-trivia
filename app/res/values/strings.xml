@@ -8,13 +8,11 @@
     <string name="main_menu"> MainMenuActivity </string>
     <string name="game_of_thrones_trivia_app">Game Of Thrones Trivia App</string>
     <string name="disclaimer_">App Created by: Overnight Apps. This app is an unofficial Game of Thrones trivia app. This app has no affiliation with the Game Of Thrones franchise.</string>
-	<string name="appUrl">https://play.google.com/store/apps/details?id=com.GameOfThrones.Trivia</string>
-    
-    <!-- <string name="eula">Eula: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sagittis, est in pulvinar varius, nulla metus suscipit enim, eu volutpat sem magna sed lacus. Donec tempor libero eget dui euismod eget luctus libero tempor. Quisque felis mauris, malesuada accumsan vulputate quis, sodales et nibh. Mauris tellus neque, interdum quis blandit sagittis, tincidunt at urna. Cras luctus feugiat metus, in sollicitudin felis laoreet sed. Mauris posuere mattis felis. Morbi enim odio, accumsan ac tincidunt pharetra, mattis sit amet turpis. Vivamus lobortis aliquet ante nec aliquet. Suspendisse potenti. Praesent rutrum condimentum ante et congue. In faucibus posuere arcu, ut congue sem dictum ac. Cras ante libero, pellentesque et fermentum ut, congue nec mi. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed euismod malesuada sapien ut eleifend.</string> -->
+    <string name="appUrl">https://play.google.com/store/apps/details?id=com.GameOfThrones.Trivia</string>
     <string name="sources">Sources used to obtain various content used in this application.\nthebacklot.com\ngoodreads.com\nHBO(&#169;)\nA Song of Ice and Fire Book Series(&#169;)</string>
     <string name="updates">Upates in this version: Whole new application. </string>
 
-    <string-array name="easyQuestions">
+    <string-array name="questions">
         <item>What are the names of the Brothers of the Night\'s Watch in the prologue?</item>
         <item>Garett, Wal and Willem Risley</item>
         <item>Gared, Will and Waymar Royce</item>
@@ -334,9 +332,6 @@
         <item>She was one of the heirs to the Mad King</item>
         <item>4</item>
     </string-array>
-    
-    <string-array name="hardQuestions"></string-array>
-    
     <string-array name="characters">
         <item> Daenerys_Mother Of Dragons_Daenery</item>
         <item> Eddard_Ned</item>
