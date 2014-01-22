@@ -7,7 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.Spartacus.Trivia.util.GeneralAlgorithms;
+import com.GameOfThrones.Trivia.util.GeneralAlgorithms;
 
 public class GeneralAlgorithmsTest {
 

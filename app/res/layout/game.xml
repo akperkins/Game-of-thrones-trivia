@@ -1,34 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gameActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/flames"
+    android:background="@drawable/dany_port"
     android:orientation="vertical"
     android:weightSum="100" >
 
     <TextView
         android:id="@+id/question"
         style="@style/CustomTheme.View.TextView"
-        android:layout_width="350dp"
-        android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_weight="15"
-        android:text="question" >
+        android:text="If you would take a man’s life, you owe it to him to look into his eyes and hear his final words. And if you cannot bear to do that, then perhaps the man does not deserve to die."
+        android:textSize="@dimen/questionText" >
     </TextView>
 
     <Button
         android:id="@+id/button1"
         style="@style/CustomTheme.View.Button"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
         android:layout_weight="16"
-        android:text="Button1" >
+        android:text="@string/button1" >
     </Button>
 
     <Button
         android:id="@+id/button2"
         style="@style/CustomTheme.View.Button"
-        android:layout_height="0dp"
         android:layout_weight="16"
         android:text="Button2" >
     </Button>
@@ -36,7 +33,6 @@
     <Button
         android:id="@+id/button3"
         style="@style/CustomTheme.View.Button"
-        android:layout_height="0dp"
         android:layout_weight="16"
         android:text="Button3" >
     </Button>
@@ -44,20 +40,18 @@
     <Button
         android:id="@+id/button4"
         style="@style/CustomTheme.View.Button"
-        android:layout_height="0dp"
         android:layout_weight="16"
         android:text="Button4" >
     </Button>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content"
         android:layout_weight="20"
         android:orientation="horizontal" >
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="50"
             android:orientation="vertical" >
@@ -66,20 +60,20 @@
                 android:id="@+id/textTimer"
                 style="@style/CustomTheme.View.TextView"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="50"
                 android:text="Left: 15" />
 
             <TextView
                 android:id="@+id/Stats"
                 style="@style/CustomTheme.View.TextView"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="50"
                 android:text="0 / 13" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="50"
             android:orientation="vertical" >
@@ -87,7 +81,8 @@
             <TextView
                 android:id="@+id/Score"
                 style="@style/CustomTheme.View.TextView"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="50"
                 android:text="10000" />
 
@@ -95,7 +90,7 @@
                 android:id="@+id/musicButton"
                 style="@style/CustomTheme.View.Button"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="50"
                 android:text="Start Music" />
         </LinearLayout>

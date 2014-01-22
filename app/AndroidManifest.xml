@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.Spartacus.Trivia"
-    android:versionCode="1"
-    android:versionName="0.9" >
+    package="com.GameOfThrones.Trivia"
+    android:installLocation="auto"
+    android:versionCode="3"
+    android:versionName="0.95.2" >
+
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
-    <!-- min==7 but need 8 for AudioManager -->
-
+    
     <application
         android:allowBackup="true"
-        android:icon="@drawable/spartacus"
+        android:icon="@drawable/tyrion_port"
         android:label="@string/app_name"
         android:theme="@style/CustomTheme" >
         <activity
-            android:name=".StartActivity"
+            android:name="com.GameOfThrones.Trivia.ui.GameActivity"
+            android:label="@string/example_label" >
+        </activity>
+        <activity
+            android:name="com.GameOfThrones.Trivia.ui.ResultsActivity"
+            android:label="@string/end_game" >
+        </activity>
+        <activity
+            android:name="com.GameOfThrones.Trivia.ui.MenuActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,47 +33,35 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".GameActivity"
-            android:label="@string/example_label" >
-        </activity>
-        <activity
-            android:name=".ResultsActivity"
-            android:label="@string/end_game" >
-        </activity>
-        <activity
-            android:name=".MenuActivity"
-            android:label="@string/main_menu" >
-        </activity>
 
         <service
-            android:name="com.Spartacus.Trivia.Services.MusicService"
+            android:name="com.GameOfThrones.Trivia.Music.MusicService"
             android:enabled="true" >
         </service>
 
-        <receiver android:name=".MusicIntentReceiver" >
+        <!--
+        <receiver android:name="com.GameOfThrones.Trivia.MusicIntentReceiver" >
             <intent-filter>
                 <action android:name="android.media.AUDIO_BECOMING_NOISY" />
             </intent-filter>
         </receiver>
-
-        <!-- <activity android:name="com.google.ads.AdActivity" /> -->
-
-
-        <!--
-        <service android:name=".MusicService" >
-            <intent-filter>
-                <action android:name=".MusicService.BIND" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </service>
         -->
-        <!--
-        <uses-permission android:name="android.permission.INTERNET" />
-        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-        -->
-        
+        <activity
+            android:name="com.GameOfThrones.Trivia.ui.HighScoreActivity"
+            android:label="@string/title_activity_high_score" >
+        </activity>
+        <activity
+            android:name="com.GameOfThrones.Trivia.ui.AboutActivity"
+            android:label="@string/title_activity_about" >
+        </activity>
+        <activity
+            android:name="com.GameOfThrones.Trivia.DynamicBackgroundActivity"
+            android:label="@string/title_activity_dynamic_background" >
+        </activity>
+        <activity
+            android:name="com.GameOfThrones.Trivia.ui.TriviaSelectionActivity"
+            android:label="@string/title_activity_trivia_selection" >
+        </activity>
     </application>
-	
+
 </manifest>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/highScoreActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dany_port"
+    android:orientation="vertical"
+    android:weightSum="100" >
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:drawSelectorOnTop="false" />
+
+    <TextView
+        android:id="@android:id/empty"
+        style="@style/CustomTheme.View.TextView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="No Scores Saved" />
+
+</LinearLayout>
