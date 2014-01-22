@@ -1,9 +1,6 @@
-package com.GameOfThrones.Trivia.util;
+package com.GameOfThrones.Trivia.Core;
 
 import java.util.ArrayList;
-
-import com.GameOfThrones.Trivia.Characters.CharacterToQuestionsMap;
-import com.GameOfThrones.Trivia.Characters.GameCharacter;
 
 /**
  * Singleton used to store persistent data throughout application
@@ -15,23 +12,23 @@ public class Session {
 	/**
 	 * Session object for this application execution
 	 */
-	private static Session instance;
+	protected static Session instance;
 	/**
 	 * drawable reference to background image when in portrait mode
 	 */
-	private int backgroundPort;
+	protected int backgroundPort;
 	/**
 	 * drawable reference to background image when in landscape mode
 	 */
-	private int backgroundLand;
+	protected int backgroundLand;
 	/**
 	 * GameCharacters created created in application
 	 */
-	private ArrayList<GameCharacter> characters;
+	protected ArrayList<GameCharacter> characters;
 	/**
 	 * Used to know which questions reference which GameCharacter
 	 */
-	CharacterToQuestionsMap map;
+	protected CharacterToQuestionsMap map;
 
 	/**
 	 * private Constructor - ensures only this class can create session instance

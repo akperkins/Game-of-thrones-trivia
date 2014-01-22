@@ -1,12 +1,13 @@
-package com.GameOfThrones.Trivia.HighScore;
+package com.GameOfThrones.Trivia.Data;
 
 import com.GameOfThrones.Trivia.R;
+import com.GameOfThrones.Trivia.Core.HighScore;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 /**
- * Cool way to store multiple HighScores in SharedPreferences
+ * Store multiple HighScores in SharedPreferences
  * 
  * @author andre
  * 

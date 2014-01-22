@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.GameOfThrones.Trivia"
     android:installLocation="auto"
-    android:versionCode="2"
-    android:versionName="0.95.1" >
+    android:versionCode="3"
+    android:versionName="0.95.2" >
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
@@ -17,15 +17,15 @@
         android:label="@string/app_name"
         android:theme="@style/CustomTheme" >
         <activity
-            android:name="com.GameOfThrones.Trivia.GameActivity"
+            android:name="com.GameOfThrones.Trivia.ui.GameActivity"
             android:label="@string/example_label" >
         </activity>
         <activity
-            android:name="com.GameOfThrones.Trivia.ResultsActivity"
+            android:name="com.GameOfThrones.Trivia.ui.ResultsActivity"
             android:label="@string/end_game" >
         </activity>
         <activity
-            android:name="com.GameOfThrones.Trivia.MenuActivity"
+            android:name="com.GameOfThrones.Trivia.ui.MenuActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,19 +47,19 @@
         </receiver>
         -->
         <activity
-            android:name="com.GameOfThrones.Trivia.HighScoreActivity"
+            android:name="com.GameOfThrones.Trivia.ui.HighScoreActivity"
             android:label="@string/title_activity_high_score" >
         </activity>
         <activity
-            android:name="com.GameOfThrones.Trivia.AboutActivity"
+            android:name="com.GameOfThrones.Trivia.ui.AboutActivity"
             android:label="@string/title_activity_about" >
         </activity>
         <activity
-            android:name="com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity"
+            android:name="com.GameOfThrones.Trivia.DynamicBackgroundActivity"
             android:label="@string/title_activity_dynamic_background" >
         </activity>
         <activity
-            android:name="com.GameOfThrones.Trivia.TriviaSelectionActivity"
+            android:name="com.GameOfThrones.Trivia.ui.TriviaSelectionActivity"
             android:label="@string/title_activity_trivia_selection" >
         </activity>
     </application>

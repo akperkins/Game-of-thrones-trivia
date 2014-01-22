@@ -1,4 +1,4 @@
-package com.GameOfThrones.Trivia.util;
+package com.GameOfThrones.Trivia.Core;
 
 /**
  * Exception thrown by the Questions Manager object to indicate that there aren't

@@ -1,4 +1,4 @@
-package com.GameOfThrones.Trivia;
+package com.GameOfThrones.Trivia.ui;
 
 import java.util.ArrayList;
 
@@ -11,9 +11,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.GameOfThrones.Trivia.Characters.GameCharacter;
+import com.GameOfThrones.Trivia.DynamicBackgroundActivity;
+import com.GameOfThrones.Trivia.R;
+import com.GameOfThrones.Trivia.Core.GameCharacter;
 import com.GameOfThrones.Trivia.Data.TriviaCharactersInfo;
-import com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity;
+import com.GameOfThrones.Trivia.R.id;
+import com.GameOfThrones.Trivia.R.layout;
 
 /**
  * Activity to select which character the trivia questions would focus on
@@ -28,8 +31,12 @@ public class TriviaSelectionActivity extends DynamicBackgroundActivity
 	 */
 	ArrayList<String> charactersName;
 
-	/* (non-Javadoc)
-	 * @see com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity#onCreate(android.os.Bundle)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity#onCreate
+	 * (android.os.Bundle)
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -49,10 +56,10 @@ public class TriviaSelectionActivity extends DynamicBackgroundActivity
 		listview.setAdapter(adapter);
 		listview.setOnItemClickListener(this);
 	}
-	
+
 	/**
-	 * Obtains each character name from characterlist in session and 
-	 * places that information in the charactersName instance variable.
+	 * Obtains each character name from characterlist in session and places that
+	 * information in the charactersName instance variable.
 	 */
 	public void initCharactersName() {
 		ArrayList<GameCharacter> gameCharacters = session.getCharacters();
@@ -64,9 +71,10 @@ public class TriviaSelectionActivity extends DynamicBackgroundActivity
 			charactersName.add(g.getName());
 		}
 	}
-	
+
 	/**
 	 * Starts the trivia app for character option selected
+	 * 
 	 * @param character
 	 */
 	public void startGameForCharacter(int character) {
@@ -74,9 +82,12 @@ public class TriviaSelectionActivity extends DynamicBackgroundActivity
 		bundle.putInt("gameCharacters", character);
 		nextActivity(bundle, GameActivity.class);
 	}
-	
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onActivityResult(int, int, android.content.Intent)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.app.Activity#onActivityResult(int, int,
+	 * android.content.Intent)
 	 */
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
@@ -88,16 +99,20 @@ public class TriviaSelectionActivity extends DynamicBackgroundActivity
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity#getBackgroundLayout()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity#
+	 * getBackgroundLayout()
 	 */
 	@Override
 	protected int getBackgroundLayout() {
 		return R.id.triviaSelection;
 	}
-	
+
 	/**
-	 * Generates an arraylist of users from data in string.xml and store in session class
+	 * Generates an arraylist of users from data in string.xml and store in
+	 * session class
 	 */
 	public void intitializeSessionData() {
 		ArrayList<GameCharacter> characters = new ArrayList<GameCharacter>();
@@ -107,13 +122,16 @@ public class TriviaSelectionActivity extends DynamicBackgroundActivity
 			for (int i = 1; i < characterInfo.length; i++) {
 				aliases.add(characterInfo[i]);
 			}
-			characters.add(new GameCharacter(characterInfo[0], aliases));
+			session.add(new GameCharacter(characterInfo[0], aliases));
 		}
-		session.setCharacters(characters);
 	}
 
-	/* (non-Javadoc)
-	 * @see android.widget.AdapterView.OnItemClickListener#onItemClick(android.widget.AdapterView, android.view.View, int, long)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * android.widget.AdapterView.OnItemClickListener#onItemClick(android.widget
+	 * .AdapterView, android.view.View, int, long)
 	 */
 	public void onItemClick(AdapterView<?> arg0, View arg1, int row, long arg3) {
 		// TODO Auto-generated method stub

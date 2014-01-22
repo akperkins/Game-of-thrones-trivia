@@ -1,4 +1,4 @@
-package com.GameOfThrones.Trivia.Characters;
+package com.GameOfThrones.Trivia.Core;
 
 import java.util.ArrayList;
 
@@ -11,11 +11,11 @@ public class GameCharacter {
 	/**
 	 * Character's name
 	 */
-	String name;
+	protected String name;
 	/**
 	 * Names to search under the character
 	 */
-	ArrayList<String> searchTerms;
+	protected ArrayList<String> searchTerms;
 	
 	/**
 	 * Constructor

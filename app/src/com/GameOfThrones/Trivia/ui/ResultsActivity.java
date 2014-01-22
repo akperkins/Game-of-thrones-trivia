@@ -1,4 +1,10 @@
-package com.GameOfThrones.Trivia;
+package com.GameOfThrones.Trivia.ui;
+
+import com.GameOfThrones.Trivia.DynamicBackgroundActivity;
+import com.GameOfThrones.Trivia.R;
+import com.GameOfThrones.Trivia.R.id;
+import com.GameOfThrones.Trivia.R.layout;
+import com.GameOfThrones.Trivia.R.string;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -7,8 +13,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity;
 
 /**
  * End of game activity.

@@ -1,8 +1,6 @@
-package com.GameOfThrones.Trivia.Characters;
+package com.GameOfThrones.Trivia.Core;
 
 import java.util.ArrayList;
-
-import com.GameOfThrones.Trivia.Question.Question;
 
 /**
  * Creates and stores mapping info of characters to questions that reference the
@@ -15,8 +13,8 @@ public class CharacterToQuestionsMap {
 	/**
 	 * 
 	 */
-	ArrayList<ArrayList<Integer>> gameCharactersIDs;
-	ArrayList<GameCharacter> gameCharacters;
+	protected ArrayList<ArrayList<Integer>> gameCharactersIDs;
+	protected ArrayList<GameCharacter> gameCharacters;
 	
 	public CharacterToQuestionsMap(ArrayList<GameCharacter> gameCharacters) {
 		this.gameCharacters = gameCharacters;

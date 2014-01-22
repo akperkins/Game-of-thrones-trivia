@@ -1,9 +1,8 @@
-package com.GameOfThrones.Trivia.Question;
+package com.GameOfThrones.Trivia.Core;
 
 import java.util.ArrayList;
 
 import com.GameOfThrones.Trivia.util.GeneralAlgorithms;
-import com.GameOfThrones.Trivia.util.OutOfQuestionsException;
 
 /**
  * Manages group of questionsCollections
@@ -16,10 +15,10 @@ public class QuestionsCollectionManager implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -408390483770836593L;
-	String[] currentQuestion;
+	protected String[] currentQuestion;
 
-	ArrayList<Question> allQuestions;
-	public int lastUsedIndex;
+	protected ArrayList<Question> allQuestions;
+	protected int lastUsedIndex;
 
 	public QuestionsCollectionManager(String[] array) {
 		allQuestions = new ArrayList<Question>();

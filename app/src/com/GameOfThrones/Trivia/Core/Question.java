@@ -1,4 +1,4 @@
-package com.GameOfThrones.Trivia.Question;
+package com.GameOfThrones.Trivia.Core;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -13,11 +13,11 @@ public class Question implements Serializable {
 	 */
 	private static final long serialVersionUID = 7306464553446020989L;
 
-	static int classId;
-	String trivia;
-	String[] answers = new String[4];
-	int correctAnswer;
-	int id;
+	protected static int classId;
+	protected String trivia;
+	protected String[] answers = new String[4];
+	protected int correctAnswer;
+	protected int id;
 
 	public Question(String trivia, String[] answers, int correctAnswer) {
 		this.trivia = trivia;

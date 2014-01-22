@@ -1,4 +1,4 @@
-package com.GameOfThrones.Trivia;
+package com.GameOfThrones.Trivia.ui;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,13 +20,18 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.GameOfThrones.Trivia.Characters.CharacterToQuestionsMap;
-import com.GameOfThrones.Trivia.HighScore.HighScorePrefs;
+import com.GameOfThrones.Trivia.DynamicBackgroundActivity;
+import com.GameOfThrones.Trivia.R;
+import com.GameOfThrones.Trivia.Core.CharacterToQuestionsMap;
+import com.GameOfThrones.Trivia.Core.OutOfQuestionsException;
+import com.GameOfThrones.Trivia.Core.Question;
+import com.GameOfThrones.Trivia.Core.QuestionsCollectionManager;
+import com.GameOfThrones.Trivia.Data.HighScorePrefs;
 import com.GameOfThrones.Trivia.Music.MusicService;
-import com.GameOfThrones.Trivia.Question.Question;
-import com.GameOfThrones.Trivia.Question.QuestionsCollectionManager;
-import com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity;
-import com.GameOfThrones.Trivia.util.OutOfQuestionsException;
+import com.GameOfThrones.Trivia.R.array;
+import com.GameOfThrones.Trivia.R.id;
+import com.GameOfThrones.Trivia.R.layout;
+import com.GameOfThrones.Trivia.R.raw;
 
 /**
  * The trivia game loop executes here.

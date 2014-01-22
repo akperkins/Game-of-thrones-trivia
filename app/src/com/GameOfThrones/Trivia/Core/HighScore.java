@@ -1,4 +1,4 @@
-package com.GameOfThrones.Trivia.HighScore;
+package com.GameOfThrones.Trivia.Core;
 
 /**
  * Score that a user obtain at the end of a game.
@@ -8,11 +8,11 @@ package com.GameOfThrones.Trivia.HighScore;
  */
 public class HighScore {
 	/** unique identifier */
-	private int id;
+	protected int id;
 	/** date the score was obtained */
-	private String date;
+	protected String date;
 	/** numeric value of score */
-	private int score;
+	protected int score;
 
 	/**
 	 * Construtor

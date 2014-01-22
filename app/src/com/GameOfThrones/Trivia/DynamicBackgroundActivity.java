@@ -1,4 +1,4 @@
-package com.GameOfThrones.Trivia.SuperActivities;
+package com.GameOfThrones.Trivia;
 
 import java.util.Random;
 
@@ -6,13 +6,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
 
 import com.GameOfThrones.Trivia.R;
-import com.GameOfThrones.Trivia.util.Session;
+import com.GameOfThrones.Trivia.Core.Session;
 
 /**
  * Used to change the drawable that is used as background image periodically

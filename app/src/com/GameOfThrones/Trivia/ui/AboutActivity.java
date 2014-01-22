@@ -1,4 +1,4 @@
-package com.GameOfThrones.Trivia;
+package com.GameOfThrones.Trivia.ui;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,7 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.GameOfThrones.Trivia.SuperActivities.DynamicBackgroundActivity;
+import com.GameOfThrones.Trivia.DynamicBackgroundActivity;
+import com.GameOfThrones.Trivia.R;
+import com.GameOfThrones.Trivia.R.id;
+import com.GameOfThrones.Trivia.R.layout;
+import com.GameOfThrones.Trivia.R.string;
 import com.GameOfThrones.Trivia.util.ShowInfoBox;
 
 /**
