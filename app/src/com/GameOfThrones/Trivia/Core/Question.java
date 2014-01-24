@@ -3,7 +3,7 @@ package com.GameOfThrones.Trivia.Core;
 import java.io.Serializable;
 import java.util.Arrays;
 /**
- * Represents a trivia question
+ * Represents a trivia questioView
  * @author andre
  *
  */
@@ -15,7 +15,7 @@ public class Question implements Serializable {
 
 	protected static int classId;
 	protected String trivia;
-	protected String[] answers = new String[4];
+	protected String[] answers;
 	protected int correctAnswer;
 	protected int id;
 
@@ -105,21 +105,6 @@ public class Question implements Serializable {
 	 */
 	public void setCorrectAnswer(int correctAnswer) {
 		this.correctAnswer = correctAnswer;
-	}
-
-	/**
-	 * Returns the instance variable all in String format.
-	 * @return question data
-	 */
-	public String[] getStrings() {
-		String[] str = new String[6];
-		str[0] = trivia;
-		str[1] = answers[0];
-		str[2] = answers[1];
-		str[3] = answers[2];
-		str[4] = answers[3];
-		str[5] = String.valueOf(correctAnswer);
-		return str;
 	}
 
 	/*

@@ -22,7 +22,7 @@ import android.widget.TextView;
  */
 public class ResultsActivity extends DynamicBackgroundActivity implements
 		OnClickListener {
-	/** Stores the game stats from the previous user game */
+	/** Stores the game statsView from the previous user game */
 	int correct, total;
 
 	/** References to the views in the UI layout */
@@ -51,7 +51,7 @@ public class ResultsActivity extends DynamicBackgroundActivity implements
 		if (extras != null) {
 			correct = extras.getInt("correct");
 			total = extras.getInt("total");
-			score = extras.getInt("score");
+			score = extras.getInt("scoreView");
 		}
 		tv = (TextView) findViewById(R.id.endView1);
 		tv.setVisibility(2);
@@ -67,7 +67,7 @@ public class ResultsActivity extends DynamicBackgroundActivity implements
 	}
 
 	/**
-	 * onReumse() - show the score calculation results in textview
+	 * onReumse() - show the scoreView calculation results in textview
 	 */
 	/*
 	 * (non-Javadoc)

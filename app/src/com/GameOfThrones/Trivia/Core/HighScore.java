@@ -9,9 +9,9 @@ package com.GameOfThrones.Trivia.Core;
 public class HighScore {
 	/** unique identifier */
 	protected int id;
-	/** date the score was obtained */
+	/** date the scoreView was obtained */
 	protected String date;
-	/** numeric value of score */
+	/** numeric value of scoreView */
 	protected int score;
 
 	/**
@@ -20,9 +20,9 @@ public class HighScore {
 	 * @param id
 	 *            - unique identifier
 	 * @param date
-	 *            - date the score was obtained
-	 * @param score
-	 *            - int - value of score
+	 *            - date the scoreView was obtained
+	 * @param scoreView
+	 *            - int - value of scoreView
 	 */
 	public HighScore(int id, String date, int score) {
 		this.id = id;
@@ -67,7 +67,7 @@ public class HighScore {
 	}
 
 	/**
-	 * score getter
+	 * scoreView getter
 	 * 
 	 * @return
 	 */
@@ -76,9 +76,9 @@ public class HighScore {
 	}
 
 	/**
-	 * score setter
+	 * scoreView setter
 	 * 
-	 * @param score
+	 * @param scoreView
 	 */
 	public void setScore(int score) {
 		this.score = score;
@@ -91,7 +91,7 @@ public class HighScore {
 	 */
 	@Override
 	public String toString() {
-		return "Entry=" + id + ", date=" + date + ", score=" + score;
+		return "Entry=" + id + ", date=" + date + ", scoreView=" + score;
 	}
 
 }

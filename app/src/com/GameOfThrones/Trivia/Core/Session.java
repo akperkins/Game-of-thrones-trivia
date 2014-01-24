@@ -16,26 +16,19 @@ public class Session {
 	/**
 	 * drawable reference to background image when in portrait mode
 	 */
-	protected int backgroundPort;
-	/**
-	 * drawable reference to background image when in landscape mode
-	 */
-	protected int backgroundLand;
-	/**
-	 * GameCharacters created created in application
-	 */
+
 	protected ArrayList<GameCharacter> characters;
 	/**
 	 * Used to know which questions reference which GameCharacter
 	 */
+	protected
+	
 	protected CharacterToQuestionsMap map;
 
 	/**
 	 * private Constructor - ensures only this class can create session instance
 	 */
 	private Session() {
-		backgroundPort = 0;
-		backgroundLand = 0;
 		characters = new ArrayList<GameCharacter>();
 	}
 
@@ -50,36 +43,6 @@ public class Session {
 			instance = new Session();
 		}
 		return instance;
-	}
-
-	/**
-	 * @return the backgroundPort
-	 */
-	public int getBackgroundPort() {
-		return backgroundPort;
-	}
-
-	/**
-	 * @param backgroundPort
-	 *            the backgroundPort to set
-	 */
-	public void setBackgroundPort(int backgroundPort) {
-		this.backgroundPort = backgroundPort;
-	}
-
-	/**
-	 * @return the backgroundLand
-	 */
-	public int getBackgroundLand() {
-		return backgroundLand;
-	}
-
-	/**
-	 * @param backgroundLand
-	 *            the backgroundLand to set
-	 */
-	public void setBackgroundLand(int backgroundLand) {
-		this.backgroundLand = backgroundLand;
 	}
 
 	/**

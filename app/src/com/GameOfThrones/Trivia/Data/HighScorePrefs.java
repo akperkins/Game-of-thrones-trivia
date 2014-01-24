@@ -76,7 +76,7 @@ public class HighScorePrefs {
 	/**
 	 * Saves a new highscore in the shared preferences
 	 * @param date
-	 * @param score
+	 * @param scoreView
 	 * @return
 	 */
 	public HighScore addNewHighScore(String date, int score) {
@@ -116,7 +116,7 @@ public class HighScorePrefs {
 	}
 	
 	/**
-	 * Increment High score count.
+	 * Increment High scoreView count.
 	 * @param number
 	 * @return
 	 */

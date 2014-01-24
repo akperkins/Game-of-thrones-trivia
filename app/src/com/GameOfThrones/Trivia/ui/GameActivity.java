@@ -1,6 +1,5 @@
 package com.GameOfThrones.Trivia.ui;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import android.app.AlertDialog;
@@ -13,7 +12,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -22,16 +20,13 @@ import android.widget.Toast;
 
 import com.GameOfThrones.Trivia.DynamicBackgroundActivity;
 import com.GameOfThrones.Trivia.R;
-import com.GameOfThrones.Trivia.Core.CharacterToQuestionsMap;
+import com.GameOfThrones.Trivia.Core.CharacterTriviaGame;
+import com.GameOfThrones.Trivia.Core.GameCharacter;
 import com.GameOfThrones.Trivia.Core.OutOfQuestionsException;
 import com.GameOfThrones.Trivia.Core.Question;
-import com.GameOfThrones.Trivia.Core.QuestionsCollectionManager;
+import com.GameOfThrones.Trivia.Core.TriviaGame;
 import com.GameOfThrones.Trivia.Data.HighScorePrefs;
-import com.GameOfThrones.Trivia.Music.MusicService;
-import com.GameOfThrones.Trivia.R.array;
-import com.GameOfThrones.Trivia.R.id;
-import com.GameOfThrones.Trivia.R.layout;
-import com.GameOfThrones.Trivia.R.raw;
+import com.GameOfThrones.Trivia.util.media.MusicService;
 
 /**
  * The trivia game loop executes here.
@@ -41,37 +36,26 @@ import com.GameOfThrones.Trivia.R.raw;
  */
 public class GameActivity extends DynamicBackgroundActivity implements
 		OnClickListener {
+	static final String HIGHSCORE_FILENAME = "high_score";
+
 	/** number of trivia trivia per game */
 	static final int MAX_QUESTIONS = 7;
-
-	int total_questions;
-
-	static final String HIGHSCORE_FILENAME = "high_score";
 
 	/** number that represents the wrong answer dialog */
 	static final int DIALOG_WRONG_ID = 0;
 
 	/** References to layout views */
-	TextView question, timer, score, stats;
-	Button b1, b2, b3, b4, bMusic;
+	TextView questionView, timerView, scoreView, statsView;
+	Button b1View, b2View, b3View, b4View, bMusic;
 
 	/** Used to obtain the trivia trivia data */
-	QuestionsCollectionManager qManager;
-
-	/** Keep track of current game stats */
-	int amountCorrect, questionsAnswered, correctChoice;
-
-	/**
-	 * Stores the correct answer for current trivia trivia. This is displayed to
-	 * the user in the dialog if the wrong answer is selected
-	 */
-	String correctAnswer;
+	TriviaGame qManager;
 
 	/** Plays music that interacts with Android AudioFocus Manager */
 	MusicService musicService;
 	/**
-	 * Used as a timer to limit the amount of time the user has to answer the
-	 * trivia.
+	 * Used as a timerView to limit the amount of time the user has to answer
+	 * the trivia.
 	 */
 	MyCount counter;
 	/**
@@ -92,10 +76,6 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	 * Keeps track if the musicService is bound
 	 */
 	boolean mBound;
-	/**
-	 * Score the user accumulates
-	 */
-	int gameScore;
 
 	/**
 	 * Initializes the instance data for the activity and sets the appropriate
@@ -110,7 +90,6 @@ public class GameActivity extends DynamicBackgroundActivity implements
 		Intent intent = new Intent(this, MusicService.class);
 		this.getApplication().bindService(intent, mConnection,
 				Context.BIND_AUTO_CREATE);
-		total_questions = MAX_QUESTIONS;
 		if (state != null) {
 			restoreState(state);
 		} else {
@@ -122,33 +101,18 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	 * Sets up activity state data for a new game
 	 */
 	public void createNewState() {
-		amountCorrect = 0;
-		questionsAnswered = 0;
-		correctChoice = 0;
-		ArrayList<String[]> temp = new ArrayList<String[]>();
-		qManager = new QuestionsCollectionManager(getResources()
-				.getStringArray(R.array.questions));
-
-		Bundle extras = getIntent().getExtras();
+			Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			int chosenCharacter = extras.getInt("gameCharacters");
-
 			if (chosenCharacter != 0) {
-
-				CharacterToQuestionsMap map = session.getMap();
-				for (Question q : qManager.getAllQuestions()) {
-					map.addMappings(q);
-				}
-				ArrayList<Integer> ids = map.get(chosenCharacter - 1);
-
-				qManager.keepOnly(ids);
-				if (qManager.getAllQuestions().size() < MAX_QUESTIONS) {
-					total_questions = qManager.getAllQuestions().size();
-				}
+				qManager = new TriviaGame(getResources().getStringArray(
+						R.array.questions), MAX_QUESTIONS);	
+			}else{
+				qManager = new CharacterTriviaGame(getResources().getStringArray(
+						R.array.questions), MAX_QUESTIONS, new GameCharacter());
 			}
 		}
 		counter = new MyCount();
-		gameScore = 0;
 		playMusicOnLaunch = false;
 		try {
 			qManager.nextQuestion();
@@ -161,20 +125,20 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	 * Initializes layout buttons used
 	 */
 	private void initViewObjects() {
-		b1 = (Button) findViewById(R.id.button1);
-		b1.setOnClickListener(this);
-		b2 = (Button) findViewById(R.id.button2);
-		b2.setOnClickListener(this);
-		b3 = (Button) findViewById(R.id.button3);
-		b3.setOnClickListener(this);
-		b4 = (Button) findViewById(R.id.button4);
-		b4.setOnClickListener(this);
-		question = (TextView) findViewById(R.id.question);
-		score = (TextView) findViewById(R.id.Score);
-		stats = (TextView) findViewById(R.id.Stats);
+		b1View = (Button) findViewById(R.id.button1);
+		b1View.setOnClickListener(this);
+		b2View = (Button) findViewById(R.id.button2);
+		b2View.setOnClickListener(this);
+		b3View = (Button) findViewById(R.id.button3);
+		b3View.setOnClickListener(this);
+		b4View = (Button) findViewById(R.id.button4);
+		b4View.setOnClickListener(this);
+		questionView = (TextView) findViewById(R.id.question);
+		scoreView = (TextView) findViewById(R.id.Score);
+		statsView = (TextView) findViewById(R.id.Stats);
 		bMusic = (Button) findViewById(R.id.musicButton);
 		bMusic.setOnClickListener(this);
-		timer = (TextView) findViewById(R.id.textTimer);
+		timerView = (TextView) findViewById(R.id.textTimer);
 	}
 
 	/**
@@ -225,7 +189,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	 */
 	public void onStart() {
 		super.onStart();
-		mapText(qManager.getCurrentQuestionStrings());
+		mapText(qManager.getCurrentQuestion());
 	}
 
 	/**
@@ -243,12 +207,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	 * @see android.app.Activity#onSaveInstanceState(android.os.Bundle)
 	 */
 	public void onSaveInstanceState(Bundle savedInstanceState) {
-		savedInstanceState.putInt("amountCorrect", amountCorrect);
-		savedInstanceState.putInt("questionsAnswered", questionsAnswered);
-		savedInstanceState.putInt("correctChoice", correctChoice);
-		savedInstanceState.putString("correctAnswer", correctAnswer);
 		savedInstanceState.putInt("counter_left", (int) counter.left);
-		savedInstanceState.putInt("gameScore", gameScore);
 		savedInstanceState.putBoolean("music_isPlaying",
 				musicService.playerIsPlaying());
 		savedInstanceState.putBoolean("initServiceSong", initServiceSong);
@@ -262,16 +221,10 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	 *            - bundle that contains game
 	 */
 	public void restoreState(Bundle savedInstanceState) {
-		amountCorrect = savedInstanceState.getInt("amountCorrect");
-		questionsAnswered = savedInstanceState.getInt("questionsAnswered");
-		correctChoice = savedInstanceState.getInt("correctChoice");
-		correctAnswer = savedInstanceState.getString("correctAnswer");
 		playMusicOnLaunch = savedInstanceState.getBoolean("music_isPlaying");
 		initServiceSong = savedInstanceState.getBoolean("initServiceSong");
-		gameScore = savedInstanceState.getInt("gameScore");
 		counter = new MyCount(savedInstanceState.getInt("counter_left"));
-		qManager = (QuestionsCollectionManager) savedInstanceState
-				.getSerializable("qManager");
+		qManager = (TriviaGame) savedInstanceState.getSerializable("qManager");
 	}
 
 	/**
@@ -279,32 +232,30 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	 */
 	public void onDestroy() {
 		super.onDestroy();
-		b1 = null;
-		b2 = null;
-		b3 = null;
-		b4 = null;
-		question = null;
-		score = null;
+		b1View = null;
+		b2View = null;
+		b3View = null;
+		b4View = null;
+		questionView = null;
+		scoreView = null;
 		bMusic = null;
-		timer = null;
+		timerView = null;
 		qManager = null;
 		counter = null;
 	}
 
 	/**
 	 * Retrieves a trivia trivia data. If successful, populates the various
-	 * button and Textfields appropriately. Starts a new timer. If not
+	 * button and Textfields appropriately. Starts a new timerView. If not
 	 * successful, the game is ended.
 	 * 
 	 */
-	public void mapText(String[] array) {
-		question.setText(array[0]);
-		b1.setText(array[1]);
-		b2.setText(array[2]);
-		b3.setText(array[3]);
-		b4.setText(array[4]);
-		correctChoice = Integer.parseInt(array[5]);
-		correctAnswer = array[correctChoice];
+	public void mapText(Question q) {
+		questionView.setText(q.getTrivia());
+		b1View.setText(q.getAnswer()[0]);
+		b2View.setText(q.getAnswer()[1]);
+		b3View.setText(q.getAnswer()[2]);
+		b4View.setText(q.getAnswer()[3]);
 		counter.start();
 		updateStats();
 		readyForTriviaSelection = true;
@@ -317,9 +268,9 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	public void endGame() {
 		this.getApplication().unbindService(mConnection);
 		Intent intent = new Intent(this, ResultsActivity.class);
-		intent.putExtra("correct", amountCorrect);
-		intent.putExtra("total", total_questions);
-		intent.putExtra("score", gameScore);
+		intent.putExtra("correct", qManager.getAmountCorrect());
+		intent.putExtra("total", qManager.getTotal_questions());
+		intent.putExtra("scoreView", qManager.getGameScore());
 		saveHighScore();
 		setResult(RESULT_OK);
 		startActivity(intent);
@@ -335,22 +286,51 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	 * @see android.view.View.OnClickListener#onClick(android.view.View)
 	 */
 	public void onClick(View arg0) {
+		if (!readyForTriviaSelection) {
+			return;
+		} else {
+			readyForTriviaSelection = false;
+		}
 		switch (arg0.getId()) {
 		case R.id.button1:
-			choiceSelected(1);
+			qManager.choiceSelected(1, counter.left);
 			break;
 		case R.id.button2:
-			choiceSelected(2);
+			qManager.choiceSelected(2, counter.left);
 			break;
 		case R.id.button3:
-			choiceSelected(3);
+			qManager.choiceSelected(3, counter.left);
 			break;
 		case R.id.button4:
-			choiceSelected(4);
+			qManager.choiceSelected(4, counter.left);
 			break;
 		case R.id.musicButton:
 			musicButtonPressed();
 			break;
+		}
+	}
+
+	public void isAnswerCorrect(boolean correct) {
+		if (correct) {
+			Toast.makeText(this.getBaseContext(), "Correct!",
+					Toast.LENGTH_SHORT).show();
+		} else {
+			showDialog(DIALOG_WRONG_ID);
+
+			myRemoveDialog();
+		}
+		new Handler().postDelayed(new Runnable() {
+			public void run() {
+				if (qManager.isGameOver()) {
+					endGame();
+				} else {
+					mapText(qManager.getCurrentQuestion());
+				}
+			}
+		}, 1000);
+		counter.cancel();
+		if (counter.startQuestionTime < MyCount.QUESTION_TIME) {
+			counter = new MyCount();
 		}
 	}
 
@@ -369,60 +349,11 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	}
 
 	/**
-	 * If the choice was correct, a correct toast is shown. If an incorrect
-	 * button was selected, a DialogFragment is shown displaying the correct
-	 * choice. Will try to determine if the user has answered the total amount
-	 * of trivia trivia, if they have endGame() is called, otherwise mapText()
-	 * is called and the game goes on to the next trivia
-	 * 
-	 * @param button
-	 *            - int representing the user's trivia choice
-	 */
-	public void choiceSelected(int button) {
-		if (!readyForTriviaSelection) {
-			return;
-		} else {
-			readyForTriviaSelection = false;
-		}
-		if (correctChoice == button) {
-			amountCorrect++;
-			gameScore += (counter.left / 100);
-			Toast.makeText(this.getBaseContext(), "Correct!",
-					Toast.LENGTH_SHORT).show();
-		} else {
-			showDialog(DIALOG_WRONG_ID);
-
-			myRemoveDialog();
-		}
-		questionsAnswered++;
-		new Handler().postDelayed(new Runnable() {
-			public void run() {
-				if (questionsAnswered == total_questions) {
-					endGame();
-				} else {
-					try {
-						qManager.nextQuestion();
-					} catch (OutOfQuestionsException e) {
-						Log.e(this.toString(), "Ran out of trivia questions", e);
-					}
-					String[] nextQuestion = qManager
-							.getCurrentQuestionStrings();
-					mapText(nextQuestion);
-				}
-			}
-		}, 1000);
-		counter.cancel();
-		if (counter.startQuestionTime < MyCount.QUESTION_TIME) {
-			counter = new MyCount();
-		}
-	}
-
-	/**
-	 * Saves the score the user obtained in the userPrefs
+	 * Saves the scoreView the user obtained in the userPrefs
 	 */
 	public void saveHighScore() {
 		HighScorePrefs prefs = new HighScorePrefs(this.getBaseContext());
-		prefs.addNewHighScore(new Date().toString(), gameScore);
+		prefs.addNewHighScore(new Date().toString(), qManager.getGameScore());
 	}
 
 	/**
@@ -435,9 +366,9 @@ public class GameActivity extends DynamicBackgroundActivity implements
 		case DIALOG_WRONG_ID:
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(
-					"Wrong! The correct answer is: \n" + correctAnswer)
-					.setCancelable(true);
-
+					"Wrong! The correct answer is: \n"
+							+ qManager.getCurrentQuestion().getAnswer()[qManager
+									.getCorrectChoice()]).setCancelable(true);
 			AlertDialog alert = builder.create();
 			dialog = alert;
 			break;
@@ -468,25 +399,26 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	 * @return Button - correct Button
 	 */
 	public Button getCorrectButton() {
-		switch (correctChoice) {
+		switch (qManager.getCorrectChoice()) {
 		case 1:
-			return b1;
+			return b1View;
 		case 2:
-			return b2;
+			return b2View;
 		case 3:
-			return b3;
+			return b3View;
 		default:
-			return b4;
+			return b4View;
 		}
 	}
 
 	/**
-	 * updateStatus() - updates the current game stats textview
+	 * updateStatus() - updates the current game statsView textview
 	 * 
 	 * */
 	public void updateStats() {
-		score.setText(String.valueOf(gameScore));
-		stats.setText(questionsAnswered + " / " + total_questions);
+		scoreView.setText(String.valueOf(qManager.getGameScore()));
+		statsView.setText(qManager.getQuestionsAnswered() + " / "
+				+ qManager.getTotal_questions());
 	}
 
 	/**
@@ -503,13 +435,13 @@ public class GameActivity extends DynamicBackgroundActivity implements
 		/** Sets one second in between every tick */
 		final static long TICK_INTERVAL = 1000;
 
-		/** Keeps track of the time left on timer */
+		/** Keeps track of the time left on timerView */
 		private long left;
 
 		private long startQuestionTime;
 
 		/**
-		 * Constructor that starts a timer with a default value.
+		 * Constructor that starts a timerView with a default value.
 		 */
 		public MyCount() {
 			super(QUESTION_TIME, TICK_INTERVAL);
@@ -518,7 +450,8 @@ public class GameActivity extends DynamicBackgroundActivity implements
 		}
 
 		/**
-		 * Constructor that creates a timer with a custom time remaining values.
+		 * Constructor that creates a timerView with a custom time remaining
+		 * values.
 		 * 
 		 * @param timeRemaining
 		 *            - custom time
@@ -533,7 +466,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 		 * The user gets the answer wrong if the time expires.
 		 */
 		public void onFinish() {
-			choiceSelected((correctChoice + 1) % 4);
+			qManager.choiceSelected((qManager.getCorrectChoice() + 1) % 4, 0);
 		}
 
 		@Override
@@ -541,7 +474,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 		 * Updates every second, the amount of seconds the user has left to make a decision.
 		 */
 		public void onTick(long millisUntilFinished) {
-			timer.setText("Left: " + millisUntilFinished / 1000);
+			timerView.setText("Left: " + millisUntilFinished / 1000);
 			left = millisUntilFinished;
 		}
 

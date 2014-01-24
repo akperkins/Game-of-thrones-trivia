@@ -1,4 +1,4 @@
-package com.GameOfThrones.Trivia.Music;
+package com.GameOfThrones.Trivia.util.media;
 
 import android.app.Service;
 import android.content.Context;
@@ -27,8 +27,8 @@ public class MusicService extends Service implements
 	private final IBinder mBinder = new LocalBinder();
 	boolean initialized = false;
 
-	public static final String ACTION_PLAY = "com.example.action.PLAY";
-	public static final String STOP_PLAY = "com.example.action.STOP";
+	public static final String ACTION_PLAY = "PLAY";
+	public static final String STOP_PLAY = "STOP";
 	public static final int PLAYER_TOGGLE_MUSIC = 1;
 	public static final int PLAYER_KILL_THREAD = 2;
 	public static final int PLAYER_START_PLAYER = 3;

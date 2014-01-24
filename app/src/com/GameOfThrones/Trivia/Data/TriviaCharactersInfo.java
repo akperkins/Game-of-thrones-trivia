@@ -5,7 +5,7 @@ import android.content.res.Resources;
 import com.GameOfThrones.Trivia.R;
 
 /**
- * Class used to read the character data in the strings.xml file
+ * Used to parse the character data in the strings.xml file
  * 
  * @author andre
  * 

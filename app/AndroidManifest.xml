@@ -35,7 +35,7 @@
         </activity>
 
         <service
-            android:name="com.GameOfThrones.Trivia.Music.MusicService"
+            android:name="com.GameOfThrones.Trivia.util.media.MusicService"
             android:enabled="true" >
         </service>
 

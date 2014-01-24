@@ -38,7 +38,7 @@ public class CharacterToQuestionsMap {
 		for (int i = 0; i < gameCharacters.size(); i++) {
 			ArrayList<String> searchEle = gameCharacters.get(i)
 					.getSearchTerms();
-			for (String s : question.getStrings()) {
+			for (String s : question.getAnswer()) {
 				if (searchEle.contains(s)) {
 					gameCharactersIDs.get(i).add(question.getId());
 					break;
