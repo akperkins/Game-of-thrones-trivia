@@ -6,12 +6,11 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.GameOfThrones.Trivia.DynamicBackgroundActivity;
 import com.GameOfThrones.Trivia.R;
-import com.GameOfThrones.Trivia.Core.HighScore;
-import com.GameOfThrones.Trivia.Data.HighScorePrefs;
 import com.GameOfThrones.Trivia.R.id;
 import com.GameOfThrones.Trivia.R.layout;
+import com.GameOfThrones.Trivia.core.HighScore;
+import com.GameOfThrones.Trivia.data.HighScorePrefs;
 /**
  * Displays user high scores saved in sharedPreferences
  * 

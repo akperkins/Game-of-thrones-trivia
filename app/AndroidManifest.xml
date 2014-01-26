@@ -35,7 +35,7 @@
         </activity>
 
         <service
-            android:name="com.GameOfThrones.Trivia.util.media.MusicService"
+            android:name="com.GameOfThrones.Trivia.ui.media.MusicService"
             android:enabled="true" >
         </service>
 
@@ -55,7 +55,7 @@
             android:label="@string/title_activity_about" >
         </activity>
         <activity
-            android:name="com.GameOfThrones.Trivia.DynamicBackgroundActivity"
+            android:name="com.GameOfThrones.Trivia.ui.DynamicBackgroundActivity"
             android:label="@string/title_activity_dynamic_background" >
         </activity>
         <activity

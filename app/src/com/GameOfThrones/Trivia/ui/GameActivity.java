@@ -18,15 +18,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.GameOfThrones.Trivia.DynamicBackgroundActivity;
 import com.GameOfThrones.Trivia.R;
-import com.GameOfThrones.Trivia.Core.CharacterTriviaGame;
-import com.GameOfThrones.Trivia.Core.GameCharacter;
-import com.GameOfThrones.Trivia.Core.OutOfQuestionsException;
-import com.GameOfThrones.Trivia.Core.Question;
-import com.GameOfThrones.Trivia.Core.TriviaGame;
-import com.GameOfThrones.Trivia.Data.HighScorePrefs;
-import com.GameOfThrones.Trivia.util.media.MusicService;
+import com.GameOfThrones.Trivia.core.CharacterTriviaGame;
+import com.GameOfThrones.Trivia.core.GameCharacter;
+import com.GameOfThrones.Trivia.core.Question;
+import com.GameOfThrones.Trivia.core.TriviaGame;
+import com.GameOfThrones.Trivia.data.HighScorePrefs;
+import com.GameOfThrones.Trivia.ui.media.MusicService;
 
 /**
  * The trivia game loop executes here.
@@ -101,24 +99,21 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	 * Sets up activity state data for a new game
 	 */
 	public void createNewState() {
-			Bundle extras = getIntent().getExtras();
+		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			int chosenCharacter = extras.getInt("gameCharacters");
 			if (chosenCharacter != 0) {
 				qManager = new TriviaGame(getResources().getStringArray(
-						R.array.questions), MAX_QUESTIONS);	
-			}else{
-				qManager = new CharacterTriviaGame(getResources().getStringArray(
-						R.array.questions), MAX_QUESTIONS, new GameCharacter());
+						R.array.questions), MAX_QUESTIONS);
+			} else {
+				qManager = new CharacterTriviaGame(getResources()
+						.getStringArray(R.array.questions), MAX_QUESTIONS,
+						new GameCharacter());
 			}
 		}
 		counter = new MyCount();
 		playMusicOnLaunch = false;
-		try {
-			qManager.nextQuestion();
-		} catch (OutOfQuestionsException e) {
-			endGame();
-		}
+		qManager.nextQuestion();
 	}
 
 	/**
@@ -329,7 +324,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 			}
 		}, 1000);
 		counter.cancel();
-		if (counter.startQuestionTime < MyCount.QUESTION_TIME) {
+		if (counter.startQuestionTime < qManager.QUESTION_TIME) {
 			counter = new MyCount();
 		}
 	}
@@ -429,8 +424,6 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	 * 
 	 */
 	protected class MyCount extends CountDownTimer {
-		/** Gives the user 21 seconds to answer each trivia */
-		final static long QUESTION_TIME = 21000;
 
 		/** Sets one second in between every tick */
 		final static long TICK_INTERVAL = 1000;
@@ -444,9 +437,9 @@ public class GameActivity extends DynamicBackgroundActivity implements
 		 * Constructor that starts a timerView with a default value.
 		 */
 		public MyCount() {
-			super(QUESTION_TIME, TICK_INTERVAL);
-			left = QUESTION_TIME;
-			startQuestionTime = QUESTION_TIME;
+			super(qManager.QUESTION_TIME, TICK_INTERVAL);
+			left = qManager.QUESTION_TIME;
+			startQuestionTime = qManager.QUESTION_TIME;
 		}
 
 		/**

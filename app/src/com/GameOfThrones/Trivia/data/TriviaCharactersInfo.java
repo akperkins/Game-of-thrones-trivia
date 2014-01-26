@@ -1,4 +1,4 @@
-package com.GameOfThrones.Trivia.Data;
+package com.GameOfThrones.Trivia.data;
 
 import android.content.res.Resources;
 

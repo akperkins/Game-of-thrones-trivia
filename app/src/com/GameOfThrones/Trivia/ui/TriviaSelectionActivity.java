@@ -11,12 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.GameOfThrones.Trivia.DynamicBackgroundActivity;
 import com.GameOfThrones.Trivia.R;
-import com.GameOfThrones.Trivia.Core.GameCharacter;
-import com.GameOfThrones.Trivia.Data.TriviaCharactersInfo;
 import com.GameOfThrones.Trivia.R.id;
 import com.GameOfThrones.Trivia.R.layout;
+import com.GameOfThrones.Trivia.core.GameCharacter;
+import com.GameOfThrones.Trivia.data.TriviaCharactersInfo;
 
 /**
  * Activity to select which character the trivia questions would focus on
@@ -27,7 +26,7 @@ import com.GameOfThrones.Trivia.R.layout;
 public class TriviaSelectionActivity extends DynamicBackgroundActivity
 		implements OnItemClickListener {
 	/**
-	 * List of characters
+	 * QuestionList of characters
 	 */
 	ArrayList<String> charactersName;
 

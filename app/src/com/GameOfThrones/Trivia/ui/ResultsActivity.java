@@ -1,6 +1,5 @@
 package com.GameOfThrones.Trivia.ui;
 
-import com.GameOfThrones.Trivia.DynamicBackgroundActivity;
 import com.GameOfThrones.Trivia.R;
 import com.GameOfThrones.Trivia.R.id;
 import com.GameOfThrones.Trivia.R.layout;

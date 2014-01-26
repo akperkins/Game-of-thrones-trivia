@@ -1,4 +1,4 @@
-package com.GameOfThrones.Trivia.Core;
+package com.GameOfThrones.Trivia.core;
 
 import java.util.ArrayList;
 
@@ -21,7 +21,6 @@ public class Session {
 	/**
 	 * Used to know which questions reference which GameCharacter
 	 */
-	protected
 	
 	protected CharacterToQuestionsMap map;
 

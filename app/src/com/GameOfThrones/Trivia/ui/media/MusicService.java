@@ -1,4 +1,4 @@
-package com.GameOfThrones.Trivia.util.media;
+package com.GameOfThrones.Trivia.ui.media;
 
 import android.app.Service;
 import android.content.Context;

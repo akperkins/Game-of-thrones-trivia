@@ -1,4 +1,4 @@
-package com.GameOfThrones.Trivia.Core;
+package com.GameOfThrones.Trivia.core;
 
 import java.util.ArrayList;
 

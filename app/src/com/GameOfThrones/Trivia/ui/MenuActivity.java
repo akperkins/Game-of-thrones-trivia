@@ -2,19 +2,11 @@ package com.GameOfThrones.Trivia.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-import com.GameOfThrones.Trivia.DynamicBackgroundActivity;
 import com.GameOfThrones.Trivia.R;
-import com.GameOfThrones.Trivia.R.id;
-import com.GameOfThrones.Trivia.R.layout;
-import com.GameOfThrones.Trivia.R.string;
-import com.GameOfThrones.Trivia.util.SendEmail;
-import com.GameOfThrones.Trivia.util.ShowInfoBox;
 
 /**
  * Main Menu of application.
@@ -62,11 +54,10 @@ public class MenuActivity extends DynamicBackgroundActivity implements
 		email.setOnClickListener(this);
 		about.setOnClickListener(this);
 
-		new ShowInfoBox(this).show(new int[] { R.string.disclaimer_ }, false,
-				false);
+		show(new int[] { R.string.disclaimer_ }, 	false);
 
-		new ShowInfoBox(this).show(new int[] { R.string.updates,
-				R.string.license }, true, false);
+		show(new int[] { R.string.updates,
+				R.string.license }, false);
 	}
 
 	/*
@@ -85,7 +76,7 @@ public class MenuActivity extends DynamicBackgroundActivity implements
 			nextActivity(TriviaSelectionActivity.class);
 			break;
 		case R.id.mainEmail:
-			SendEmail.send(this, "Concerns about Spartacus app");
+			send("Concerns about Spartacus app");
 			break;
 		case R.id.highScore:
 			Intent scoreIntent = new Intent(this, HighScoreActivity.class);

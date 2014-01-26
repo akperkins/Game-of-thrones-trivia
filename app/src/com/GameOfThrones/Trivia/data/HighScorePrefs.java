@@ -1,7 +1,7 @@
-package com.GameOfThrones.Trivia.Data;
+package com.GameOfThrones.Trivia.data;
 
 import com.GameOfThrones.Trivia.R;
-import com.GameOfThrones.Trivia.Core.HighScore;
+import com.GameOfThrones.Trivia.core.HighScore;
 
 import android.content.Context;
 import android.content.SharedPreferences;

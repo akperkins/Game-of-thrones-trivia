@@ -1,4 +1,4 @@
-package com.GameOfThrones.Trivia.Core;
+package com.GameOfThrones.Trivia.core;
 
 /**
  * Exception thrown by the Questions Manager object to indicate that there aren't
@@ -6,7 +6,7 @@ package com.GameOfThrones.Trivia.Core;
  * @author andre
  *
  */
-public class OutOfQuestionsException extends Exception {
+public class OutOfQuestionsException extends RuntimeException {
 
 	/**
 	 * Used to identify object during serialization processes

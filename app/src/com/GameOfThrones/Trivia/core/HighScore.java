@@ -1,4 +1,4 @@
-package com.GameOfThrones.Trivia.Core;
+package com.GameOfThrones.Trivia.core;
 
 /**
  * Score that a user obtain at the end of a game.
