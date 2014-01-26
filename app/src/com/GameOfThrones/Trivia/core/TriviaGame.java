@@ -2,19 +2,18 @@ package com.GameOfThrones.Trivia.core;
 
 import java.util.ArrayList;
 
-import com.GameOfThrones.Trivia.util.GeneralAlgorithms;
-
 /**
- * Manages group of questionsCollections
+ * Trivia game.
  * 
  * @author andre
  * 
  */
 public class TriviaGame implements java.io.Serializable {
-	private int total_questions;
-
 	/** Gives the user 21 seconds to answer each trivia */
 	public final static long QUESTION_TIME = 21000;
+
+	/** number of trivia trivia per game */
+	public static final int MAX_QUESTIONS = 10;
 
 	/**
 	 * Score the user accumulates
@@ -26,31 +25,30 @@ public class TriviaGame implements java.io.Serializable {
 
 	private static final long serialVersionUID = -408390483770836593L;
 
-	private String[] currentQuestion;
-
 	private int triviaTime;
 
 	private QuestionList allQuestions;
-	private int lastUsedIndex;
 
-	public TriviaGame(QuestionList allquestions, int numberOfQuestions, int triviaTime) {
-		allQuestions = new QuestionList();
-		for (int i = 0; i < array.length; i = i + 6) {
-			allQuestions.add(new Question(array[i], GeneralAlgorithms
-					.converToStrArray(GeneralAlgorithms.sliceArray(array,
-							i + 1, i + 4)), Integer.parseInt(array[i + 5])));
-		}
-		this.allQuestions = allQuestions;
-		lastUsedIndex = -1;
+	/**
+	 * Constructor
+	 * 
+	 * @param allquestions
+	 * @param numberOfQuestions
+	 * @param triviaTime
+	 */
+	public TriviaGame(QuestionList allquestions, int numberOfQuestions,
+			int triviaTime) {
+		this.allQuestions = allquestions;
 		allQuestions.shuffle();
+		triviaTime = this.triviaTime;
 		amountCorrect = 0;
 		questionsAnswered = 0;
-		if (allQuestions.size() < numberOfQuestions) {
-			total_questions = allQuestions.size();
-		}
-		triviaTime = this.triviaTime;
 	}
-
+	/**
+	 * Moves forward the question used.
+	 * 
+	 * @throws OutOfQuestionsException
+	 */
 	public void nextQuestion() throws OutOfQuestionsException {
 		if (allQuestions.isDone()) {
 			throw new OutOfQuestionsException();
@@ -70,21 +68,6 @@ public class TriviaGame implements java.io.Serializable {
 	}
 
 	/**
-	 * @return the total_questions
-	 */
-	public int getTotal_questions() {
-		return total_questions;
-	}
-
-	/**
-	 * @param total_questions
-	 *            the total_questions to set
-	 */
-	public void setTotal_questions(int total_questions) {
-		this.total_questions = total_questions;
-	}
-
-	/**
 	 * @return the gameScore
 	 */
 	public int getGameScore() {
@@ -92,26 +75,10 @@ public class TriviaGame implements java.io.Serializable {
 	}
 
 	/**
-	 * @param gameScore
-	 *            the gameScore to set
-	 */
-	public void setGameScore(int gameScore) {
-		this.gameScore = gameScore;
-	}
-
-	/**
 	 * @return the amountCorrect
 	 */
 	public int getAmountCorrect() {
 		return amountCorrect;
-	}
-
-	/**
-	 * @param amountCorrect
-	 *            the amountCorrect to set
-	 */
-	public void setAmountCorrect(int amountCorrect) {
-		this.amountCorrect = amountCorrect;
 	}
 
 	/**
@@ -131,19 +98,34 @@ public class TriviaGame implements java.io.Serializable {
 		return choice == button;
 	}
 
+	/**
+	 * 
+	 * @return returns the current correct choice
+	 */
 	public int getCorrectChoice() {
-		return allQuestions.get(lastUsedIndex).getCorrectAnswer();
+		return allQuestions.current().getCorrectAnswer();
 	}
 
+	/**
+	 * 
+	 * @return the amount of questions answered
+	 */
 	public int getQuestionsAnswered() {
 		return questionsAnswered;
 	}
 
+	/**
+	 * 
+	 * @return Whether the game is over
+	 */
 	public boolean isGameOver() {
-		return questionsAnswered >= total_questions;
+		return questionsAnswered >= MAX_QUESTIONS;
 	}
 
+	/**
+	 * @return Returns the current question
+	 */
 	public Question getCurrentQuestion() {
-		return allQuestions.get(lastUsedIndex);
+		return allQuestions.current();
 	}
 }

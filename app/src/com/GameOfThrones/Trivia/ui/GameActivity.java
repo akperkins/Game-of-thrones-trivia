@@ -34,10 +34,9 @@ import com.GameOfThrones.Trivia.ui.media.MusicService;
  */
 public class GameActivity extends DynamicBackgroundActivity implements
 		OnClickListener {
-	static final String HIGHSCORE_FILENAME = "high_score";
+	private static final int TIME_BETWEEN_QUESTIONS = 3000;
 
-	/** number of trivia trivia per game */
-	static final int MAX_QUESTIONS = 7;
+	static final String HIGHSCORE_FILENAME = "high_score";
 
 	/** number that represents the wrong answer dialog */
 	static final int DIALOG_WRONG_ID = 0;
@@ -47,7 +46,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	Button b1View, b2View, b3View, b4View, bMusic;
 
 	/** Used to obtain the trivia trivia data */
-	TriviaGame qManager;
+	TriviaGame game;
 
 	/** Plays music that interacts with Android AudioFocus Manager */
 	MusicService musicService;
@@ -76,6 +75,12 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	boolean mBound;
 
 	/**
+	 * The service connection class that is used to handle the binding and
+	 * disconnecting of the musicService
+	 */
+	private ServiceConnection myConnection = new MyServiceConnection();
+	
+	/**
 	 * Initializes the instance data for the activity and sets the appropriate
 	 * game state
 	 */
@@ -86,8 +91,9 @@ public class GameActivity extends DynamicBackgroundActivity implements
 		readyForTriviaSelection = false;
 		initServiceSong = false;
 		Intent intent = new Intent(this, MusicService.class);
-		this.getApplication().bindService(intent, mConnection,
+		this.getApplication().bindService(intent, myConnection,
 				Context.BIND_AUTO_CREATE);
+		myConnection = new MyServiceConnection();
 		if (state != null) {
 			restoreState(state);
 		} else {
@@ -102,18 +108,18 @@ public class GameActivity extends DynamicBackgroundActivity implements
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			int chosenCharacter = extras.getInt("gameCharacters");
-			if (chosenCharacter != 0) {
-				qManager = new TriviaGame(getResources().getStringArray(
+		/*	if (chosenCharacter != 0) {
+				game = new TriviaGame(getResources().getStringArray(
 						R.array.questions), MAX_QUESTIONS);
 			} else {
-				qManager = new CharacterTriviaGame(getResources()
+				game = new CharacterTriviaGame(getResources()
 						.getStringArray(R.array.questions), MAX_QUESTIONS,
 						new GameCharacter());
 			}
-		}
+	*/	}
 		counter = new MyCount();
 		playMusicOnLaunch = false;
-		qManager.nextQuestion();
+		game.nextQuestion();
 	}
 
 	/**
@@ -137,10 +143,246 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	}
 
 	/**
-	 * The service connection class that is used to handle the binding and
-	 * disconnecting of the musicService
+	 * onStart() - Creates a new music player
 	 */
-	private ServiceConnection mConnection = new ServiceConnection() {
+	public void onStart() {
+		super.onStart();
+		mapText(game.getCurrentQuestion());
+	}
+
+	/**
+	 * Frees cancel and counter resources when activity is no longer visible
+	 */
+	public void onStop() {
+		super.onStop();
+		musicService.playerPause();
+		counter.cancel();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.app.Activity#onSaveInstanceState(android.os.Bundle)
+	 */
+	public void onSaveInstanceState(Bundle savedInstanceState) {
+		savedInstanceState.putInt("counter_left", (int) counter.left);
+		savedInstanceState.putBoolean("music_isPlaying",
+				musicService.playerIsPlaying());
+		savedInstanceState.putBoolean("initServiceSong", initServiceSong);
+		savedInstanceState.putSerializable("game", game);
+	}
+
+	/**
+	 * Restores state data for activity from a previously saved Game.
+	 * 
+	 * @param savedInstanceState
+	 *            - bundle that contains game
+	 */
+	public void restoreState(Bundle savedInstanceState) {
+		playMusicOnLaunch = savedInstanceState.getBoolean("music_isPlaying");
+		initServiceSong = savedInstanceState.getBoolean("initServiceSong");
+		counter = new MyCount(savedInstanceState.getInt("counter_left"));
+		game = (TriviaGame) savedInstanceState.getSerializable("game");
+	}
+
+	/**
+	 * Cleans up all instance variables
+	 */
+	public void onDestroy() {
+		super.onDestroy();
+		b1View = null;
+		b2View = null;
+		b3View = null;
+		b4View = null;
+		questionView = null;
+		scoreView = null;
+		bMusic = null;
+		timerView = null;
+		game = null;
+		counter = null;
+	}
+
+	/**
+	 * Retrieves a trivia trivia data. If successful, populates the various
+	 * button and Textfields appropriately. Starts a new timerView. If not
+	 * successful, the game is ended.
+	 * 
+	 */
+	public void mapText(Question q) {
+		questionView.setText(q.getTrivia());
+		b1View.setText(q.getAnswer()[0]);
+		b2View.setText(q.getAnswer()[1]);
+		b3View.setText(q.getAnswer()[2]);
+		b4View.setText(q.getAnswer()[3]);
+		counter.start();
+		updateStats();
+		readyForTriviaSelection = true;
+	}
+
+	/**
+	 * Wraps up the game. The current session is properly filled with the
+	 * correct data the next activity is called and this activity is finished
+	 */
+	public void endGame() {
+		this.getApplication().unbindService(myConnection);
+		Intent intent = new Intent(this, ResultsActivity.class);
+		intent.putExtra("correct", game.getAmountCorrect());
+		intent.putExtra("total", TriviaGame.MAX_QUESTIONS);
+		intent.putExtra("scoreView", game.getGameScore());
+		saveHighScore();
+		setResult(RESULT_OK);
+		startActivity(intent);
+		finish();
+	}
+
+	/**
+	 * Calls the proper handling code for the associated button click.
+	 */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
+	public void onClick(View arg0) {
+		if (!readyForTriviaSelection) {
+			return;
+		} else {
+			readyForTriviaSelection = false;
+		}
+		switch (arg0.getId()) {
+		case R.id.button1:
+			game.choiceSelected(1, counter.left);
+			break;
+		case R.id.button2:
+			game.choiceSelected(2, counter.left);
+			break;
+		case R.id.button3:
+			game.choiceSelected(3, counter.left);
+			break;
+		case R.id.button4:
+			game.choiceSelected(4, counter.left);
+			break;
+		case R.id.musicButton:
+			musicButtonPressed();
+			break;
+		}
+	}
+
+	public void isAnswerCorrect(boolean correct) {
+		if (correct) {
+			Toast.makeText(this.getBaseContext(), "Correct!",
+					Toast.LENGTH_SHORT).show();
+		} else {
+			showDialog(DIALOG_WRONG_ID);
+
+			myRemoveDialog();
+		}
+		new Handler().postDelayed(new Runnable() {
+			public void run() {
+				if (game.isGameOver()) {
+					endGame();
+				} else {
+					mapText(game.getCurrentQuestion());
+				}
+			}
+		}, 1000);
+		counter.cancel();
+		if (counter.startQuestionTime < game.QUESTION_TIME) {
+			counter = new MyCount();
+		}
+	}
+
+	/**
+	 * Plays music if user presses play music and vice versa. The text for the
+	 * button is set appropriately.
+	 */
+	public void musicButtonPressed() {
+		if (musicService.playerIsPlaying()) {
+			musicService.playerPause();
+			bMusic.setText("Start Music");
+		} else {
+			musicService.playerStart();
+			bMusic.setText("Stop Music");
+		}
+	}
+
+	/**
+	 * Saves the scoreView the user obtained in the userPrefs
+	 */
+	public void saveHighScore() {
+		HighScorePrefs prefs = new HighScorePrefs(this.getBaseContext());
+		prefs.addNewHighScore(new Date().toString(), game.getGameScore());
+	}
+
+	/**
+	 * onCreateDialog() - creates the dialog fragment that will display the
+	 * error message.
+	 */
+	protected Dialog onCreateDialog(int id) {
+		Dialog dialog = null;
+		switch (id) {
+		case DIALOG_WRONG_ID:
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage(
+					"Wrong! The correct answer is: \n"
+							+ game.getCurrentQuestion().getAnswer()[game
+									.getCorrectChoice()]).setCancelable(true);
+			AlertDialog alert = builder.create();
+			dialog = alert;
+			break;
+		default:
+			dialog = null;
+		}
+		return dialog;
+	}
+
+	/**
+	 * myRemoveDialog() - In forms the current thread to remove the incorrect
+	 * answer dialogFramgement
+	 * 
+	 * @TODO - look into saving and loading the DialogFragment instead
+	 * */
+	public void myRemoveDialog() {
+		Handler handler = new Handler();
+		handler.postDelayed(new Runnable() {
+			public void run() {
+				removeDialog(DIALOG_WRONG_ID);
+			}
+		}, TIME_BETWEEN_QUESTIONS);
+	}
+
+	/**
+	 * getCorrectButton() - Returns a reference to the correct button choice.
+	 * 
+	 * @return Button - correct Button
+	 */
+	public Button getCorrectButton() {
+		switch (game.getCorrectChoice()) {
+		case 1:
+			return b1View;
+		case 2:
+			return b2View;
+		case 3:
+			return b3View;
+		default:
+			return b4View;
+		}
+	}
+
+	/**
+	 * updateStatus() - updates the current game statsView textview
+	 * 
+	 * */
+	public void updateStats() {
+		scoreView.setText(String.valueOf(game.getGameScore()));
+		statsView.setText(game.getQuestionsAnswered() + " / "
+				+ game.MAX_QUESTIONS);
+	}
+
+	
+
+	public class MyServiceConnection implements ServiceConnection {
+
 		/*
 		 * (non-Javadoc)
 		 * 
@@ -177,243 +419,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 			mBound = false;
 			musicService = null;
 		}
-	};
 
-	/**
-	 * onStart() - Creates a new music player
-	 */
-	public void onStart() {
-		super.onStart();
-		mapText(qManager.getCurrentQuestion());
-	}
-
-	/**
-	 * Frees cancel and counter resources when activity is no longer visible
-	 */
-	public void onStop() {
-		super.onStop();
-		musicService.playerPause();
-		counter.cancel();
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.app.Activity#onSaveInstanceState(android.os.Bundle)
-	 */
-	public void onSaveInstanceState(Bundle savedInstanceState) {
-		savedInstanceState.putInt("counter_left", (int) counter.left);
-		savedInstanceState.putBoolean("music_isPlaying",
-				musicService.playerIsPlaying());
-		savedInstanceState.putBoolean("initServiceSong", initServiceSong);
-		savedInstanceState.putSerializable("qManager", qManager);
-	}
-
-	/**
-	 * Restores state data for activity from a previously saved Game.
-	 * 
-	 * @param savedInstanceState
-	 *            - bundle that contains game
-	 */
-	public void restoreState(Bundle savedInstanceState) {
-		playMusicOnLaunch = savedInstanceState.getBoolean("music_isPlaying");
-		initServiceSong = savedInstanceState.getBoolean("initServiceSong");
-		counter = new MyCount(savedInstanceState.getInt("counter_left"));
-		qManager = (TriviaGame) savedInstanceState.getSerializable("qManager");
-	}
-
-	/**
-	 * Cleans up all instance variables
-	 */
-	public void onDestroy() {
-		super.onDestroy();
-		b1View = null;
-		b2View = null;
-		b3View = null;
-		b4View = null;
-		questionView = null;
-		scoreView = null;
-		bMusic = null;
-		timerView = null;
-		qManager = null;
-		counter = null;
-	}
-
-	/**
-	 * Retrieves a trivia trivia data. If successful, populates the various
-	 * button and Textfields appropriately. Starts a new timerView. If not
-	 * successful, the game is ended.
-	 * 
-	 */
-	public void mapText(Question q) {
-		questionView.setText(q.getTrivia());
-		b1View.setText(q.getAnswer()[0]);
-		b2View.setText(q.getAnswer()[1]);
-		b3View.setText(q.getAnswer()[2]);
-		b4View.setText(q.getAnswer()[3]);
-		counter.start();
-		updateStats();
-		readyForTriviaSelection = true;
-	}
-
-	/**
-	 * Wraps up the game. The current session is properly filled with the
-	 * correct data the next activity is called and this activity is finished
-	 */
-	public void endGame() {
-		this.getApplication().unbindService(mConnection);
-		Intent intent = new Intent(this, ResultsActivity.class);
-		intent.putExtra("correct", qManager.getAmountCorrect());
-		intent.putExtra("total", qManager.getTotal_questions());
-		intent.putExtra("scoreView", qManager.getGameScore());
-		saveHighScore();
-		setResult(RESULT_OK);
-		startActivity(intent);
-		finish();
-	}
-
-	/**
-	 * Calls the proper handling code for the associated button click.
-	 */
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.view.View.OnClickListener#onClick(android.view.View)
-	 */
-	public void onClick(View arg0) {
-		if (!readyForTriviaSelection) {
-			return;
-		} else {
-			readyForTriviaSelection = false;
-		}
-		switch (arg0.getId()) {
-		case R.id.button1:
-			qManager.choiceSelected(1, counter.left);
-			break;
-		case R.id.button2:
-			qManager.choiceSelected(2, counter.left);
-			break;
-		case R.id.button3:
-			qManager.choiceSelected(3, counter.left);
-			break;
-		case R.id.button4:
-			qManager.choiceSelected(4, counter.left);
-			break;
-		case R.id.musicButton:
-			musicButtonPressed();
-			break;
-		}
-	}
-
-	public void isAnswerCorrect(boolean correct) {
-		if (correct) {
-			Toast.makeText(this.getBaseContext(), "Correct!",
-					Toast.LENGTH_SHORT).show();
-		} else {
-			showDialog(DIALOG_WRONG_ID);
-
-			myRemoveDialog();
-		}
-		new Handler().postDelayed(new Runnable() {
-			public void run() {
-				if (qManager.isGameOver()) {
-					endGame();
-				} else {
-					mapText(qManager.getCurrentQuestion());
-				}
-			}
-		}, 1000);
-		counter.cancel();
-		if (counter.startQuestionTime < qManager.QUESTION_TIME) {
-			counter = new MyCount();
-		}
-	}
-
-	/**
-	 * Plays music if user presses play music and vice versa. The text for the
-	 * button is set appropriately.
-	 */
-	public void musicButtonPressed() {
-		if (musicService.playerIsPlaying()) {
-			musicService.playerPause();
-			bMusic.setText("Start Music");
-		} else {
-			musicService.playerStart();
-			bMusic.setText("Stop Music");
-		}
-	}
-
-	/**
-	 * Saves the scoreView the user obtained in the userPrefs
-	 */
-	public void saveHighScore() {
-		HighScorePrefs prefs = new HighScorePrefs(this.getBaseContext());
-		prefs.addNewHighScore(new Date().toString(), qManager.getGameScore());
-	}
-
-	/**
-	 * onCreateDialog() - creates the dialog fragment that will display the
-	 * error message.
-	 */
-	protected Dialog onCreateDialog(int id) {
-		Dialog dialog = null;
-		switch (id) {
-		case DIALOG_WRONG_ID:
-			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage(
-					"Wrong! The correct answer is: \n"
-							+ qManager.getCurrentQuestion().getAnswer()[qManager
-									.getCorrectChoice()]).setCancelable(true);
-			AlertDialog alert = builder.create();
-			dialog = alert;
-			break;
-		default:
-			dialog = null;
-		}
-		return dialog;
-	}
-
-	/**
-	 * myRemoveDialog() - In forms the current thread to remove the incorrect
-	 * answer dialogFramgement
-	 * 
-	 * @TODO - look into saving and loading the DialogFragment instead
-	 * */
-	public void myRemoveDialog() {
-		Handler handler = new Handler();
-		handler.postDelayed(new Runnable() {
-			public void run() {
-				removeDialog(DIALOG_WRONG_ID);
-			}
-		}, 3000);
-	}
-
-	/**
-	 * getCorrectButton() - Returns a reference to the correct button choice.
-	 * 
-	 * @return Button - correct Button
-	 */
-	public Button getCorrectButton() {
-		switch (qManager.getCorrectChoice()) {
-		case 1:
-			return b1View;
-		case 2:
-			return b2View;
-		case 3:
-			return b3View;
-		default:
-			return b4View;
-		}
-	}
-
-	/**
-	 * updateStatus() - updates the current game statsView textview
-	 * 
-	 * */
-	public void updateStats() {
-		scoreView.setText(String.valueOf(qManager.getGameScore()));
-		statsView.setText(qManager.getQuestionsAnswered() + " / "
-				+ qManager.getTotal_questions());
 	}
 
 	/**
@@ -426,7 +432,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	protected class MyCount extends CountDownTimer {
 
 		/** Sets one second in between every tick */
-		final static long TICK_INTERVAL = 1000;
+		private static final int TICK_TIME = 1000;
 
 		/** Keeps track of the time left on timerView */
 		private long left;
@@ -437,9 +443,9 @@ public class GameActivity extends DynamicBackgroundActivity implements
 		 * Constructor that starts a timerView with a default value.
 		 */
 		public MyCount() {
-			super(qManager.QUESTION_TIME, TICK_INTERVAL);
-			left = qManager.QUESTION_TIME;
-			startQuestionTime = qManager.QUESTION_TIME;
+			super(game.QUESTION_TIME, TICK_TIME);
+			left = game.QUESTION_TIME;
+			startQuestionTime = game.QUESTION_TIME;
 		}
 
 		/**
@@ -450,7 +456,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 		 *            - custom time
 		 */
 		public MyCount(long timeRemaining) {
-			super(timeRemaining, TICK_INTERVAL);
+			super(timeRemaining, TICK_TIME);
 			left = timeRemaining;
 		}
 
@@ -459,7 +465,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 		 * The user gets the answer wrong if the time expires.
 		 */
 		public void onFinish() {
-			qManager.choiceSelected((qManager.getCorrectChoice() + 1) % 4, 0);
+			game.choiceSelected((game.getCorrectChoice() + 1) % 4, 0);
 		}
 
 		@Override
@@ -467,7 +473,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 		 * Updates every second, the amount of seconds the user has left to make a decision.
 		 */
 		public void onTick(long millisUntilFinished) {
-			timerView.setText("Left: " + millisUntilFinished / 1000);
+			timerView.setText("Left: " + millisUntilFinished / TICK_TIME);
 			left = millisUntilFinished;
 		}
 

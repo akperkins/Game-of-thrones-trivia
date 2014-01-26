@@ -9,41 +9,19 @@ public class QuestionList implements SimpleIterator<Question> {
 	ArrayList<Question> questions;
 
 	/**
-	 * @param index
-	 * @return
-	 * @see java.util.ArrayList#get(int)
-	 */
-	public Question get(int index) {
-		return questions.get(index);
-	}
-
-	/**
-	 * @param object
-	 * @return
-	 * @see java.util.ArrayList#add(java.lang.Object)
-	 */
-	public boolean add(Question object) {
-		return questions.add(object);
-	}
-
-	/**
-	 * @return
-	 * @see java.util.ArrayList#size()
-	 */
-	public int size() {
-		return questions.size();
-	}
-
-	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8666055296634378061L;
 
 	int currentPos;
 
-	public QuestionList() {
-		super();
+	public QuestionList(String[] array) {
 		questions = new ArrayList<Question>();
+		for (int i = 0; i < array.length; i = i + 6) {
+			questions.add(new Question(array[i], GeneralAlgorithms
+					.converToStrArray(GeneralAlgorithms.sliceArray(array,
+							i + 1, i + 4)), Integer.parseInt(array[i + 5])));
+		}
 		beforeFirst();
 	}
 
