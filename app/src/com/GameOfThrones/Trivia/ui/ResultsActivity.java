@@ -81,7 +81,7 @@ public class ResultsActivity extends DynamicBackgroundActivity implements
 	/**
 	 * setScore() - Shows a message indicating how successful you were
 	 */
-	public void showResults() {
+	private void showResults() {
 		String str = "";
 		if (score >= 1000) {
 			str = "Azor Ahai reborn!!";

@@ -60,7 +60,7 @@ public class TriviaSelectionActivity extends DynamicBackgroundActivity
 	 * Obtains each character name from characterlist in session and places that
 	 * information in the charactersName instance variable.
 	 */
-	public void initCharactersName() {
+	private void initCharactersName() {
 		ArrayList<GameCharacter> gameCharacters = session.getCharacters();
 
 		charactersName = new ArrayList<String>();
@@ -113,7 +113,7 @@ public class TriviaSelectionActivity extends DynamicBackgroundActivity
 	 * Generates an arraylist of users from data in string.xml and store in
 	 * session class
 	 */
-	public void intitializeSessionData() {
+	private void intitializeSessionData() {
 		ArrayList<GameCharacter> characters = new ArrayList<GameCharacter>();
 		for (String[] characterInfo : TriviaCharactersInfo
 				.getInfo(getResources())) {

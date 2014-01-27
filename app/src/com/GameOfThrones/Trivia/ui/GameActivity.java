@@ -43,7 +43,9 @@ public class GameActivity extends DynamicBackgroundActivity implements
 
 	/** References to layout views */
 	TextView questionView, timerView, scoreView, statsView;
-	Button b1View, b2View, b3View, b4View, bMusic;
+	Button b1View, b2View, b3View, b4View;
+	
+	MusicButton bMusic;
 
 	/** Used to obtain the trivia trivia data */
 	TriviaGame game;
@@ -108,7 +110,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			int chosenCharacter = extras.getInt("gameCharacters");
-		/*	if (chosenCharacter != 0) {
+			if (chosenCharacter != 0) {
 				game = new TriviaGame(getResources().getStringArray(
 						R.array.questions), MAX_QUESTIONS);
 			} else {
@@ -116,7 +118,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 						.getStringArray(R.array.questions), MAX_QUESTIONS,
 						new GameCharacter());
 			}
-	*/	}
+		}
 		counter = new MyCount();
 		playMusicOnLaunch = false;
 		game.nextQuestion();
@@ -137,7 +139,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 		questionView = (TextView) findViewById(R.id.question);
 		scoreView = (TextView) findViewById(R.id.Score);
 		statsView = (TextView) findViewById(R.id.Stats);
-		bMusic = (Button) findViewById(R.id.musicButton);
+		bMusic = (MusicButton) findViewById(R.id.musicButton);
 		bMusic.setOnClickListener(this);
 		timerView = (TextView) findViewById(R.id.textTimer);
 	}
@@ -208,7 +210,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	 * successful, the game is ended.
 	 * 
 	 */
-	public void mapText(Question q) {
+	private void mapText(Question q) {
 		questionView.setText(q.getTrivia());
 		b1View.setText(q.getAnswer()[0]);
 		b2View.setText(q.getAnswer()[1]);
@@ -223,7 +225,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	 * Wraps up the game. The current session is properly filled with the
 	 * correct data the next activity is called and this activity is finished
 	 */
-	public void endGame() {
+	private void endGame() {
 		this.getApplication().unbindService(myConnection);
 		Intent intent = new Intent(this, ResultsActivity.class);
 		intent.putExtra("correct", game.getAmountCorrect());
@@ -268,7 +270,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 		}
 	}
 
-	public void isAnswerCorrect(boolean correct) {
+	private void isAnswerCorrect(boolean correct) {
 		if (correct) {
 			Toast.makeText(this.getBaseContext(), "Correct!",
 					Toast.LENGTH_SHORT).show();
@@ -296,7 +298,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	 * Plays music if user presses play music and vice versa. The text for the
 	 * button is set appropriately.
 	 */
-	public void musicButtonPressed() {
+	private void musicButtonPressed() {
 		if (musicService.playerIsPlaying()) {
 			musicService.playerPause();
 			bMusic.setText("Start Music");
@@ -309,7 +311,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	/**
 	 * Saves the scoreView the user obtained in the userPrefs
 	 */
-	public void saveHighScore() {
+	private void saveHighScore() {
 		HighScorePrefs prefs = new HighScorePrefs(this.getBaseContext());
 		prefs.addNewHighScore(new Date().toString(), game.getGameScore());
 	}
@@ -342,7 +344,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	 * 
 	 * @TODO - look into saving and loading the DialogFragment instead
 	 * */
-	public void myRemoveDialog() {
+	private void myRemoveDialog() {
 		Handler handler = new Handler();
 		handler.postDelayed(new Runnable() {
 			public void run() {
@@ -356,7 +358,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	 * 
 	 * @return Button - correct Button
 	 */
-	public Button getCorrectButton() {
+	private Button getCorrectButton() {
 		switch (game.getCorrectChoice()) {
 		case 1:
 			return b1View;
@@ -373,7 +375,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	 * updateStatus() - updates the current game statsView textview
 	 * 
 	 * */
-	public void updateStats() {
+	private void updateStats() {
 		scoreView.setText(String.valueOf(game.getGameScore()));
 		statsView.setText(game.getQuestionsAnswered() + " / "
 				+ game.MAX_QUESTIONS);
@@ -382,7 +384,6 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	
 
 	public class MyServiceConnection implements ServiceConnection {
-
 		/*
 		 * (non-Javadoc)
 		 * 
@@ -419,7 +420,6 @@ public class GameActivity extends DynamicBackgroundActivity implements
 			mBound = false;
 			musicService = null;
 		}
-
 	}
 
 	/**
