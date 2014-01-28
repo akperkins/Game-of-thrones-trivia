@@ -3,6 +3,7 @@ package com.GameOfThrones.Trivia.data;
 import android.content.res.Resources;
 
 import com.GameOfThrones.Trivia.R;
+import com.GameOfThrones.Trivia.core.QuestionList;
 
 /**
  * Used to parse the character data in the strings.xml file
@@ -26,5 +27,9 @@ public class TriviaCharactersInfo {
 			characters[i] = data[i].split("_");
 		}
 		return characters;
+	}
+	
+	public static QuestionList getQuestions(Resources res){
+		
 	}
 }

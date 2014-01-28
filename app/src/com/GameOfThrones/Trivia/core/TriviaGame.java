@@ -28,7 +28,11 @@ public class TriviaGame implements java.io.Serializable {
 	private int triviaTime;
 
 	private QuestionList allQuestions;
-
+	
+	private int numberOfOptions;
+	
+	private int numberOfQuestions;
+	
 	/**
 	 * Constructor
 	 * 
@@ -37,12 +41,14 @@ public class TriviaGame implements java.io.Serializable {
 	 * @param triviaTime
 	 */
 	public TriviaGame(QuestionList allquestions, int numberOfQuestions,
-			int triviaTime) {
+			int triviaTime, int numberOfOptions) {
 		this.allQuestions = allquestions;
 		allQuestions.shuffle();
 		triviaTime = this.triviaTime;
 		amountCorrect = 0;
 		questionsAnswered = 0;
+		this.numberOfOptions = numberOfOptions;
+		this.numberOfQuestions = numberOfQuestions;
 	}
 	/**
 	 * Moves forward the question used.

@@ -3,6 +3,8 @@ package com.GameOfThrones.Trivia.util;
 import java.util.ArrayList;
 import java.util.Random;
 
+import junit.framework.Assert;
+
 /**
  * Class used to store algorithms that can be re-used in multiple instances.
  * This class will be moved to a Android Library project. This class is not
@@ -50,10 +52,15 @@ public class GeneralAlgorithms {
 	 * @return select probs position
 	 */
 	public static int getWeightedProbability(int[] probs) {
+		Assert.assertTrue(probs.length > 0);
+
 		if (probs.length == 0) {
 			return -1;
 		}
 		for (int temp : probs) {
+
+			Assert.assertTrue(temp < 0);
+
 			if (temp < 0) {
 				return -2;
 			}
@@ -64,6 +71,7 @@ public class GeneralAlgorithms {
 				store.add(i);
 			}
 		}
+		Assert.assertTrue(store.size() == 0);
 		if (store.size() == 0) {
 			return -3;
 		}
@@ -84,13 +92,14 @@ public class GeneralAlgorithms {
 	 */
 	public static Object[] sliceArray(Object[] objArray, int startIndex,
 			int endIndex) {
-		if (startIndex < 0 || endIndex > objArray.length || objArray == null) {
-			return null;
-		}
+		Assert.assertTrue(startIndex >= 0);
+		Assert.assertTrue(endIndex <= objArray.length);
+
 		Object[] temp = new Object[(endIndex + 1) - startIndex];
 		for (int i = startIndex; i <= endIndex; i++) {
 			temp[i - startIndex] = objArray[i];
 		}
+
 		return temp;
 	}
 
@@ -103,14 +112,12 @@ public class GeneralAlgorithms {
 	 */
 	public static String[] converToStrArray(Object[] strs) {
 		String[] temp = new String[strs.length];
-
 		for (int i = 0; i < strs.length; i++) {
-			if (strs[i] instanceof String) {
-				temp[i] = (String) strs[i];
-			} else {
-				throw new ClassCastException("the " + i + " object in array"
-						+ " failed instanceof String check");
-			}
+			Assert.assertTrue("the " + i + " object in array"
+					+ " failed instanceof String check",
+					strs[i] instanceof String);
+			/** if assertion passed */
+			temp[i] = (String) strs[i];
 		}
 		return temp;
 	}

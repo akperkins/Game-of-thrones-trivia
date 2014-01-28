@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import com.GameOfThrones.Trivia.util.GeneralAlgorithms;
 
 public class QuestionList implements SimpleIterator<Question> {
+	
+	int numberOfOptions;
 
 	ArrayList<Question> questions;
 
@@ -15,7 +17,7 @@ public class QuestionList implements SimpleIterator<Question> {
 
 	int currentPos;
 
-	public QuestionList(String[] array) {
+	public QuestionList(String[] array, int numberOfOptions) {
 		questions = new ArrayList<Question>();
 		for (int i = 0; i < array.length; i = i + 6) {
 			questions.add(new Question(array[i], GeneralAlgorithms
@@ -23,6 +25,11 @@ public class QuestionList implements SimpleIterator<Question> {
 							i + 1, i + 4)), Integer.parseInt(array[i + 5])));
 		}
 		beforeFirst();
+		this.numberOfOptions = numberOfOptions;
+	}
+	
+	public int getNumberOfOptions(){
+		return numberOfOptions;
 	}
 
 	/**

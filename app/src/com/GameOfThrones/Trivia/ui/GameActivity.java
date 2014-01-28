@@ -24,6 +24,7 @@ import com.GameOfThrones.Trivia.core.GameCharacter;
 import com.GameOfThrones.Trivia.core.Question;
 import com.GameOfThrones.Trivia.core.TriviaGame;
 import com.GameOfThrones.Trivia.data.HighScorePrefs;
+import com.GameOfThrones.Trivia.ui.media.MusicButton;
 import com.GameOfThrones.Trivia.ui.media.MusicService;
 
 /**
