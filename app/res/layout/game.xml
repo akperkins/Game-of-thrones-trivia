@@ -86,12 +86,13 @@
                 android:layout_weight="50"
                 android:text="10000" />
 
-            <Button
+            <view
                 android:id="@+id/musicButton"
                 style="@style/CustomTheme.View.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="50"
+                class="com.GameOfThrones.Trivia.ui.music.MusicButton"
                 android:text="Start Music" />
         </LinearLayout>
     </LinearLayout>

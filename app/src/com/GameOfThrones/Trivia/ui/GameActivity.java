@@ -19,13 +19,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.GameOfThrones.Trivia.R;
-import com.GameOfThrones.Trivia.core.CharacterTriviaGame;
 import com.GameOfThrones.Trivia.core.GameCharacter;
 import com.GameOfThrones.Trivia.core.Question;
+import com.GameOfThrones.Trivia.core.QuestionCollection;
 import com.GameOfThrones.Trivia.core.TriviaGame;
 import com.GameOfThrones.Trivia.data.HighScorePrefs;
-import com.GameOfThrones.Trivia.ui.media.MusicButton;
-import com.GameOfThrones.Trivia.ui.media.MusicService;
+import com.GameOfThrones.Trivia.data.StringsXMLFileData;
+import com.GameOfThrones.Trivia.ui.music.MusicButton;
+import com.GameOfThrones.Trivia.ui.music.MusicService;
 
 /**
  * The trivia game loop executes here.
@@ -42,11 +43,14 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	/** number that represents the wrong answer dialog */
 	static final int DIALOG_WRONG_ID = 0;
 
+	/** number of trivia trivia per game */
+	public static final int MAX_QUESTIONS = 10;
+
 	/** References to layout views */
 	TextView questionView, timerView, scoreView, statsView;
 	Button b1View, b2View, b3View, b4View;
-	
-	MusicButton bMusic;
+
+	MusicButton musicButton;
 
 	/** Used to obtain the trivia trivia data */
 	TriviaGame game;
@@ -69,20 +73,18 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	 */
 	boolean readyForTriviaSelection;
 	/**
-	 * keeps track if the musicService has been initialized
-	 */
-	boolean initServiceSong;
-	/**
-	 * Keeps track if the musicService is bound
+	 * Keeps track if the musicPublisher is bound
 	 */
 	boolean mBound;
 
 	/**
 	 * The service connection class that is used to handle the binding and
-	 * disconnecting of the musicService
+	 * disconnecting of the musicPublisher
 	 */
 	private ServiceConnection myConnection = new MyServiceConnection();
-	
+
+	int musicStartPos;
+
 	/**
 	 * Initializes the instance data for the activity and sets the appropriate
 	 * game state
@@ -92,15 +94,13 @@ public class GameActivity extends DynamicBackgroundActivity implements
 		setContentView(R.layout.game);
 		initViewObjects();
 		readyForTriviaSelection = false;
-		initServiceSong = false;
+		musicStartPos = 0;
 		Intent intent = new Intent(this, MusicService.class);
-		this.getApplication().bindService(intent, myConnection,
-				Context.BIND_AUTO_CREATE);
-		myConnection = new MyServiceConnection();
-		if (state != null) {
-			restoreState(state);
-		} else {
+		this.bindService(intent, myConnection, Context.BIND_AUTO_CREATE);
+		if (state == null) {
 			createNewState();
+		} else {
+			restoreState(state);
 		}
 	}
 
@@ -110,14 +110,14 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	public void createNewState() {
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
-			int chosenCharacter = extras.getInt("gameCharacters");
-			if (chosenCharacter != 0) {
-				game = new TriviaGame(getResources().getStringArray(
-						R.array.questions), MAX_QUESTIONS);
+			String chosenCharacter = extras.getString("gameCharacter");
+			QuestionCollection qList = StringsXMLFileData
+					.getQuestionList(getResources());
+			if (chosenCharacter == null) {
+				game = new TriviaGame(qList, MAX_QUESTIONS, 20);
 			} else {
-				game = new CharacterTriviaGame(getResources()
-						.getStringArray(R.array.questions), MAX_QUESTIONS,
-						new GameCharacter());
+				game = new TriviaGame(qList, MAX_QUESTIONS, 20,
+						new GameCharacter(chosenCharacter, null));
 			}
 		}
 		counter = new MyCount();
@@ -140,8 +140,8 @@ public class GameActivity extends DynamicBackgroundActivity implements
 		questionView = (TextView) findViewById(R.id.question);
 		scoreView = (TextView) findViewById(R.id.Score);
 		statsView = (TextView) findViewById(R.id.Stats);
-		bMusic = (MusicButton) findViewById(R.id.musicButton);
-		bMusic.setOnClickListener(this);
+		musicButton = (MusicButton) findViewById(R.id.musicButton);
+		musicButton.setOnClickListener(this);
 		timerView = (TextView) findViewById(R.id.textTimer);
 	}
 
@@ -150,7 +150,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	 */
 	public void onStart() {
 		super.onStart();
-		mapText(game.getCurrentQuestion());
+		displayQuestion();
 	}
 
 	/**
@@ -158,7 +158,9 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	 */
 	public void onStop() {
 		super.onStop();
-		musicService.playerPause();
+		if (mBound) {
+			this.unbindService(myConnection);
+		}
 		counter.cancel();
 	}
 
@@ -170,8 +172,10 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	public void onSaveInstanceState(Bundle savedInstanceState) {
 		savedInstanceState.putInt("counter_left", (int) counter.left);
 		savedInstanceState.putBoolean("music_isPlaying",
-				musicService.playerIsPlaying());
-		savedInstanceState.putBoolean("initServiceSong", initServiceSong);
+				mBound ? musicService.isMusicPlaying() : false);
+		savedInstanceState.putInt("music_pos",
+				mBound ? musicService.getCurrentPos() : 0);
+
 		savedInstanceState.putSerializable("game", game);
 	}
 
@@ -183,9 +187,9 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	 */
 	public void restoreState(Bundle savedInstanceState) {
 		playMusicOnLaunch = savedInstanceState.getBoolean("music_isPlaying");
-		initServiceSong = savedInstanceState.getBoolean("initServiceSong");
 		counter = new MyCount(savedInstanceState.getInt("counter_left"));
 		game = (TriviaGame) savedInstanceState.getSerializable("game");
+		musicStartPos = savedInstanceState.getInt("music_pos");
 	}
 
 	/**
@@ -199,7 +203,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 		b4View = null;
 		questionView = null;
 		scoreView = null;
-		bMusic = null;
+		musicButton = null;
 		timerView = null;
 		game = null;
 		counter = null;
@@ -211,12 +215,13 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	 * successful, the game is ended.
 	 * 
 	 */
-	private void mapText(Question q) {
+	private void displayQuestion() {
+		Question q = game.getCurrentQuestion();
 		questionView.setText(q.getTrivia());
-		b1View.setText(q.getAnswer()[0]);
-		b2View.setText(q.getAnswer()[1]);
-		b3View.setText(q.getAnswer()[2]);
-		b4View.setText(q.getAnswer()[3]);
+		b1View.setText(q.getAnswers()[0]);
+		b2View.setText(q.getAnswers()[1]);
+		b3View.setText(q.getAnswers()[2]);
+		b4View.setText(q.getAnswers()[3]);
 		counter.start();
 		updateStats();
 		readyForTriviaSelection = true;
@@ -227,10 +232,12 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	 * correct data the next activity is called and this activity is finished
 	 */
 	private void endGame() {
-		this.getApplication().unbindService(myConnection);
+		if (mBound) {
+			this.unbindService(myConnection);
+		}
 		Intent intent = new Intent(this, ResultsActivity.class);
 		intent.putExtra("correct", game.getAmountCorrect());
-		intent.putExtra("total", TriviaGame.MAX_QUESTIONS);
+		intent.putExtra("total", game.getNumberOfQuestions());
 		intent.putExtra("scoreView", game.getGameScore());
 		saveHighScore();
 		setResult(RESULT_OK);
@@ -247,27 +254,30 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	 * @see android.view.View.OnClickListener#onClick(android.view.View)
 	 */
 	public void onClick(View arg0) {
-		if (!readyForTriviaSelection) {
-			return;
+		if (arg0.getId() == R.id.musicButton) {
+			musicButton.buttonPressed();
 		} else {
-			readyForTriviaSelection = false;
-		}
-		switch (arg0.getId()) {
-		case R.id.button1:
-			game.choiceSelected(1, counter.left);
-			break;
-		case R.id.button2:
-			game.choiceSelected(2, counter.left);
-			break;
-		case R.id.button3:
-			game.choiceSelected(3, counter.left);
-			break;
-		case R.id.button4:
-			game.choiceSelected(4, counter.left);
-			break;
-		case R.id.musicButton:
-			musicButtonPressed();
-			break;
+			if (!readyForTriviaSelection) {
+				return;
+			} else {
+				readyForTriviaSelection = false;
+			}
+			boolean isCorrect = false;
+			switch (arg0.getId()) {
+			case R.id.button1:
+				isCorrect = game.choiceSelected(1, counter.left);
+				break;
+			case R.id.button2:
+				isCorrect = game.choiceSelected(2, counter.left);
+				break;
+			case R.id.button3:
+				isCorrect = game.choiceSelected(3, counter.left);
+				break;
+			case R.id.button4:
+				isCorrect = game.choiceSelected(4, counter.left);
+				break;
+			}
+			isAnswerCorrect(isCorrect);
 		}
 	}
 
@@ -280,32 +290,19 @@ public class GameActivity extends DynamicBackgroundActivity implements
 
 			myRemoveDialog();
 		}
+		game.nextQuestion();
 		new Handler().postDelayed(new Runnable() {
 			public void run() {
 				if (game.isGameOver()) {
 					endGame();
 				} else {
-					mapText(game.getCurrentQuestion());
+					displayQuestion();
 				}
 			}
 		}, 1000);
 		counter.cancel();
-		if (counter.startQuestionTime < game.QUESTION_TIME) {
+		if (counter.startQuestionTime < TriviaGame.QUESTION_TIME) {
 			counter = new MyCount();
-		}
-	}
-
-	/**
-	 * Plays music if user presses play music and vice versa. The text for the
-	 * button is set appropriately.
-	 */
-	private void musicButtonPressed() {
-		if (musicService.playerIsPlaying()) {
-			musicService.playerPause();
-			bMusic.setText("Start Music");
-		} else {
-			musicService.playerStart();
-			bMusic.setText("Stop Music");
 		}
 	}
 
@@ -328,8 +325,9 @@ public class GameActivity extends DynamicBackgroundActivity implements
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setMessage(
 					"Wrong! The correct answer is: \n"
-							+ game.getCurrentQuestion().getAnswer()[game
-									.getCorrectChoice()]).setCancelable(true);
+							+ game.getCurrentQuestion().getAnswers()[game
+									.getCorrectChoice() - 1]).setCancelable(
+					true);
 			AlertDialog alert = builder.create();
 			dialog = alert;
 			break;
@@ -379,10 +377,8 @@ public class GameActivity extends DynamicBackgroundActivity implements
 	private void updateStats() {
 		scoreView.setText(String.valueOf(game.getGameScore()));
 		statsView.setText(game.getQuestionsAnswered() + " / "
-				+ game.MAX_QUESTIONS);
+				+ game.getNumberOfQuestions());
 	}
-
-	
 
 	public class MyServiceConnection implements ServiceConnection {
 		/*
@@ -395,19 +391,13 @@ public class GameActivity extends DynamicBackgroundActivity implements
 		public void onServiceConnected(ComponentName className, IBinder service) {
 			MusicService.LocalBinder binder = (MusicService.LocalBinder) service;
 			musicService = binder.getService();
-			if (!initServiceSong) {
-				musicService.setSong(R.raw.game_of_thrones_theme_song);
-				musicService.initPlayer();
-				initServiceSong = true;
-			} else {
-				if (playMusicOnLaunch) {
-					bMusic.setText("Stop Music");
-					musicService.playerStart();
-				} else {
-					bMusic.setText("Start Music");
-				}
+			musicService.setSong(R.raw.game_of_thrones_theme_song);
+			musicService.setCurrentPos(musicStartPos);
+			if (playMusicOnLaunch) {
+				musicService.playMusic();
 			}
 			mBound = true;
+			musicButton.setMusicPublisher(musicService);
 		}
 
 		/*
@@ -466,7 +456,7 @@ public class GameActivity extends DynamicBackgroundActivity implements
 		 * The user gets the answer wrong if the time expires.
 		 */
 		public void onFinish() {
-			game.choiceSelected((game.getCorrectChoice() + 1) % 4, 0);
+			isAnswerCorrect(false);
 		}
 
 		@Override

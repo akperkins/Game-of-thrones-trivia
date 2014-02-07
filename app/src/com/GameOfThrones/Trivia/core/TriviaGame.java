@@ -12,27 +12,22 @@ public class TriviaGame implements java.io.Serializable {
 	/** Gives the user 21 seconds to answer each trivia */
 	public final static long QUESTION_TIME = 21000;
 
-	/** number of trivia trivia per game */
-	public static final int MAX_QUESTIONS = 10;
-
 	/**
 	 * Score the user accumulates
 	 */
 	private int gameScore;
 
 	/** Keep track of current game statsView */
-	private int amountCorrect, questionsAnswered;
+	private int amountCorrect, questionsNumber;
 
 	private static final long serialVersionUID = -408390483770836593L;
 
 	private int triviaTime;
 
-	private QuestionList allQuestions;
-	
-	private int numberOfOptions;
-	
+	private QuestionCollection allQuestions;
+
 	private int numberOfQuestions;
-	
+
 	/**
 	 * Constructor
 	 * 
@@ -40,22 +35,37 @@ public class TriviaGame implements java.io.Serializable {
 	 * @param numberOfQuestions
 	 * @param triviaTime
 	 */
-	public TriviaGame(QuestionList allquestions, int numberOfQuestions,
-			int triviaTime, int numberOfOptions) {
+	public TriviaGame(QuestionCollection allquestions, int numberOfQuestions,
+			int triviaTime) {
 		this.allQuestions = allquestions;
 		allQuestions.shuffle();
 		triviaTime = this.triviaTime;
 		amountCorrect = 0;
-		questionsAnswered = 0;
-		this.numberOfOptions = numberOfOptions;
+		questionsNumber = 0;
 		this.numberOfQuestions = numberOfQuestions;
 	}
+
+	/**
+	 * Constructor
+	 * 
+	 * @param allquestions
+	 * @param numberOfQuestions
+	 * @param triviaTime
+	 */
+	public TriviaGame(QuestionCollection allquestions, int numberOfQuestions,
+			int triviaTime, GameCharacter gameCharacter) {
+		this(allquestions, numberOfQuestions, triviaTime);
+		allquestions
+				.keepOnly(Session.getInstance().getMap().get(gameCharacter));
+	}
+
 	/**
 	 * Moves forward the question used.
 	 * 
 	 * @throws OutOfQuestionsException
 	 */
 	public void nextQuestion() throws OutOfQuestionsException {
+		questionsNumber++;
 		if (allQuestions.isDone()) {
 			throw new OutOfQuestionsException();
 		} else {
@@ -64,7 +74,8 @@ public class TriviaGame implements java.io.Serializable {
 	}
 
 	/**
-	 * Keeps questions only whose ids match any in the keepIds QuestionList.
+	 * Keeps questions only whose ids match any in the keepIds
+	 * QuestionCollection.
 	 * 
 	 * @param keepsIds
 	 *            - list of questions ids
@@ -99,9 +110,11 @@ public class TriviaGame implements java.io.Serializable {
 	 * @throws OutOfQuestionsException
 	 */
 	public boolean choiceSelected(int button, long timeLeft) {
-		int choice = getCorrectChoice();
-		questionsAnswered++;
-		return choice == button;
+		boolean correct = getCorrectChoice() == button;
+		if (correct) {
+			gameScore += (timeLeft * 23);
+		}
+		return correct;
 	}
 
 	/**
@@ -117,7 +130,7 @@ public class TriviaGame implements java.io.Serializable {
 	 * @return the amount of questions answered
 	 */
 	public int getQuestionsAnswered() {
-		return questionsAnswered;
+		return questionsNumber;
 	}
 
 	/**
@@ -125,7 +138,7 @@ public class TriviaGame implements java.io.Serializable {
 	 * @return Whether the game is over
 	 */
 	public boolean isGameOver() {
-		return questionsAnswered >= MAX_QUESTIONS;
+		return questionsNumber >= numberOfQuestions;
 	}
 
 	/**
@@ -133,5 +146,9 @@ public class TriviaGame implements java.io.Serializable {
 	 */
 	public Question getCurrentQuestion() {
 		return allQuestions.current();
+	}
+
+	public int getNumberOfQuestions() {
+		return numberOfQuestions;
 	}
 }

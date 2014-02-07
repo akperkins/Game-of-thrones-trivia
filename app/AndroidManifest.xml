@@ -25,7 +25,7 @@
             android:label="@string/end_game" >
         </activity>
         <activity
-            android:name="com.GameOfThrones.Trivia.ui.MenuActivity"
+            android:name="com.GameOfThrones.Trivia.ui.MainMenuActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,7 +35,7 @@
         </activity>
 
         <service
-            android:name="com.GameOfThrones.Trivia.ui.media.MusicService"
+            android:name="com.GameOfThrones.Trivia.ui.music.MusicService"
             android:enabled="true" >
         </service>
 

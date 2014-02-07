@@ -14,24 +14,27 @@
         <Button
             android:id="@+id/mainEmail"
             style="@style/CustomTheme.View.Button"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="10"
+            android:layout_weight="1"
             android:text="message" >
         </Button>
 
         <Button
             android:id="@+id/highScore"
             style="@style/CustomTheme.View.Button"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="10"
+            android:layout_weight="1"
             android:text="scores" >
         </Button>
 
         <Button
             android:id="@+id/about"
             style="@style/CustomTheme.View.Button"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="10"
+            android:layout_weight="1"
             android:text="about" >
         </Button>
     </LinearLayout>

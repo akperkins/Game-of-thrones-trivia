@@ -1,12 +1,12 @@
 package com.GameOfThrones.Trivia.core;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.GameOfThrones.Trivia.util.GeneralAlgorithms;
 
-public class QuestionList implements SimpleIterator<Question> {
-	
-	int numberOfOptions;
+public class QuestionCollection implements SimpleIterator<Question>,
+		Serializable {
 
 	ArrayList<Question> questions;
 
@@ -17,19 +17,9 @@ public class QuestionList implements SimpleIterator<Question> {
 
 	int currentPos;
 
-	public QuestionList(String[] array, int numberOfOptions) {
-		questions = new ArrayList<Question>();
-		for (int i = 0; i < array.length; i = i + 6) {
-			questions.add(new Question(array[i], GeneralAlgorithms
-					.converToStrArray(GeneralAlgorithms.sliceArray(array,
-							i + 1, i + 4)), Integer.parseInt(array[i + 5])));
-		}
+	public QuestionCollection(ArrayList<Question> questions) {
+		this.questions = questions;
 		beforeFirst();
-		this.numberOfOptions = numberOfOptions;
-	}
-	
-	public int getNumberOfOptions(){
-		return numberOfOptions;
 	}
 
 	/**
@@ -61,7 +51,8 @@ public class QuestionList implements SimpleIterator<Question> {
 	}
 
 	/**
-	 * Keeps questions only whose ids match any in the keepIds QuestionList.
+	 * Keeps questions only whose ids match any in the keepIds
+	 * QuestionCollection.
 	 * 
 	 * @param keepsIds
 	 *            - list of questions ids

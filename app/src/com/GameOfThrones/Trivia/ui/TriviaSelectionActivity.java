@@ -12,10 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.GameOfThrones.Trivia.R;
-import com.GameOfThrones.Trivia.R.id;
-import com.GameOfThrones.Trivia.R.layout;
 import com.GameOfThrones.Trivia.core.GameCharacter;
-import com.GameOfThrones.Trivia.data.TriviaCharactersInfo;
 
 /**
  * Activity to select which character the trivia questions would focus on
@@ -26,7 +23,7 @@ import com.GameOfThrones.Trivia.data.TriviaCharactersInfo;
 public class TriviaSelectionActivity extends DynamicBackgroundActivity
 		implements OnItemClickListener {
 	/**
-	 * QuestionList of characters
+	 * QuestionCollection of characters
 	 */
 	ArrayList<String> charactersName;
 
@@ -42,9 +39,7 @@ public class TriviaSelectionActivity extends DynamicBackgroundActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.trivia_selection);
 
-		intitializeSessionData();
-
-		initCharactersName();
+		storeCharactersName();
 
 		final ListView listview = (ListView) findViewById(R.id.charactersList);
 
@@ -60,7 +55,7 @@ public class TriviaSelectionActivity extends DynamicBackgroundActivity
 	 * Obtains each character name from characterlist in session and places that
 	 * information in the charactersName instance variable.
 	 */
-	private void initCharactersName() {
+	private void storeCharactersName() {
 		ArrayList<GameCharacter> gameCharacters = session.getCharacters();
 
 		charactersName = new ArrayList<String>();
@@ -76,7 +71,7 @@ public class TriviaSelectionActivity extends DynamicBackgroundActivity
 	 * 
 	 * @param character
 	 */
-	public void startGameForCharacter(int character) {
+	private void startGameForCharacter(int character) {
 		Bundle bundle = new Bundle();
 		bundle.putInt("gameCharacters", character);
 		nextActivity(bundle, GameActivity.class);
@@ -109,22 +104,6 @@ public class TriviaSelectionActivity extends DynamicBackgroundActivity
 		return R.id.triviaSelection;
 	}
 
-	/**
-	 * Generates an arraylist of users from data in string.xml and store in
-	 * session class
-	 */
-	private void intitializeSessionData() {
-		ArrayList<GameCharacter> characters = new ArrayList<GameCharacter>();
-		for (String[] characterInfo : TriviaCharactersInfo
-				.getInfo(getResources())) {
-			ArrayList<String> aliases = new ArrayList<String>();
-			for (int i = 1; i < characterInfo.length; i++) {
-				aliases.add(characterInfo[i]);
-			}
-			session.add(new GameCharacter(characterInfo[0], aliases));
-		}
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -133,11 +112,8 @@ public class TriviaSelectionActivity extends DynamicBackgroundActivity
 	 * .AdapterView, android.view.View, int, long)
 	 */
 	public void onItemClick(AdapterView<?> arg0, View arg1, int row, long arg3) {
-		// TODO Auto-generated method stub
 		Toast.makeText(getBaseContext(), "Clicked " + charactersName.get(row),
 				Toast.LENGTH_LONG).show();
-		// all was selected
 		startGameForCharacter(row);
 	}
-
 }

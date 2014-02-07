@@ -82,14 +82,14 @@ public class AboutActivity extends DynamicBackgroundActivity implements
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		switch (arg2) {
 		case 0:
-			show(new int[] { R.string.updates,
+			showPopUpMessage(new int[] { R.string.updates,
 					R.string.license }, true);
 			break;
 		case 1:
-			show(new int[] { R.string.sources }, true);
+			showPopUpMessage(new int[] { R.string.sources }, true);
 			break;
 		case 2:
-			show(new int[] { R.string.disclaimer_ }, true);
+			showPopUpMessage(new int[] { R.string.disclaimer_ }, true);
 			break;
 		}
 	}

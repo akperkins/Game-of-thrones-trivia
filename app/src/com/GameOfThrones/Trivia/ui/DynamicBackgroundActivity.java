@@ -71,10 +71,11 @@ public abstract class DynamicBackgroundActivity extends Activity {
 	/**
 	 * Sets the background drawable that is pre-determined
 	 */
-	public void onStart() {
-		super.onStart();
+	public void onResume() {
+		super.onResume();
 		setBackground(getBackgroundLayout());
 	}
+	
 
 	/**
 	 * Sets the background for the current activity
@@ -82,8 +83,8 @@ public abstract class DynamicBackgroundActivity extends Activity {
 	 * @param backgroundId
 	 *            - background drawable reference
 	 */
-	protected void setBackground(int backgroundId) {
-		if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+	final protected void setBackground(int backgroundId) {
+		if (this.getApplication().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
 			if (backgroundPort == 0) {
 				refreshBackground();
 			}
@@ -99,7 +100,7 @@ public abstract class DynamicBackgroundActivity extends Activity {
 	/**
 	 * Randomly selects new background drawables for both orientations
 	 */
-	protected void refreshBackground() {
+	final protected void refreshBackground() {
 		int resourcePort = portraitPics[new Random()
 				.nextInt(portraitPics.length)];
 		int resourceLand = landscapePics[new Random()
@@ -124,7 +125,7 @@ public abstract class DynamicBackgroundActivity extends Activity {
 	 * @param cls
 	 *            - the Class signature of Activity to start
 	 */
-	protected void nextActivity(Class<?> cls) {
+	final protected void nextActivity(Class<?> cls) {
 		Intent aboutIntent = new Intent(this, cls);
 		startActivity(aboutIntent);
 		finish();
@@ -139,7 +140,7 @@ public abstract class DynamicBackgroundActivity extends Activity {
 	 * @param cls
 	 *            - the Class signature of Activity to start
 	 */
-	protected void nextActivity(Bundle bundle, Class<?> cls) {
+	final protected void nextActivity(Bundle bundle, Class<?> cls) {
 		Intent aboutIntent = new Intent(this, cls);
 		aboutIntent.putExtras(bundle);
 		startActivity(aboutIntent);
@@ -156,7 +157,7 @@ public abstract class DynamicBackgroundActivity extends Activity {
 	 * @param str
 	 *            String - subject
 	 */
-	final protected void send(String str) {
+	final protected void sendMail(String str) {
 		final Intent emailIntent = new Intent(
 				android.content.Intent.ACTION_SEND);
 
@@ -198,14 +199,14 @@ public abstract class DynamicBackgroundActivity extends Activity {
 	 *            -showEveryTime if true box displays everytime. if false
 	 *            displays if first time for new version of app
 	 */
-	final protected void show(int[] stringIds, boolean showEverytime) {
+	final protected void showPopUpMessage(int[] stringIds, boolean showEverytime) {
 		// Includes the updates as well so users know what changed.
 		String message = "";
 
 		for (int stringId : stringIds) {
 			message += (this.getString(stringId) + "\n\n");
 		}
-		show(message, showEverytime);
+		showPopUpMessage(message, showEverytime);
 	}
 
 	/**
@@ -221,7 +222,7 @@ public abstract class DynamicBackgroundActivity extends Activity {
 	 * 
 	 */
 	// @TODO Refactor this - remove showEveryTime param
-	final protected void show(String message, boolean showEveryTime) {
+	final protected void showPopUpMessage(String message, boolean showEveryTime) {
 		PackageInfo versionInfo = getPackageInfo(this);
 
 		/**

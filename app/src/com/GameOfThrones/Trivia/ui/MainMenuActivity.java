@@ -18,7 +18,7 @@ import com.GameOfThrones.Trivia.R;
  * @author andre
  * 
  */
-public class MenuActivity extends DynamicBackgroundActivity implements
+public class MainMenuActivity extends DynamicBackgroundActivity implements
 		OnClickListener {
 	/**
 	 * Navigation to other sections of the App
@@ -44,7 +44,7 @@ public class MenuActivity extends DynamicBackgroundActivity implements
 	@Override
 	public void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
-		setContentView(R.layout.menu);
+		setContentView(R.layout.main_menu);
 		email = (Button) findViewById(R.id.mainEmail);
 		highScore = (Button) findViewById(R.id.highScore);
 		about = (Button) findViewById(R.id.about);
@@ -54,9 +54,9 @@ public class MenuActivity extends DynamicBackgroundActivity implements
 		email.setOnClickListener(this);
 		about.setOnClickListener(this);
 
-		show(new int[] { R.string.disclaimer_ }, 	false);
+		showPopUpMessage(new int[] { R.string.disclaimer_ }, 	false);
 
-		show(new int[] { R.string.updates,
+		showPopUpMessage(new int[] { R.string.updates,
 				R.string.license }, false);
 	}
 
@@ -76,7 +76,7 @@ public class MenuActivity extends DynamicBackgroundActivity implements
 			nextActivity(TriviaSelectionActivity.class);
 			break;
 		case R.id.mainEmail:
-			send("Concerns about Spartacus app");
+			sendMail("Concerns about Spartacus app");
 			break;
 		case R.id.highScore:
 			Intent scoreIntent = new Intent(this, HighScoreActivity.class);
@@ -111,6 +111,9 @@ public class MenuActivity extends DynamicBackgroundActivity implements
 	public void onDestoy() {
 		super.onDestroy();
 		email = null;
+		highScore = null;
+		about = null;
+		characterGame = null;
 	}
 
 	/*

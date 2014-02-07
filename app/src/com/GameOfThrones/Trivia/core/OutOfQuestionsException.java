@@ -6,7 +6,7 @@ package com.GameOfThrones.Trivia.core;
  * @author andre
  *
  */
-public class OutOfQuestionsException extends Exception {
+public class OutOfQuestionsException extends RuntimeException {
 
 	/**
 	 * Used to identify object during serialization processes

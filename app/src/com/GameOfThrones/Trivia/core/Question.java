@@ -77,7 +77,7 @@ public class Question implements Serializable {
 	 * 
 	 * @return answers setter
 	 */
-	public String[] getAnswer() {
+	public String[] getAnswers() {
 		return answers;
 	}
 

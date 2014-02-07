@@ -1,4 +1,4 @@
-package com.GameOfThrones.Trivia.ui.media;
+package com.GameOfThrones.Trivia.ui.music;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ import android.os.IBinder;
 import android.os.PowerManager;
 
 /**
- * Bounded Service that wraps a mediaplayer object. Used to play music while
+ * Bounded Service that wraps a Mediaplayer object. Used to play music while
  * adhering to the Android's system AudioManager
  * 
  * @author andre
@@ -28,7 +28,6 @@ public class MusicService extends Service implements
 	private MediaPlayer player;
 	// Binder given to clients
 	private final IBinder mBinder = new LocalBinder();
-	private boolean initialized = false;
 	private ArrayList<MusicObserver> observers = new ArrayList<MusicObserver>();
 
 	private int resid = 0;
@@ -54,17 +53,17 @@ public class MusicService extends Service implements
 		return mBinder;
 	}
 
-	
 	/**
 	 * Initialize mediaplayer object.
 	 */
 	private void initPlayer() {
+		/** set song should have been called */
 		Assert.assertFalse(resid == 0);
-		
+
 		player = MediaPlayer.create(this.getBaseContext(), resid);
 		player.setWakeMode(getApplicationContext(),
 				PowerManager.PARTIAL_WAKE_LOCK);
-		initialized = true;
+		player.setLooping(true);
 	}
 
 	/**
@@ -73,6 +72,7 @@ public class MusicService extends Service implements
 	 */
 	public void setSong(int resid) {
 		this.resid = resid;
+		initPlayer();
 	}
 
 	/*
@@ -95,9 +95,7 @@ public class MusicService extends Service implements
 			 * Lost focus for an unbounded amount of time: stop playback and
 			 * release media player
 			 **/
-			if (player.isPlaying()) {
-				pauseMusic();
-			}
+			pauseMusic();
 			cleanUpPlayer();
 			break;
 		case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
@@ -106,17 +104,16 @@ public class MusicService extends Service implements
 			 * don't release the media player because playback is likely to
 			 * resume
 			 **/
-			if (player.isPlaying()) {
-				pauseMusic();
-			}
+			pauseMusic();
 			break;
 		case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
 			/**
 			 * Lost focus for a short time, but it's ok to keep playing at a
 			 * reduced level
 			 **/
-			if (player.isPlaying())
+			if (isMusicPlaying()) {
 				player.setVolume(0.5f, 0.5f);
+			}
 			break;
 		}
 	}
@@ -154,15 +151,15 @@ public class MusicService extends Service implements
 	}
 
 	public boolean isMusicPlaying() {
-		return player.isPlaying();
+		return player != null ? player.isPlaying() : false;
 	}
 
 	public void playMusic() {
-		if (!initialized) {
+		if (player == null) {
 			initPlayer();
 		}
 
-		if (!player.isPlaying()) {
+		if (!isMusicPlaying()) {
 			AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 			int result = audioManager.requestAudioFocus(this,
 					AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
@@ -175,10 +172,21 @@ public class MusicService extends Service implements
 	}
 
 	public void pauseMusic() {
-		Assert.assertTrue(initialized);
-		if (player.isPlaying()) {
+		// Assert.assertTrue(player != null);
+
+		if (isMusicPlaying()) {
 			player.pause();
 		}
 		notifyObservers();
+	}
+
+	public void setCurrentPos(int msec) {
+		Assert.assertNotNull(player);
+
+		player.seekTo(msec);
+	}
+
+	public int getCurrentPos() {
+		return player != null ? player.getCurrentPosition() : 0;
 	}
 }

@@ -110,7 +110,7 @@ public class ResultsActivity extends DynamicBackgroundActivity implements
 			nextActivity(TriviaSelectionActivity.class);
 			break;
 		case R.id.backMain:
-			nextActivity(MenuActivity.class);
+			nextActivity(MainMenuActivity.class);
 			break;
 		case R.id.rateApp:
 			Intent i = new Intent(Intent.ACTION_VIEW);
