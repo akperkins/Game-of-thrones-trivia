@@ -1,8 +1,19 @@
 package com.GameOfThrones.Trivia.data;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.StatusLine;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import android.content.res.Resources;
+import android.os.AsyncTask;
 
 import com.GameOfThrones.Trivia.R;
 import com.GameOfThrones.Trivia.core.GameCharacter;
@@ -58,3 +69,4 @@ public class StringsXMLFileData {
 		return new QuestionCollection(questions);
 	}
 }
+
