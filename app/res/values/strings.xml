@@ -10,7 +10,7 @@
     <string name="disclaimer_">App Created by: Overnight Apps. This app is an unofficial Game of Thrones trivia app. This app has no affiliation with the Game Of Thrones franchise.</string>
     <string name="appUrl">https://play.google.com/store/apps/details?id=com.GameOfThrones.Trivia</string>
     <string name="sources">Sources used to obtain various content used in this application.\nthebacklot.com\ngoodreads.com\nHBO(&#169;)\nA Song of Ice and Fire Book Series(&#169;)</string>
-    <string name="updates">Upates in this version: Whole new application. </string>
+    <string name="updates">Updates in this version: Whole new application. </string>
 
     <string-array name="questions">
         <item>What are the names of the Brothers of the Night\'s Watch in the prologue?</item>
@@ -166,7 +166,7 @@
         <item>What is the name of the group of people who travel with the Mother of Dragons in season 1?</item>
         <item>Guild</item>
         <item>khalasar</item>
-        <item>Queensgaurd</item>
+        <item>Queensguard</item>
         <item>White Walkers</item>
         <item>2</item>
         <item>Name of the second book?</item>
@@ -298,7 +298,7 @@
         <item>What is the name of Eddard\'s Valyrian Steel blade?</item>
         <item>Weeper</item>
         <item>Ice</item>
-        <item>Judegment</item>
+        <item>Judgement</item>
         <item>Direblade</item>
         <item>2</item>
         <item>Who saves Tyrion\'s life in the battle at the blackgate?</item>
@@ -313,13 +313,13 @@
         <item>Sword</item>
         <item>Combat ships</item>
         <item>2</item>
-        <item>What is the name of Daenery\'s protecter?</item>
+        <item>What is the name of Daenery\'s protector?</item>
         <item>Jorah</item>
         <item>Sam</item>
         <item>Tarly</item>
         <item>Rand Al\'Thor</item>
         <item>1</item>
-        <item>What is the ultimate cause of fricition between Ned and Robert after the rebellion?</item>
+        <item>What is the ultimate cause of friction between Ned and Robert after the rebellion?</item>
         <item>Killing of the Targaryean Children</item>
         <item>Robert\'s sacking of the city</item>
         <item>Jaime\'s slaying of the king that he vowed to protect</item>
