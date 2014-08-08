@@ -4,9 +4,7 @@ As you can probably already tell, I am pretty big geek that loves trivia about m
 
 If you are looking to contribute, have a look at the contributing section below. However, feel free to help. No fan, regardless of the show, should have to live without a fantastic trivia app any longer! 
 
-...unless they use the iPhone :-)
-
-*but really you should be using an Android anyway* :-)
+...unless they use the iPhone (*but really you should be using an Android anyway*) :-)
 
 My goal is to have only the res (resource) folder differ between branches, which will equate to different application. The trivia code base should build all app-specfic objects from the data located in the res folder.
 
